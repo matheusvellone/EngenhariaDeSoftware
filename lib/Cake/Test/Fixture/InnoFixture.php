@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Fixture to test be tested exclusively with InnoDB tables
  *
@@ -23,27 +24,27 @@
  */
 class InnoFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'name' => array('type' => 'string', 'null' => true),
-		'tableParameters' => array(
-			'engine' => 'InnoDB'
-		)
-	);
+    /**
+     * fields property
+     *
+     * @var array
+     */
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'name' => array('type' => 'string', 'null' => true),
+        'tableParameters' => array(
+            'engine' => 'InnoDB'
+        )
+    );
 
-/**
- * records property
- *
- * @var array
- */
-	public $records = array(
-		array('name' => 'Name 1'),
-		array('name' => 'Name 2'),
-	);
+    /**
+     * records property
+     *
+     * @var array
+     */
+    public $records = array(
+        array('name' => 'Name 1'),
+        array('name' => 'Name 2'),
+    );
 
 }

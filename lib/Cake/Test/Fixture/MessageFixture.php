@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Short description for file.
  *
@@ -23,25 +24,26 @@
  */
 class MessageFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'thread_id' => array('type' => 'integer', 'null' => false),
-		'name' => array('type' => 'string', 'null' => false)
-	);
+    /**
+     * fields property
+     *
+     * @var array
+     */
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'thread_id' => array('type' => 'integer', 'null' => false),
+        'name' => array('type' => 'string', 'null' => false)
+    );
 
-/**
- * records property
- *
- * @var array
- */
-	public $records = array(
-		array('thread_id' => 1, 'name' => 'Thread 1, Message 1'),
-		array('thread_id' => 2, 'name' => 'Thread 2, Message 1'),
-		array('thread_id' => 3, 'name' => 'Thread 3, Message 1')
-	);
+    /**
+     * records property
+     *
+     * @var array
+     */
+    public $records = array(
+        array('thread_id' => 1, 'name' => 'Thread 1, Message 1'),
+        array('thread_id' => 2, 'name' => 'Thread 2, Message 1'),
+        array('thread_id' => 3, 'name' => 'Thread 3, Message 1')
+    );
+
 }

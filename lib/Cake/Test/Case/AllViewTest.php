@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AllViewTest file
  *
@@ -25,15 +26,16 @@
  */
 class AllViewTest extends PHPUnit_Framework_TestSuite {
 
-/**
- * suite method, defines tests for this suite.
- *
- * @return void
- */
-	public static function suite() {
-		$suite = new CakeTestSuite('All View class tests');
+    /**
+     * suite method, defines tests for this suite.
+     *
+     * @return void
+     */
+    public static function suite() {
+        $suite = new CakeTestSuite('All View class tests');
 
-		$suite->addTestDirectory(CORE_TEST_CASES . DS . 'View');
-		return $suite;
-	}
+        $suite->addTestDirectory(CORE_TEST_CASES . DS . 'View');
+        return $suite;
+    }
+
 }

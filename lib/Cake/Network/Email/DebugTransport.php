@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Emulates the email sending process for testing purposes
  *
@@ -24,17 +25,17 @@
  */
 class DebugTransport extends AbstractTransport {
 
-/**
- * Send mail
- *
- * @param CakeEmail $email CakeEmail
- * @return array
- */
-	public function send(CakeEmail $email) {
-		$headers = $email->getHeaders(array('from', 'sender', 'replyTo', 'readReceipt', 'returnPath', 'to', 'cc', 'subject'));
-		$headers = $this->_headersToString($headers);
-		$message = implode("\r\n", (array)$email->message());
-		return array('headers' => $headers, 'message' => $message);
-	}
+    /**
+     * Send mail
+     *
+     * @param CakeEmail $email CakeEmail
+     * @return array
+     */
+    public function send(CakeEmail $email) {
+        $headers = $email->getHeaders(array('from', 'sender', 'replyTo', 'readReceipt', 'returnPath', 'to', 'cc', 'subject'));
+        $headers = $this->_headersToString($headers);
+        $message = implode("\r\n", (array) $email->message());
+        return array('headers' => $headers, 'message' => $message);
+    }
 
 }

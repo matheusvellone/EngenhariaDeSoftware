@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
@@ -13,7 +14,6 @@
  * @since		  CakePHP(tm) v 2.2
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('DispatcherFilter', 'Routing');
 
 /**
@@ -23,14 +23,14 @@ App::uses('DispatcherFilter', 'Routing');
  */
 class Test2DispatcherFilter extends DispatcherFilter {
 
-	public function beforeDispatch(CakeEvent $event) {
-		$event->data['response']->statusCode(500);
-		$event->stopPropagation();
-		return $event->data['response'];
-	}
+    public function beforeDispatch(CakeEvent $event) {
+        $event->data['response']->statusCode(500);
+        $event->stopPropagation();
+        return $event->data['response'];
+    }
 
-	public function afterDispatch(CakeEvent $event) {
-		$event->data['response']->statusCode(200);
-	}
+    public function afterDispatch(CakeEvent $event) {
+        $event->data['response']->statusCode(200);
+    }
 
 }

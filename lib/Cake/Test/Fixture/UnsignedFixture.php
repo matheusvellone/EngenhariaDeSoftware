@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Short description for file.
  *
@@ -25,37 +26,38 @@
  */
 class UnsignedFixture extends CakeTestFixture {
 
-/**
- * table property
- *
- * @var array
- */
-	public $table = 'unsigned';
+    /**
+     * table property
+     *
+     * @var array
+     */
+    public $table = 'unsigned';
 
-/**
- * fields property
- *
- * @var array
- */
-	public $fields = array(
-		'uinteger' => array('type' => 'integer', 'null' => '', 'default' => '1', 'length' => '8', 'key' => 'primary', 'unsigned' => true),
-		'integer' => array('type' => 'integer', 'length' => '8', 'unsigned' => false),
-		'udecimal' => array('type' => 'decimal', 'length' => '4', 'unsigned' => true),
-		'decimal' => array('type' => 'decimal', 'length' => '4'),
-		'biginteger' => array('type' => 'biginteger', 'length' => '20', 'default' => 3),
-		'ubiginteger' => array('type' => 'biginteger', 'length' => '20', 'default' => 3, 'unsigned' => true),
-		'float' => array('type' => 'float', 'length' => '4'),
-		'ufloat' => array('type' => 'float', 'length' => '4', 'unsigned' => true),
-		'string' => array('type' => 'string', 'length' => '4'),
-		'tableParameters' => array(
-			'engine' => 'MyISAM'
-		)
-	);
+    /**
+     * fields property
+     *
+     * @var array
+     */
+    public $fields = array(
+        'uinteger' => array('type' => 'integer', 'null' => '', 'default' => '1', 'length' => '8', 'key' => 'primary', 'unsigned' => true),
+        'integer' => array('type' => 'integer', 'length' => '8', 'unsigned' => false),
+        'udecimal' => array('type' => 'decimal', 'length' => '4', 'unsigned' => true),
+        'decimal' => array('type' => 'decimal', 'length' => '4'),
+        'biginteger' => array('type' => 'biginteger', 'length' => '20', 'default' => 3),
+        'ubiginteger' => array('type' => 'biginteger', 'length' => '20', 'default' => 3, 'unsigned' => true),
+        'float' => array('type' => 'float', 'length' => '4'),
+        'ufloat' => array('type' => 'float', 'length' => '4', 'unsigned' => true),
+        'string' => array('type' => 'string', 'length' => '4'),
+        'tableParameters' => array(
+            'engine' => 'MyISAM'
+        )
+    );
 
-/**
- * records property
- *
- * @var array
- */
-	public $records = array();
+    /**
+     * records property
+     *
+     * @var array
+     */
+    public $records = array();
+
 }

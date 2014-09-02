@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Test Suite TestPlugin AppModel
  *
@@ -22,4 +23,5 @@
  * @package       Cake.Test.TestApp.Plugin.TestPlugin.Model
  */
 class TestPluginAppModel extends CakeTestModel {
+    
 }

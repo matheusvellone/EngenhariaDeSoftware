@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Short description for file.
  *
@@ -23,23 +24,24 @@
  */
 class StoryFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
-	public $fields = array(
-		'story' => array('type' => 'integer', 'key' => 'primary'),
-		'title' => array('type' => 'string', 'null' => false)
-	);
+    /**
+     * fields property
+     *
+     * @var array
+     */
+    public $fields = array(
+        'story' => array('type' => 'integer', 'key' => 'primary'),
+        'title' => array('type' => 'string', 'null' => false)
+    );
 
-/**
- * records property
- *
- * @var array
- */
-	public $records = array(
-		array('title' => 'First Story'),
-		array('title' => 'Second Story')
-	);
+    /**
+     * records property
+     *
+     * @var array
+     */
+    public $records = array(
+        array('title' => 'First Story'),
+        array('title' => 'Second Story')
+    );
+
 }

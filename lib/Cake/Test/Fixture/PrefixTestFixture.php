@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Short description for file.
  *
@@ -23,10 +24,9 @@
  */
 class PrefixTestFixture extends CakeTestFixture {
 
-	public $table = 'prefix_prefix_tests';
-
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-	);
+    public $table = 'prefix_prefix_tests';
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+    );
 
 }

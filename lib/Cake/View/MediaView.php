@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Methods to display or download any type of file
  *
@@ -15,7 +16,6 @@
  * @since         CakePHP(tm) v 1.2.0.5714
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('View', 'View');
 App::uses('CakeRequest', 'Network');
 
@@ -38,17 +38,17 @@ App::uses('CakeRequest', 'Network');
  *
  * {{{
  * class ExampleController extends AppController {
- *		public function download() {
- *			$this->viewClass = 'Media';
- *			$params = array(
- *				'id' => 'example.zip',
- *				'name' => 'example',
- *				'download' => true,
- *				'extension' => 'zip',
- *				'path' => APP . 'files' . DS
- *			);
- *			$this->set($params);
- *		}
+ * 		public function download() {
+ * 			$this->viewClass = 'Media';
+ * 			$params = array(
+ * 				'id' => 'example.zip',
+ * 				'name' => 'example',
+ * 				'download' => true,
+ * 				'extension' => 'zip',
+ * 				'path' => APP . 'files' . DS
+ * 			);
+ * 			$this->set($params);
+ * 		}
  * }
  * }}}
  *
@@ -57,43 +57,43 @@ App::uses('CakeRequest', 'Network');
  */
 class MediaView extends View {
 
-/**
- * Display or download the given file
- *
- * @param string $view Not used
- * @param string $layout Not used
- * @return void
- */
-	public function render($view = null, $layout = null) {
-		$name = $download = $id = $modified = $path = $cache = $mimeType = $compress = null;
-		extract($this->viewVars, EXTR_OVERWRITE);
+    /**
+     * Display or download the given file
+     *
+     * @param string $view Not used
+     * @param string $layout Not used
+     * @return void
+     */
+    public function render($view = null, $layout = null) {
+        $name = $download = $id = $modified = $path = $cache = $mimeType = $compress = null;
+        extract($this->viewVars, EXTR_OVERWRITE);
 
-		$path = $path . $id;
+        $path = $path . $id;
 
-		if (is_array($mimeType)) {
-			$this->response->type($mimeType);
-		}
+        if (is_array($mimeType)) {
+            $this->response->type($mimeType);
+        }
 
-		if ($cache) {
-			if (!empty($modified) && !is_numeric($modified)) {
-				$modified = strtotime($modified, time());
-			} else {
-				$modified = time();
-			}
-			$this->response->cache($modified, $cache);
-		} else {
-			$this->response->disableCache();
-		}
+        if ($cache) {
+            if (!empty($modified) && !is_numeric($modified)) {
+                $modified = strtotime($modified, time());
+            } else {
+                $modified = time();
+            }
+            $this->response->cache($modified, $cache);
+        } else {
+            $this->response->disableCache();
+        }
 
-		if ($name !== null) {
-			$name .= '.' . pathinfo($id, PATHINFO_EXTENSION);
-		}
-		$this->response->file($path, compact('name', 'download'));
+        if ($name !== null) {
+            $name .= '.' . pathinfo($id, PATHINFO_EXTENSION);
+        }
+        $this->response->file($path, compact('name', 'download'));
 
-		if ($compress) {
-			$this->response->compress();
-		}
-		$this->response->send();
-	}
+        if ($compress) {
+            $this->response->compress();
+        }
+        $this->response->send();
+    }
 
 }

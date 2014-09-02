@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AllUtilityTest file
  *
@@ -25,14 +26,15 @@
  */
 class AllUtilityTest extends PHPUnit_Framework_TestSuite {
 
-/**
- * suite method, defines tests for this suite.
- *
- * @return void
- */
-	public static function suite() {
-		$suite = new CakeTestSuite('All Utility class tests');
-		$suite->addTestDirectory(CORE_TEST_CASES . DS . 'Utility');
-		return $suite;
-	}
+    /**
+     * suite method, defines tests for this suite.
+     *
+     * @return void
+     */
+    public static function suite() {
+        $suite = new CakeTestSuite('All Utility class tests');
+        $suite->addTestDirectory(CORE_TEST_CASES . DS . 'Utility');
+        return $suite;
+    }
+
 }

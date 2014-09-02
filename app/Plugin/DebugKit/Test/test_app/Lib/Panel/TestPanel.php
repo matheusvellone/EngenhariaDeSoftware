@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Test Panel of test_app
  *
@@ -15,7 +16,6 @@
  * @since         DebugKit 0.1
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('DebugPanel', 'DebugKit.Lib');
 
 /**
@@ -25,13 +25,13 @@ App::uses('DebugPanel', 'DebugKit.Lib');
  */
 class TestPanel extends DebugPanel {
 
-/**
- * Startup
- *
- * @param Controller $controller
- */
-	public function startup(Controller $controller) {
-		$controller->testPanel = true;
-	}
+    /**
+     * Startup
+     *
+     * @param Controller $controller
+     */
+    public function startup(Controller $controller) {
+        $controller->testPanel = true;
+    }
 
 }

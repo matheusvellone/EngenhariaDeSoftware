@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This is the PHP base ACL configuration file.
  *
@@ -17,7 +18,6 @@
  * @since         CakePHP(tm) v 2.1
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 /**
  * Example
  * -------
@@ -109,14 +109,13 @@
  * If we would remove the role definition for User/jeff, then jeff would be granted access as he would be resolved
  * to Role/manager and Role/manager has an allow rule.
  */
-
 /**
  * The role map defines how to resolve the user record from your application
  * to the roles you defined in the roles configuration.
  */
 $config['map'] = array(
-	'User' => 'User/username',
-	'Role' => 'User/group_id',
+    'User' => 'User/username',
+    'Role' => 'User/group_id',
 );
 
 /**
@@ -124,22 +123,22 @@ $config['map'] = array(
  * the roles defined in your role configuration.
  */
 $config['alias'] = array(
-	'Role/4' => 'Role/editor',
+    'Role/4' => 'Role/editor',
 );
 
 /**
  * role configuration
  */
 $config['roles'] = array(
-	'Role/admin' => null,
+    'Role/admin' => null,
 );
 
 /**
  * rule configuration
  */
 $config['rules'] = array(
-	'allow' => array(
-		'*' => 'Role/admin',
-	),
-	'deny' => array(),
+    'allow' => array(
+        '*' => 'Role/admin',
+    ),
+    'deny' => array(),
 );

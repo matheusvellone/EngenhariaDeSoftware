@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Test Suite TestPlugin Other Library
  *
@@ -22,4 +23,5 @@
  * @package       Cake.Test.TestApp.Plugin.TestPlugin.Lib
  */
 class TestPluginOtherLibrary {
+    
 }

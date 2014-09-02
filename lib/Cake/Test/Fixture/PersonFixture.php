@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Short description for file.
  *
@@ -23,34 +24,35 @@
  */
 class PersonFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'null' => false, 'key' => 'primary'),
-		'name' => array('type' => 'string', 'null' => false, 'length' => 32),
-		'mother_id' => array('type' => 'integer', 'null' => false, 'key' => 'index'),
-		'father_id' => array('type' => 'integer', 'null' => false),
-		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1),
-			'mother_id' => array('column' => array('mother_id', 'father_id'), 'unique' => 0)
-		)
-	);
+    /**
+     * fields property
+     *
+     * @var array
+     */
+    public $fields = array(
+        'id' => array('type' => 'integer', 'null' => false, 'key' => 'primary'),
+        'name' => array('type' => 'string', 'null' => false, 'length' => 32),
+        'mother_id' => array('type' => 'integer', 'null' => false, 'key' => 'index'),
+        'father_id' => array('type' => 'integer', 'null' => false),
+        'indexes' => array(
+            'PRIMARY' => array('column' => 'id', 'unique' => 1),
+            'mother_id' => array('column' => array('mother_id', 'father_id'), 'unique' => 0)
+        )
+    );
 
-/**
- * records property
- *
- * @var array
- */
-	public $records = array(
-		array('name' => 'person', 'mother_id' => 2, 'father_id' => 3),
-		array('name' => 'mother', 'mother_id' => 4, 'father_id' => 5),
-		array('name' => 'father', 'mother_id' => 6, 'father_id' => 7),
-		array('name' => 'mother - grand mother', 'mother_id' => 0, 'father_id' => 0),
-		array('name' => 'mother - grand father', 'mother_id' => 0, 'father_id' => 0),
-		array('name' => 'father - grand mother', 'mother_id' => 0, 'father_id' => 0),
-		array('name' => 'father - grand father', 'mother_id' => 0, 'father_id' => 0)
-	);
+    /**
+     * records property
+     *
+     * @var array
+     */
+    public $records = array(
+        array('name' => 'person', 'mother_id' => 2, 'father_id' => 3),
+        array('name' => 'mother', 'mother_id' => 4, 'father_id' => 5),
+        array('name' => 'father', 'mother_id' => 6, 'father_id' => 7),
+        array('name' => 'mother - grand mother', 'mother_id' => 0, 'father_id' => 0),
+        array('name' => 'mother - grand father', 'mother_id' => 0, 'father_id' => 0),
+        array('name' => 'father - grand mother', 'mother_id' => 0, 'father_id' => 0),
+        array('name' => 'father - grand father', 'mother_id' => 0, 'father_id' => 0)
+    );
+
 }

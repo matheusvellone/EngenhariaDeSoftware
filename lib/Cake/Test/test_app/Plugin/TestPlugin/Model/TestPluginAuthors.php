@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Test App Comment Model
  *
@@ -26,17 +27,15 @@
  */
 class TestPluginAuthors extends TestPluginAppModel {
 
-	public $useTable = 'authors';
-
-	public $name = 'TestPluginAuthors';
-
-	public $validate = array(
-		'field' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
-				'message' => 'I can haz plugin model validation message',
-			),
-		),
-	);
+    public $useTable = 'authors';
+    public $name = 'TestPluginAuthors';
+    public $validate = array(
+        'field' => array(
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' => 'I can haz plugin model validation message',
+            ),
+        ),
+    );
 
 }

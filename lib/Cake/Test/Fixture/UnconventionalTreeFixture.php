@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unconventional Tree behavior class test fixture.
  *
@@ -26,16 +27,17 @@
  */
 class UnconventionalTreeFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
-	public $fields = array(
-		'id'	=> array('type' => 'integer', 'key' => 'primary'),
-		'name'	=> array('type' => 'string', 'null' => false),
-		'join' => 'integer',
-		'left'	=> array('type' => 'integer', 'null' => false),
-		'right'	=> array('type' => 'integer', 'null' => false),
-	);
+    /**
+     * fields property
+     *
+     * @var array
+     */
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'name' => array('type' => 'string', 'null' => false),
+        'join' => 'integer',
+        'left' => array('type' => 'integer', 'null' => false),
+        'right' => array('type' => 'integer', 'null' => false),
+    );
+
 }

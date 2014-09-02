@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Short description for file.
  *
@@ -24,23 +25,24 @@
  */
 class DependencyFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
-	public $fields = array(
-		'id' => 'integer',
-		'child_id' => 'integer',
-		'parent_id' => 'integer'
-	);
+    /**
+     * fields property
+     *
+     * @var array
+     */
+    public $fields = array(
+        'id' => 'integer',
+        'child_id' => 'integer',
+        'parent_id' => 'integer'
+    );
 
-/**
- * records property
- *
- * @var array
- */
-	public $records = array(
-		array('id' => 1, 'child_id' => 1, 'parent_id' => 2),
-	);
+    /**
+     * records property
+     *
+     * @var array
+     */
+    public $records = array(
+        array('id' => 1, 'child_id' => 1, 'parent_id' => 2),
+    );
+
 }

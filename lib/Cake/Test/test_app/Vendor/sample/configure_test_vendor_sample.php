@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Short description for file.
  *
@@ -22,4 +23,5 @@
  * @package       Cake.Test.TestApp.Vendor.sample
  */
 class ConfigureTestVendorSample {
+    
 }

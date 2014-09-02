@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Short description for file.
  *
@@ -23,23 +24,24 @@
  */
 class DocumentFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'document_directory_id' => array('type' => 'integer', 'null' => false),
-		'name' => array('type' => 'string', 'null' => false)
-	);
+    /**
+     * fields property
+     *
+     * @var array
+     */
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'document_directory_id' => array('type' => 'integer', 'null' => false),
+        'name' => array('type' => 'string', 'null' => false)
+    );
 
-/**
- * records property
- *
- * @var array
- */
-	public $records = array(
-		array('document_directory_id' => 1, 'name' => 'Document 1')
-	);
+    /**
+     * records property
+     *
+     * @var array
+     */
+    public $records = array(
+        array('document_directory_id' => 1, 'name' => 'Document 1')
+    );
+
 }

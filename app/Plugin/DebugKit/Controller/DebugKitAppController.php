@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
@@ -11,7 +12,6 @@
  * @since         DebugKit 0.1
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('Controller', 'Controller');
 App::uses('AppController', 'Controller');
 
@@ -21,5 +21,5 @@ App::uses('AppController', 'Controller');
  * @since         DebugKit 0.1
  */
 class DebugKitAppController extends AppController {
-
+    
 }

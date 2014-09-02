@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Generates code coverage reports in Simple plain text from data obtained from PHPUnit
  *
@@ -17,7 +18,6 @@
  * @since         CakePHP(tm) v 2.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('BaseCoverageReport', 'TestSuite/Coverage');
 
 /**
@@ -27,38 +27,38 @@ App::uses('BaseCoverageReport', 'TestSuite/Coverage');
  */
 class TextCoverageReport extends BaseCoverageReport {
 
-/**
- * Generates report text to display.
- *
- * @return string compiled plain text report.
- */
-	public function report() {
-		$pathFilter = $this->getPathFilter();
-		$coverageData = $this->filterCoverageDataByPath($pathFilter);
-		if (empty($coverageData)) {
-			return 'No files to generate coverage for';
-		}
-		$output = "\nCoverage Report:\n\n";
-		foreach ($coverageData as $file => $coverageData) {
-			$fileData = file($file);
-			$output .= $this->generateDiff($file, $fileData, $coverageData);
-		}
-		return $output;
-	}
+    /**
+     * Generates report text to display.
+     *
+     * @return string compiled plain text report.
+     */
+    public function report() {
+        $pathFilter = $this->getPathFilter();
+        $coverageData = $this->filterCoverageDataByPath($pathFilter);
+        if (empty($coverageData)) {
+            return 'No files to generate coverage for';
+        }
+        $output = "\nCoverage Report:\n\n";
+        foreach ($coverageData as $file => $coverageData) {
+            $fileData = file($file);
+            $output .= $this->generateDiff($file, $fileData, $coverageData);
+        }
+        return $output;
+    }
 
-/**
- * Generates a 'diff' report for a file.
- * Since diffs are too big for plain text reports a simple file => % covered is done.
- *
- * @param string $filename Name of the file having coverage generated
- * @param array $fileLines File data as an array. See file() for how to get one of these.
- * @param array $coverageData Array of coverage data to use to generate HTML diffs with
- * @return string
- */
-	public function generateDiff($filename, $fileLines, $coverageData) {
-		list($covered, $total) = $this->_calculateCoveredLines($fileLines, $coverageData);
-		$percentCovered = round(100 * $covered / $total, 2);
-		return "$filename : $percentCovered%\n";
-	}
+    /**
+     * Generates a 'diff' report for a file.
+     * Since diffs are too big for plain text reports a simple file => % covered is done.
+     *
+     * @param string $filename Name of the file having coverage generated
+     * @param array $fileLines File data as an array. See file() for how to get one of these.
+     * @param array $coverageData Array of coverage data to use to generate HTML diffs with
+     * @return string
+     */
+    public function generateDiff($filename, $fileLines, $coverageData) {
+        list($covered, $total) = $this->_calculateCoveredLines($fileLines, $coverageData);
+        $percentCovered = round(100 * $covered / $total, 2);
+        return "$filename : $percentCovered%\n";
+    }
 
 }

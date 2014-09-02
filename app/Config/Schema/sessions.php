@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This is Sessions Schema file
  *
@@ -17,7 +18,6 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 /*
  *
  * Using the Schema command line utility
@@ -26,20 +26,21 @@
  */
 class SessionsSchema extends CakeSchema {
 
-	public $name = 'Sessions';
+    public $name = 'Sessions';
 
-	public function before($event = array()) {
-		return true;
-	}
+    public function before($event = array()) {
+        return true;
+    }
 
-	public function after($event = array()) {
-	}
+    public function after($event = array()) {
+        
+    }
 
-	public $cake_sessions = array(
-		'id' => array('type' => 'string', 'null' => false, 'key' => 'primary'),
-		'data' => array('type' => 'text', 'null' => true, 'default' => null),
-		'expires' => array('type' => 'integer', 'null' => true, 'default' => null),
-		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
-	);
+    public $cake_sessions = array(
+        'id' => array('type' => 'string', 'null' => false, 'key' => 'primary'),
+        'data' => array('type' => 'text', 'null' => true, 'default' => null),
+        'expires' => array('type' => 'integer', 'null' => true, 'default' => null),
+        'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
+    );
 
 }

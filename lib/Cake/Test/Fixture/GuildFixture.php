@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Short description for file.
  *
@@ -23,24 +24,25 @@
  */
 class GuildFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'name' => array('type' => 'string', 'null' => false),
-	);
+    /**
+     * fields property
+     *
+     * @var array
+     */
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'name' => array('type' => 'string', 'null' => false),
+    );
 
-/**
- * records property
- *
- * @var array
- */
-	public $records = array(
-		array('name' => 'Warriors'),
-		array('name' => 'Rangers'),
-		array('name' => 'Wizards'),
-	);
+    /**
+     * records property
+     *
+     * @var array
+     */
+    public $records = array(
+        array('name' => 'Warriors'),
+        array('name' => 'Rangers'),
+        array('name' => 'Wizards'),
+    );
+
 }

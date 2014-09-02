@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Short description for file.
  *
@@ -23,12 +24,13 @@
  */
 class WelcomeShell extends Shell {
 
-/**
- * say_hello method
- *
- * @return void
- */
-	public function say_hello() {
-		$this->out('This is the say_hello method called from TestPluginTwo.WelcomeShell');
-	}
+    /**
+     * say_hello method
+     *
+     * @return void
+     */
+    public function say_hello() {
+        $this->out('This is the say_hello method called from TestPluginTwo.WelcomeShell');
+    }
+
 }

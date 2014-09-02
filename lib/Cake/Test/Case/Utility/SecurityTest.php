@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) Tests <http://book.cakephp.org/2.0/en/development/testing.html>
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
@@ -12,7 +13,6 @@
  * @since         CakePHP(tm) v 1.2.0.5432
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('Security', 'Utility');
 
 /**
@@ -22,406 +22,407 @@ App::uses('Security', 'Utility');
  */
 class SecurityTest extends CakeTestCase {
 
-/**
- * sut property
- *
- * @var mixed
- */
-	public $sut = null;
+    /**
+     * sut property
+     *
+     * @var mixed
+     */
+    public $sut = null;
 
-/**
- * testInactiveMins method
- *
- * @return void
- */
-	public function testInactiveMins() {
-		Configure::write('Security.level', 'high');
-		$this->assertEquals(10, Security::inactiveMins());
+    /**
+     * testInactiveMins method
+     *
+     * @return void
+     */
+    public function testInactiveMins() {
+        Configure::write('Security.level', 'high');
+        $this->assertEquals(10, Security::inactiveMins());
 
-		Configure::write('Security.level', 'medium');
-		$this->assertEquals(100, Security::inactiveMins());
+        Configure::write('Security.level', 'medium');
+        $this->assertEquals(100, Security::inactiveMins());
 
-		Configure::write('Security.level', 'low');
-		$this->assertEquals(300, Security::inactiveMins());
-	}
+        Configure::write('Security.level', 'low');
+        $this->assertEquals(300, Security::inactiveMins());
+    }
 
-/**
- * testGenerateAuthkey method
- *
- * @return void
- */
-	public function testGenerateAuthkey() {
-		$this->assertEquals(strlen(Security::generateAuthKey()), 40);
-	}
+    /**
+     * testGenerateAuthkey method
+     *
+     * @return void
+     */
+    public function testGenerateAuthkey() {
+        $this->assertEquals(strlen(Security::generateAuthKey()), 40);
+    }
 
-/**
- * testValidateAuthKey method
- *
- * @return void
- */
-	public function testValidateAuthKey() {
-		$authKey = Security::generateAuthKey();
-		$this->assertTrue(Security::validateAuthKey($authKey));
-	}
+    /**
+     * testValidateAuthKey method
+     *
+     * @return void
+     */
+    public function testValidateAuthKey() {
+        $authKey = Security::generateAuthKey();
+        $this->assertTrue(Security::validateAuthKey($authKey));
+    }
 
-/**
- * testHashInvalidSalt method
- *
- * @expectedException PHPUnit_Framework_Error
- * @return void
- */
-	public function testHashInvalidSalt() {
-		Security::hash('someKey', 'blowfish', true);
-	}
+    /**
+     * testHashInvalidSalt method
+     *
+     * @expectedException PHPUnit_Framework_Error
+     * @return void
+     */
+    public function testHashInvalidSalt() {
+        Security::hash('someKey', 'blowfish', true);
+    }
 
-/**
- * testHashAnotherInvalidSalt
- *
- * @expectedException PHPUnit_Framework_Error
- * @return void
- */
-	public function testHashAnotherInvalidSalt() {
-		Security::hash('someKey', 'blowfish', '$1$lksdjoijfaoijs');
-	}
+    /**
+     * testHashAnotherInvalidSalt
+     *
+     * @expectedException PHPUnit_Framework_Error
+     * @return void
+     */
+    public function testHashAnotherInvalidSalt() {
+        Security::hash('someKey', 'blowfish', '$1$lksdjoijfaoijs');
+    }
 
-/**
- * testHashYetAnotherInvalidSalt
- *
- * @expectedException PHPUnit_Framework_Error
- * @return void
- */
-	public function testHashYetAnotherInvalidSalt() {
-		Security::hash('someKey', 'blowfish', '$2a$10$123');
-	}
+    /**
+     * testHashYetAnotherInvalidSalt
+     *
+     * @expectedException PHPUnit_Framework_Error
+     * @return void
+     */
+    public function testHashYetAnotherInvalidSalt() {
+        Security::hash('someKey', 'blowfish', '$2a$10$123');
+    }
 
-/**
- * testHashInvalidCost method
- *
- * @expectedException PHPUnit_Framework_Error
- * @return void
- */
-	public function testHashInvalidCost() {
-		Security::setCost(1000);
-	}
-/**
- * testHash method
- *
- * @return void
- */
-	public function testHash() {
-		$_hashType = Security::$hashType;
+    /**
+     * testHashInvalidCost method
+     *
+     * @expectedException PHPUnit_Framework_Error
+     * @return void
+     */
+    public function testHashInvalidCost() {
+        Security::setCost(1000);
+    }
 
-		$key = 'someKey';
-		$hash = 'someHash';
+    /**
+     * testHash method
+     *
+     * @return void
+     */
+    public function testHash() {
+        $_hashType = Security::$hashType;
 
-		$this->assertSame(40, strlen(Security::hash($key, null, false)));
-		$this->assertSame(40, strlen(Security::hash($key, 'sha1', false)));
-		$this->assertSame(40, strlen(Security::hash($key, null, true)));
-		$this->assertSame(40, strlen(Security::hash($key, 'sha1', true)));
+        $key = 'someKey';
+        $hash = 'someHash';
 
-		$result = Security::hash($key, null, $hash);
-		$this->assertSame($result, 'e38fcb877dccb6a94729a81523851c931a46efb1');
+        $this->assertSame(40, strlen(Security::hash($key, null, false)));
+        $this->assertSame(40, strlen(Security::hash($key, 'sha1', false)));
+        $this->assertSame(40, strlen(Security::hash($key, null, true)));
+        $this->assertSame(40, strlen(Security::hash($key, 'sha1', true)));
 
-		$result = Security::hash($key, 'sha1', $hash);
-		$this->assertSame($result, 'e38fcb877dccb6a94729a81523851c931a46efb1');
+        $result = Security::hash($key, null, $hash);
+        $this->assertSame($result, 'e38fcb877dccb6a94729a81523851c931a46efb1');
 
-		$hashType = 'sha1';
-		Security::setHash($hashType);
-		$this->assertSame($hashType, Security::$hashType);
-		$this->assertSame(40, strlen(Security::hash($key, null, true)));
-		$this->assertSame(40, strlen(Security::hash($key, null, false)));
+        $result = Security::hash($key, 'sha1', $hash);
+        $this->assertSame($result, 'e38fcb877dccb6a94729a81523851c931a46efb1');
 
-		$this->assertSame(32, strlen(Security::hash($key, 'md5', false)));
-		$this->assertSame(32, strlen(Security::hash($key, 'md5', true)));
+        $hashType = 'sha1';
+        Security::setHash($hashType);
+        $this->assertSame($hashType, Security::$hashType);
+        $this->assertSame(40, strlen(Security::hash($key, null, true)));
+        $this->assertSame(40, strlen(Security::hash($key, null, false)));
 
-		$hashType = 'md5';
-		Security::setHash($hashType);
-		$this->assertSame($hashType, Security::$hashType);
-		$this->assertSame(32, strlen(Security::hash($key, null, false)));
-		$this->assertSame(32, strlen(Security::hash($key, null, true)));
+        $this->assertSame(32, strlen(Security::hash($key, 'md5', false)));
+        $this->assertSame(32, strlen(Security::hash($key, 'md5', true)));
 
-		if (!function_exists('hash') && !function_exists('mhash')) {
-			$this->assertSame(32, strlen(Security::hash($key, 'sha256', false)));
-			$this->assertSame(32, strlen(Security::hash($key, 'sha256', true)));
-		} else {
-			$this->assertSame(64, strlen(Security::hash($key, 'sha256', false)));
-			$this->assertSame(64, strlen(Security::hash($key, 'sha256', true)));
-		}
+        $hashType = 'md5';
+        Security::setHash($hashType);
+        $this->assertSame($hashType, Security::$hashType);
+        $this->assertSame(32, strlen(Security::hash($key, null, false)));
+        $this->assertSame(32, strlen(Security::hash($key, null, true)));
 
-		Security::setHash($_hashType);
-	}
+        if (!function_exists('hash') && !function_exists('mhash')) {
+            $this->assertSame(32, strlen(Security::hash($key, 'sha256', false)));
+            $this->assertSame(32, strlen(Security::hash($key, 'sha256', true)));
+        } else {
+            $this->assertSame(64, strlen(Security::hash($key, 'sha256', false)));
+            $this->assertSame(64, strlen(Security::hash($key, 'sha256', true)));
+        }
 
-/**
- * Test that hash() works with blowfish.
- *
- * @return void
- */
-	public function testHashBlowfish() {
-		Security::setCost(10);
-		$test = Security::hash('password', 'blowfish');
-		$this->skipIf(strpos($test, '$2a$') === false, 'Blowfish hashes are incorrect.');
+        Security::setHash($_hashType);
+    }
 
-		$_hashType = Security::$hashType;
+    /**
+     * Test that hash() works with blowfish.
+     *
+     * @return void
+     */
+    public function testHashBlowfish() {
+        Security::setCost(10);
+        $test = Security::hash('password', 'blowfish');
+        $this->skipIf(strpos($test, '$2a$') === false, 'Blowfish hashes are incorrect.');
 
-		$key = 'someKey';
-		$hashType = 'blowfish';
-		Security::setHash($hashType);
+        $_hashType = Security::$hashType;
 
-		$this->assertSame($hashType, Security::$hashType);
-		$this->assertSame(60, strlen(Security::hash($key, null, false)));
+        $key = 'someKey';
+        $hashType = 'blowfish';
+        Security::setHash($hashType);
 
-		$password = $submittedPassword = $key;
-		$storedPassword = Security::hash($password);
+        $this->assertSame($hashType, Security::$hashType);
+        $this->assertSame(60, strlen(Security::hash($key, null, false)));
 
-		$hashedPassword = Security::hash($submittedPassword, null, $storedPassword);
-		$this->assertSame($storedPassword, $hashedPassword);
+        $password = $submittedPassword = $key;
+        $storedPassword = Security::hash($password);
 
-		$submittedPassword = 'someOtherKey';
-		$hashedPassword = Security::hash($submittedPassword, null, $storedPassword);
-		$this->assertNotSame($storedPassword, $hashedPassword);
+        $hashedPassword = Security::hash($submittedPassword, null, $storedPassword);
+        $this->assertSame($storedPassword, $hashedPassword);
 
-		$expected = sha1('customsaltsomevalue');
-		$result = Security::hash('somevalue', 'sha1', 'customsalt');
-		$this->assertSame($expected, $result);
+        $submittedPassword = 'someOtherKey';
+        $hashedPassword = Security::hash($submittedPassword, null, $storedPassword);
+        $this->assertNotSame($storedPassword, $hashedPassword);
 
-		$oldSalt = Configure::read('Security.salt');
-		Configure::write('Security.salt', 'customsalt');
+        $expected = sha1('customsaltsomevalue');
+        $result = Security::hash('somevalue', 'sha1', 'customsalt');
+        $this->assertSame($expected, $result);
 
-		$expected = sha1('customsaltsomevalue');
-		$result = Security::hash('somevalue', 'sha1', true);
-		$this->assertSame($expected, $result);
+        $oldSalt = Configure::read('Security.salt');
+        Configure::write('Security.salt', 'customsalt');
 
-		Configure::write('Security.salt', $oldSalt);
-		Security::setHash($_hashType);
-	}
+        $expected = sha1('customsaltsomevalue');
+        $result = Security::hash('somevalue', 'sha1', true);
+        $this->assertSame($expected, $result);
 
-/**
- * testCipher method
- *
- * @return void
- */
-	public function testCipher() {
-		$length = 10;
-		$txt = '';
-		for ($i = 0; $i < $length; $i++) {
-			$txt .= mt_rand(0, 255);
-		}
-		$key = 'my_key';
-		$result = Security::cipher($txt, $key);
-		$this->assertEquals($txt, Security::cipher($result, $key));
+        Configure::write('Security.salt', $oldSalt);
+        Security::setHash($_hashType);
+    }
 
-		$txt = '';
-		$key = 'my_key';
-		$result = Security::cipher($txt, $key);
-		$this->assertEquals($txt, Security::cipher($result, $key));
+    /**
+     * testCipher method
+     *
+     * @return void
+     */
+    public function testCipher() {
+        $length = 10;
+        $txt = '';
+        for ($i = 0; $i < $length; $i++) {
+            $txt .= mt_rand(0, 255);
+        }
+        $key = 'my_key';
+        $result = Security::cipher($txt, $key);
+        $this->assertEquals($txt, Security::cipher($result, $key));
 
-		$txt = 123456;
-		$key = 'my_key';
-		$result = Security::cipher($txt, $key);
-		$this->assertEquals($txt, Security::cipher($result, $key));
+        $txt = '';
+        $key = 'my_key';
+        $result = Security::cipher($txt, $key);
+        $this->assertEquals($txt, Security::cipher($result, $key));
 
-		$txt = '123456';
-		$key = 'my_key';
-		$result = Security::cipher($txt, $key);
-		$this->assertEquals($txt, Security::cipher($result, $key));
-	}
+        $txt = 123456;
+        $key = 'my_key';
+        $result = Security::cipher($txt, $key);
+        $this->assertEquals($txt, Security::cipher($result, $key));
 
-/**
- * testCipherEmptyKey method
- *
- * @expectedException PHPUnit_Framework_Error
- * @return void
- */
-	public function testCipherEmptyKey() {
-		$txt = 'some_text';
-		$key = '';
-		Security::cipher($txt, $key);
-	}
+        $txt = '123456';
+        $key = 'my_key';
+        $result = Security::cipher($txt, $key);
+        $this->assertEquals($txt, Security::cipher($result, $key));
+    }
 
-/**
- * testRijndael method
- *
- * @return void
- */
-	public function testRijndael() {
-		$this->skipIf(!function_exists('mcrypt_encrypt'));
-		$txt = 'The quick brown fox jumped over the lazy dog.';
-		$key = 'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi';
+    /**
+     * testCipherEmptyKey method
+     *
+     * @expectedException PHPUnit_Framework_Error
+     * @return void
+     */
+    public function testCipherEmptyKey() {
+        $txt = 'some_text';
+        $key = '';
+        Security::cipher($txt, $key);
+    }
 
-		$result = Security::rijndael($txt, $key, 'encrypt');
-		$this->assertEquals($txt, Security::rijndael($result, $key, 'decrypt'));
+    /**
+     * testRijndael method
+     *
+     * @return void
+     */
+    public function testRijndael() {
+        $this->skipIf(!function_exists('mcrypt_encrypt'));
+        $txt = 'The quick brown fox jumped over the lazy dog.';
+        $key = 'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi';
 
-		$result = Security::rijndael($key, $txt, 'encrypt');
-		$this->assertEquals($key, Security::rijndael($result, $txt, 'decrypt'));
+        $result = Security::rijndael($txt, $key, 'encrypt');
+        $this->assertEquals($txt, Security::rijndael($result, $key, 'decrypt'));
 
-		$result = Security::rijndael('', $key, 'encrypt');
-		$this->assertEquals('', Security::rijndael($result, $key, 'decrypt'));
+        $result = Security::rijndael($key, $txt, 'encrypt');
+        $this->assertEquals($key, Security::rijndael($result, $txt, 'decrypt'));
 
-		$key = 'this is my key of over 32 chars, yes it is';
-		$result = Security::rijndael($txt, $key, 'encrypt');
-		$this->assertEquals($txt, Security::rijndael($result, $key, 'decrypt'));
-	}
+        $result = Security::rijndael('', $key, 'encrypt');
+        $this->assertEquals('', Security::rijndael($result, $key, 'decrypt'));
 
-/**
- * Test that rijndael() can still decrypt values with a fixed iv.
- *
- * @return void
- */
-	public function testRijndaelBackwardCompatibility() {
-		$this->skipIf(!function_exists('mcrypt_encrypt'));
+        $key = 'this is my key of over 32 chars, yes it is';
+        $result = Security::rijndael($txt, $key, 'encrypt');
+        $this->assertEquals($txt, Security::rijndael($result, $key, 'decrypt'));
+    }
 
-		$txt = 'The quick brown fox jumped over the lazy dog.';
-		$key = 'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi';
+    /**
+     * Test that rijndael() can still decrypt values with a fixed iv.
+     *
+     * @return void
+     */
+    public function testRijndaelBackwardCompatibility() {
+        $this->skipIf(!function_exists('mcrypt_encrypt'));
 
-		// Encrypted before random iv
-		$value = base64_decode('1WPjnq96LMzLGwNgmudHF+cAIqVUN5DaUZEpf5tm1EzSgt5iYY9o3d66iRI/fKJLTlTVGsa8HzW0jDNitmVXoQ==');
-		$this->assertEquals($txt, Security::rijndael($value, $key, 'decrypt'));
-	}
+        $txt = 'The quick brown fox jumped over the lazy dog.';
+        $key = 'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi';
 
-/**
- * testRijndaelInvalidOperation method
- *
- * @expectedException PHPUnit_Framework_Error
- * @return void
- */
-	public function testRijndaelInvalidOperation() {
-		$txt = 'The quick brown fox jumped over the lazy dog.';
-		$key = 'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi';
-		Security::rijndael($txt, $key, 'foo');
-	}
+        // Encrypted before random iv
+        $value = base64_decode('1WPjnq96LMzLGwNgmudHF+cAIqVUN5DaUZEpf5tm1EzSgt5iYY9o3d66iRI/fKJLTlTVGsa8HzW0jDNitmVXoQ==');
+        $this->assertEquals($txt, Security::rijndael($value, $key, 'decrypt'));
+    }
 
-/**
- * testRijndaelInvalidKey method
- *
- * @expectedException PHPUnit_Framework_Error
- * @return void
- */
-	public function testRijndaelInvalidKey() {
-		$txt = 'The quick brown fox jumped over the lazy dog.';
-		$key = 'too small';
-		Security::rijndael($txt, $key, 'encrypt');
-	}
+    /**
+     * testRijndaelInvalidOperation method
+     *
+     * @expectedException PHPUnit_Framework_Error
+     * @return void
+     */
+    public function testRijndaelInvalidOperation() {
+        $txt = 'The quick brown fox jumped over the lazy dog.';
+        $key = 'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi';
+        Security::rijndael($txt, $key, 'foo');
+    }
 
-/**
- * Test encrypt/decrypt.
- *
- * @return void
- */
-	public function testEncryptDecrypt() {
-		$txt = 'The quick brown fox';
-		$key = 'This key is longer than 32 bytes long.';
-		$result = Security::encrypt($txt, $key);
-		$this->assertNotEquals($txt, $result, 'Should be encrypted.');
-		$this->assertNotEquals($result, Security::encrypt($txt, $key), 'Each result is unique.');
-		$this->assertEquals($txt, Security::decrypt($result, $key));
-	}
+    /**
+     * testRijndaelInvalidKey method
+     *
+     * @expectedException PHPUnit_Framework_Error
+     * @return void
+     */
+    public function testRijndaelInvalidKey() {
+        $txt = 'The quick brown fox jumped over the lazy dog.';
+        $key = 'too small';
+        Security::rijndael($txt, $key, 'encrypt');
+    }
 
-/**
- * Test that changing the key causes decryption to fail.
- *
- * @return void
- */
-	public function testDecryptKeyFailure() {
-		$txt = 'The quick brown fox';
-		$key = 'This key is longer than 32 bytes long.';
-		$result = Security::encrypt($txt, $key);
+    /**
+     * Test encrypt/decrypt.
+     *
+     * @return void
+     */
+    public function testEncryptDecrypt() {
+        $txt = 'The quick brown fox';
+        $key = 'This key is longer than 32 bytes long.';
+        $result = Security::encrypt($txt, $key);
+        $this->assertNotEquals($txt, $result, 'Should be encrypted.');
+        $this->assertNotEquals($result, Security::encrypt($txt, $key), 'Each result is unique.');
+        $this->assertEquals($txt, Security::decrypt($result, $key));
+    }
 
-		$key = 'Not the same key. This one will fail';
-		$this->assertFalse(Security::decrypt($txt, $key), 'Modified key will fail.');
-	}
+    /**
+     * Test that changing the key causes decryption to fail.
+     *
+     * @return void
+     */
+    public function testDecryptKeyFailure() {
+        $txt = 'The quick brown fox';
+        $key = 'This key is longer than 32 bytes long.';
+        $result = Security::encrypt($txt, $key);
 
-/**
- * Test that decrypt fails when there is an hmac error.
- *
- * @return void
- */
-	public function testDecryptHmacFailure() {
-		$txt = 'The quick brown fox';
-		$key = 'This key is quite long and works well.';
-		$salt = 'this is a delicious salt!';
-		$result = Security::encrypt($txt, $key, $salt);
+        $key = 'Not the same key. This one will fail';
+        $this->assertFalse(Security::decrypt($txt, $key), 'Modified key will fail.');
+    }
 
-		// Change one of the bytes in the hmac.
-		$result[10] = 'x';
-		$this->assertFalse(Security::decrypt($result, $key, $salt), 'Modified hmac causes failure.');
-	}
+    /**
+     * Test that decrypt fails when there is an hmac error.
+     *
+     * @return void
+     */
+    public function testDecryptHmacFailure() {
+        $txt = 'The quick brown fox';
+        $key = 'This key is quite long and works well.';
+        $salt = 'this is a delicious salt!';
+        $result = Security::encrypt($txt, $key, $salt);
 
-/**
- * Test that changing the hmac salt will cause failures.
- *
- * @return void
- */
-	public function testDecryptHmacSaltFailure() {
-		$txt = 'The quick brown fox';
-		$key = 'This key is quite long and works well.';
-		$salt = 'this is a delicious salt!';
-		$result = Security::encrypt($txt, $key, $salt);
+        // Change one of the bytes in the hmac.
+        $result[10] = 'x';
+        $this->assertFalse(Security::decrypt($result, $key, $salt), 'Modified hmac causes failure.');
+    }
 
-		$salt = 'humpty dumpty had a great fall.';
-		$this->assertFalse(Security::decrypt($result, $key, $salt), 'Modified salt causes failure.');
-	}
+    /**
+     * Test that changing the hmac salt will cause failures.
+     *
+     * @return void
+     */
+    public function testDecryptHmacSaltFailure() {
+        $txt = 'The quick brown fox';
+        $key = 'This key is quite long and works well.';
+        $salt = 'this is a delicious salt!';
+        $result = Security::encrypt($txt, $key, $salt);
 
-/**
- * Test that short keys cause errors
- *
- * @expectedException CakeException
- * @expectedExceptionMessage Invalid key for encrypt(), key must be at least 256 bits (32 bytes) long.
- * @return void
- */
-	public function testEncryptInvalidKey() {
-		$txt = 'The quick brown fox jumped over the lazy dog.';
-		$key = 'this is too short';
-		Security::encrypt($txt, $key);
-	}
+        $salt = 'humpty dumpty had a great fall.';
+        $this->assertFalse(Security::decrypt($result, $key, $salt), 'Modified salt causes failure.');
+    }
 
-/**
- * Test encrypting falsey data
- *
- * @return void
- */
-	public function testEncryptDecryptFalseyData() {
-		$key = 'This is a key that is long enough to be ok.';
+    /**
+     * Test that short keys cause errors
+     *
+     * @expectedException CakeException
+     * @expectedExceptionMessage Invalid key for encrypt(), key must be at least 256 bits (32 bytes) long.
+     * @return void
+     */
+    public function testEncryptInvalidKey() {
+        $txt = 'The quick brown fox jumped over the lazy dog.';
+        $key = 'this is too short';
+        Security::encrypt($txt, $key);
+    }
 
-		$result = Security::encrypt('', $key);
-		$this->assertSame('', Security::decrypt($result, $key));
+    /**
+     * Test encrypting falsey data
+     *
+     * @return void
+     */
+    public function testEncryptDecryptFalseyData() {
+        $key = 'This is a key that is long enough to be ok.';
 
-		$result = Security::encrypt(false, $key);
-		$this->assertSame('', Security::decrypt($result, $key));
+        $result = Security::encrypt('', $key);
+        $this->assertSame('', Security::decrypt($result, $key));
 
-		$result = Security::encrypt(null, $key);
-		$this->assertSame('', Security::decrypt($result, $key));
+        $result = Security::encrypt(false, $key);
+        $this->assertSame('', Security::decrypt($result, $key));
 
-		$result = Security::encrypt(0, $key);
-		$this->assertSame('0', Security::decrypt($result, $key));
+        $result = Security::encrypt(null, $key);
+        $this->assertSame('', Security::decrypt($result, $key));
 
-		$result = Security::encrypt('0', $key);
-		$this->assertSame('0', Security::decrypt($result, $key));
-	}
+        $result = Security::encrypt(0, $key);
+        $this->assertSame('0', Security::decrypt($result, $key));
 
-/**
- * Test that short keys cause errors
- *
- * @expectedException CakeException
- * @expectedExceptionMessage Invalid key for decrypt(), key must be at least 256 bits (32 bytes) long.
- * @return void
- */
-	public function testDecryptInvalidKey() {
-		$txt = 'The quick brown fox jumped over the lazy dog.';
-		$key = 'this is too short';
-		Security::decrypt($txt, $key);
-	}
+        $result = Security::encrypt('0', $key);
+        $this->assertSame('0', Security::decrypt($result, $key));
+    }
 
-/**
- * Test that empty data cause errors
- *
- * @expectedException CakeException
- * @expectedExceptionMessage The data to decrypt cannot be empty.
- * @return void
- */
-	public function testDecryptInvalidData() {
-		$txt = '';
-		$key = 'This is a key that is long enough to be ok.';
-		Security::decrypt($txt, $key);
-	}
+    /**
+     * Test that short keys cause errors
+     *
+     * @expectedException CakeException
+     * @expectedExceptionMessage Invalid key for decrypt(), key must be at least 256 bits (32 bytes) long.
+     * @return void
+     */
+    public function testDecryptInvalidKey() {
+        $txt = 'The quick brown fox jumped over the lazy dog.';
+        $key = 'this is too short';
+        Security::decrypt($txt, $key);
+    }
+
+    /**
+     * Test that empty data cause errors
+     *
+     * @expectedException CakeException
+     * @expectedExceptionMessage The data to decrypt cannot be empty.
+     * @return void
+     */
+    public function testDecryptInvalidData() {
+        $txt = '';
+        $key = 'This is a key that is long enough to be ok.';
+        Security::decrypt($txt, $key);
+    }
 
 }

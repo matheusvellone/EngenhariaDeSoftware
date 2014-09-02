@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ControllerTestCaseTest file
  *
@@ -17,7 +18,6 @@
  * @since         CakePHP v 2.1
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('CakeEvent', 'Event');
 
 /**
@@ -26,59 +26,60 @@ App::uses('CakeEvent', 'Event');
  */
 class CakeEventTest extends CakeTestCase {
 
-/**
- * Tests the name() method
- *
- * @return void
- */
-	public function testName() {
-		$event = new CakeEvent('fake.event');
-		$this->assertEquals('fake.event', $event->name());
-	}
+    /**
+     * Tests the name() method
+     *
+     * @return void
+     */
+    public function testName() {
+        $event = new CakeEvent('fake.event');
+        $this->assertEquals('fake.event', $event->name());
+    }
 
-/**
- * Tests the subject() method
- *
- * @return void
- */
-	public function testSubject() {
-		$event = new CakeEvent('fake.event', $this);
-		$this->assertSame($this, $event->subject());
+    /**
+     * Tests the subject() method
+     *
+     * @return void
+     */
+    public function testSubject() {
+        $event = new CakeEvent('fake.event', $this);
+        $this->assertSame($this, $event->subject());
 
-		$event = new CakeEvent('fake.event');
-		$this->assertNull($event->subject());
-	}
+        $event = new CakeEvent('fake.event');
+        $this->assertNull($event->subject());
+    }
 
-/**
- * Tests the event propagation stopping property
- *
- * @return void
- */
-	public function testPropagation() {
-		$event = new CakeEvent('fake.event');
-		$this->assertFalse($event->isStopped());
-		$event->stopPropagation();
-		$this->assertTrue($event->isStopped());
-	}
+    /**
+     * Tests the event propagation stopping property
+     *
+     * @return void
+     */
+    public function testPropagation() {
+        $event = new CakeEvent('fake.event');
+        $this->assertFalse($event->isStopped());
+        $event->stopPropagation();
+        $this->assertTrue($event->isStopped());
+    }
 
-/**
- * Tests that it is possible to get/set custom data in a event
- *
- * @return void
- */
-	public function testEventData() {
-		$event = new CakeEvent('fake.event', $this, array('some' => 'data'));
-		$this->assertEquals(array('some' => 'data'), $event->data);
-	}
+    /**
+     * Tests that it is possible to get/set custom data in a event
+     *
+     * @return void
+     */
+    public function testEventData() {
+        $event = new CakeEvent('fake.event', $this, array('some' => 'data'));
+        $this->assertEquals(array('some' => 'data'), $event->data);
+    }
 
-/**
- * Tests that it is possible to get the name and subject directly
- *
- * @return void
- */
-	public function testEventDirectPropertyAccess() {
-		$event = new CakeEvent('fake.event', $this);
-		$this->assertEquals($this, $event->subject);
-		$this->assertEquals('fake.event', $event->name);
-	}
+    /**
+     * Tests that it is possible to get the name and subject directly
+     *
+     * @return void
+     */
+    public function testEventDirectPropertyAccess() {
+        $event = new CakeEvent('fake.event', $this);
+        $this->assertEquals($this, $event->subject);
+        $this->assertEquals('fake.event', $event->name);
+    }
+
 }

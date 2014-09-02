@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Short description for file.
  *
@@ -23,23 +24,24 @@
  */
 class UuidTagFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
-	public $fields = array(
-		'id' => array('type' => 'string', 'length' => 36, 'key' => 'primary'),
-		'name' => array('type' => 'string', 'length' => 255),
-		'created' => array('type' => 'datetime')
-	);
+    /**
+     * fields property
+     *
+     * @var array
+     */
+    public $fields = array(
+        'id' => array('type' => 'string', 'length' => 36, 'key' => 'primary'),
+        'name' => array('type' => 'string', 'length' => 255),
+        'created' => array('type' => 'datetime')
+    );
 
-/**
- * records property
- *
- * @var array
- */
-	public $records = array(
-		array('id' => '481fc6d0-b920-43e0-e50f-6d1740cf8569', 'name' => 'MyTag', 'created' => '2009-12-09 12:30:00')
-	);
+    /**
+     * records property
+     *
+     * @var array
+     */
+    public $records = array(
+        array('id' => '481fc6d0-b920-43e0-e50f-6d1740cf8569', 'name' => 'MyTag', 'created' => '2009-12-09 12:30:00')
+    );
+
 }

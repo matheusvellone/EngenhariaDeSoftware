@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Short description for file.
  *
@@ -23,23 +24,24 @@
  */
 class MyUserFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'firstname' => array('type' => 'string', 'null' => false),
-	);
+    /**
+     * fields property
+     *
+     * @var array
+     */
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'firstname' => array('type' => 'string', 'null' => false),
+    );
 
-/**
- * records property
- *
- * @var array
- */
-	public $records = array(
-		array('id' => 1, 'firstname' => 'userA'),
-		array('id' => 2, 'firstname' => 'userB')
-	);
+    /**
+     * records property
+     *
+     * @var array
+     */
+    public $records = array(
+        array('id' => 1, 'firstname' => 'userA'),
+        array('id' => 2, 'firstname' => 'userB')
+    );
+
 }

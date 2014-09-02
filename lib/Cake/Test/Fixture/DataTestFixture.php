@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Short description for file.
  *
@@ -23,30 +24,31 @@
  */
 class DataTestFixture extends CakeTestFixture {
 
-/**
- * Fields property
- *
- * @var array
- */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'count' => array('type' => 'integer', 'default' => 0),
-		'float' => array('type' => 'float', 'default' => 0),
-		'created' => array('type' => 'datetime', 'default' => null),
-		'updated' => array('type' => 'datetime', 'default' => null)
-	);
+    /**
+     * Fields property
+     *
+     * @var array
+     */
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'count' => array('type' => 'integer', 'default' => 0),
+        'float' => array('type' => 'float', 'default' => 0),
+        'created' => array('type' => 'datetime', 'default' => null),
+        'updated' => array('type' => 'datetime', 'default' => null)
+    );
 
-/**
- * Records property
- *
- * @var array
- */
-	public $records = array(
-		array(
-			'count' => 2,
-			'float' => 2.4,
-			'created' => '2010-09-06 12:28:00',
-			'updated' => '2010-09-06 12:28:00'
-		)
-	);
+    /**
+     * Records property
+     *
+     * @var array
+     */
+    public $records = array(
+        array(
+            'count' => 2,
+            'float' => 2.4,
+            'created' => '2010-09-06 12:28:00',
+            'updated' => '2010-09-06 12:28:00'
+        )
+    );
+
 }

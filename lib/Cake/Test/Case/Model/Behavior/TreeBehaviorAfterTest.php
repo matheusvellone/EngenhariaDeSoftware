@@ -1,4 +1,5 @@
 <?php
+
 /**
  * TreeBehaviorAfterTest file
  *
@@ -15,7 +16,6 @@
  * @since         CakePHP(tm) v 1.2.0.5330
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('Model', 'Model');
 App::uses('AppModel', 'Model');
 
@@ -28,48 +28,49 @@ require_once dirname(dirname(__FILE__)) . DS . 'models.php';
  */
 class TreeBehaviorAfterTest extends CakeTestCase {
 
-/**
- * Whether backup global state for each test method or not
- *
- * @var bool
- */
-	public $backupGlobals = false;
+    /**
+     * Whether backup global state for each test method or not
+     *
+     * @var bool
+     */
+    public $backupGlobals = false;
 
-/**
- * settings property
- *
- * @var array
- */
-	public $settings = array(
-		'modelClass' => 'AfterTree',
-		'leftField' => 'lft',
-		'rightField' => 'rght',
-		'parentField' => 'parent_id'
-	);
+    /**
+     * settings property
+     *
+     * @var array
+     */
+    public $settings = array(
+        'modelClass' => 'AfterTree',
+        'leftField' => 'lft',
+        'rightField' => 'rght',
+        'parentField' => 'parent_id'
+    );
 
-/**
- * fixtures property
- *
- * @var array
- */
-	public $fixtures = array('core.after_tree');
+    /**
+     * fixtures property
+     *
+     * @var array
+     */
+    public $fixtures = array('core.after_tree');
 
-/**
- * Tests the afterSave callback in the model
- *
- * @return void
- */
-	public function testAftersaveCallback() {
-		$this->Tree = new AfterTree();
-		$this->Tree->order = null;
+    /**
+     * Tests the afterSave callback in the model
+     *
+     * @return void
+     */
+    public function testAftersaveCallback() {
+        $this->Tree = new AfterTree();
+        $this->Tree->order = null;
 
-		$expected = array('AfterTree' => array('name' => 'Six and One Half Changed in AfterTree::afterSave() but not in database', 'parent_id' => 6, 'lft' => 11, 'rght' => 12));
-		$result = $this->Tree->save(array('AfterTree' => array('name' => 'Six and One Half', 'parent_id' => 6)));
-		$expected['AfterTree']['id'] = $this->Tree->id;
-		$this->assertEquals($expected, $result);
+        $expected = array('AfterTree' => array('name' => 'Six and One Half Changed in AfterTree::afterSave() but not in database', 'parent_id' => 6, 'lft' => 11, 'rght' => 12));
+        $result = $this->Tree->save(array('AfterTree' => array('name' => 'Six and One Half', 'parent_id' => 6)));
+        $expected['AfterTree']['id'] = $this->Tree->id;
+        $this->assertEquals($expected, $result);
 
-		$expected = array('AfterTree' => array('name' => 'Six and One Half', 'parent_id' => 6, 'lft' => 11, 'rght' => 12, 'id' => 8));
-		$result = $this->Tree->find('all');
-		$this->assertEquals($expected, $result[7]);
-	}
+        $expected = array('AfterTree' => array('name' => 'Six and One Half', 'parent_id' => 6, 'lft' => 11, 'rght' => 12, 'id' => 8));
+        $result = $this->Tree->find('all');
+        $this->assertEquals($expected, $result[7]);
+    }
+
 }

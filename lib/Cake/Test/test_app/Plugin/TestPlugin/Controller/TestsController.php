@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Short description for file.
  *
@@ -23,18 +24,16 @@
  */
 class TestsController extends TestPluginAppController {
 
-	public $uses = array();
+    public $uses = array();
+    public $helpers = array('TestPlugin.OtherHelper', 'Html');
+    public $components = array('TestPlugin.Plugins');
 
-	public $helpers = array('TestPlugin.OtherHelper', 'Html');
+    public function index() {
+        $this->set('test_value', 'It is a variable');
+    }
 
-	public $components = array('TestPlugin.Plugins');
-
-	public function index() {
-		$this->set('test_value', 'It is a variable');
-	}
-
-	public function some_method() {
-		return 25;
-	}
+    public function some_method() {
+        return 25;
+    }
 
 }

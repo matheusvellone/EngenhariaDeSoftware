@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
@@ -13,7 +14,6 @@
  * @since         CakePHP(tm) v 1.2.0.4525
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('AppModel', 'Model');
 
 /**
@@ -23,25 +23,25 @@ App::uses('AppModel', 'Model');
  */
 class I18nModel extends AppModel {
 
-/**
- * Model name
- *
- * @var string
- */
-	public $name = 'I18nModel';
+    /**
+     * Model name
+     *
+     * @var string
+     */
+    public $name = 'I18nModel';
 
-/**
- * Table name
- *
- * @var string
- */
-	public $useTable = 'i18n';
+    /**
+     * Table name
+     *
+     * @var string
+     */
+    public $useTable = 'i18n';
 
-/**
- * Display field
- *
- * @var string
- */
-	public $displayField = 'field';
+    /**
+     * Display field
+     *
+     * @var string
+     */
+    public $displayField = 'field';
 
 }

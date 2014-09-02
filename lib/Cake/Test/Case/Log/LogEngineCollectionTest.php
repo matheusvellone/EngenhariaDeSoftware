@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LogEngineCollectionTest file
  *
@@ -15,7 +16,6 @@
  * @since         CakePHP(tm) v 2.4
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('LogEngineCollection', 'Log');
 App::uses('FileLog', 'Log/Engine');
 
@@ -23,6 +23,7 @@ App::uses('FileLog', 'Log/Engine');
  * LoggerEngineLog class
  */
 class LoggerEngineLog extends FileLog {
+    
 }
 
 /**
@@ -32,58 +33,58 @@ class LoggerEngineLog extends FileLog {
  */
 class LogEngineCollectionTest extends CakeTestCase {
 
-	public $Collection;
+    public $Collection;
 
-/**
- * Start test callback
- *
- * @return void
- */
-	public function setUp() {
-		parent::setUp();
+    /**
+     * Start test callback
+     *
+     * @return void
+     */
+    public function setUp() {
+        parent::setUp();
 
-		$this->Collection = new LogEngineCollection();
-	}
+        $this->Collection = new LogEngineCollection();
+    }
 
-/**
- * test load
- *
- * @return void
- */
-	public function testLoad() {
-		$result = $this->Collection->load('key', array('engine' => 'File'));
-		$this->assertInstanceOf('CakeLogInterface', $result);
-	}
+    /**
+     * test load
+     *
+     * @return void
+     */
+    public function testLoad() {
+        $result = $this->Collection->load('key', array('engine' => 'File'));
+        $this->assertInstanceOf('CakeLogInterface', $result);
+    }
 
-/**
- * test load with deprecated Log suffix
- *
- * @return void
- */
-	public function testLoadWithSuffix() {
-		$result = $this->Collection->load('key', array('engine' => 'FileLog'));
-		$this->assertInstanceOf('CakeLogInterface', $result);
-	}
+    /**
+     * test load with deprecated Log suffix
+     *
+     * @return void
+     */
+    public function testLoadWithSuffix() {
+        $result = $this->Collection->load('key', array('engine' => 'FileLog'));
+        $this->assertInstanceOf('CakeLogInterface', $result);
+    }
 
-/**
- * test that engines starting with Log also work properly
- *
- * @return void
- */
-	public function testLoadWithSuffixAtBeginning() {
-		$result = $this->Collection->load('key', array('engine' => 'LoggerEngine'));
-		$this->assertInstanceOf('CakeLogInterface', $result);
-	}
+    /**
+     * test that engines starting with Log also work properly
+     *
+     * @return void
+     */
+    public function testLoadWithSuffixAtBeginning() {
+        $result = $this->Collection->load('key', array('engine' => 'LoggerEngine'));
+        $this->assertInstanceOf('CakeLogInterface', $result);
+    }
 
-/**
- * test load with invalid Log
- *
- * @return void
- * @expectedException CakeLogException
- */
-	public function testLoadInvalid() {
-		$result = $this->Collection->load('key', array('engine' => 'ImaginaryFile'));
-		$this->assertInstanceOf('CakeLogInterface', $result);
-	}
+    /**
+     * test load with invalid Log
+     *
+     * @return void
+     * @expectedException CakeLogException
+     */
+    public function testLoadInvalid() {
+        $result = $this->Collection->load('key', array('engine' => 'ImaginaryFile'));
+        $this->assertInstanceOf('CakeLogInterface', $result);
+    }
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
@@ -13,7 +14,6 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('AppModel', 'Model');
 
 /**
@@ -23,17 +23,18 @@ App::uses('AppModel', 'Model');
  */
 class AcoAction extends AppModel {
 
-/**
- * Model name
- *
- * @var string
- */
-	public $name = 'AcoAction';
+    /**
+     * Model name
+     *
+     * @var string
+     */
+    public $name = 'AcoAction';
 
-/**
- * ACO Actions belong to ACOs
- *
- * @var array
- */
-	public $belongsTo = array('Aco');
+    /**
+     * ACO Actions belong to ACOs
+     *
+     * @var array
+     */
+    public $belongsTo = array('Aco');
+
 }

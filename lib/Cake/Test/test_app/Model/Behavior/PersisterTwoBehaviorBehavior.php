@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Behavior for binding management.
  *
@@ -25,4 +26,5 @@
  * @package       Cake.Test.TestApp.Model.Behavior
  */
 class PersisterTwoBehaviorBehavior extends ModelBehavior {
+    
 }

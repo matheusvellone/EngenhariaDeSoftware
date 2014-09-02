@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Test Plugin Auth User Model
  *
@@ -23,24 +24,25 @@
  */
 class TestPluginAuthUser extends TestPluginAppModel {
 
-/**
- * Name property
- *
- * @var string
- */
-	public $name = 'TestPluginAuthUser';
+    /**
+     * Name property
+     *
+     * @var string
+     */
+    public $name = 'TestPluginAuthUser';
 
-/**
- * useTable property
- *
- * @var string
- */
-	public $useTable = 'auth_users';
+    /**
+     * useTable property
+     *
+     * @var string
+     */
+    public $useTable = 'auth_users';
 
-/**
- * useDbConfig property
- *
- * @var string
- */
-	public $useDbConfig = 'test';
+    /**
+     * useDbConfig property
+     *
+     * @var string
+     */
+    public $useDbConfig = 'test';
+
 }

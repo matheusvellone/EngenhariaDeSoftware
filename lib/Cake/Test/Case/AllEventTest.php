@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AllEventTest file
  *
@@ -25,14 +26,15 @@
  */
 class AllEventTest extends PHPUnit_Framework_TestSuite {
 
-/**
- * suite method, defines tests for this suite.
- *
- * @return void
- */
-	public static function suite() {
-		$suite = new CakeTestSuite('All Event related class tests');
-		$suite->addTestDirectory(CORE_TEST_CASES . DS . 'Event');
-		return $suite;
-	}
+    /**
+     * suite method, defines tests for this suite.
+     *
+     * @return void
+     */
+    public static function suite() {
+        $suite = new CakeTestSuite('All Event related class tests');
+        $suite->addTestDirectory(CORE_TEST_CASES . DS . 'Event');
+        return $suite;
+    }
+
 }

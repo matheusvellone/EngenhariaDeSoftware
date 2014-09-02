@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) Tests <http://book.cakephp.org/2.0/en/development/testing.html>
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
@@ -13,7 +14,6 @@
  * @since         CakePHP(tm) v 1.2.0.4667
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('Model', 'Model');
 
 /**
@@ -23,36 +23,35 @@ App::uses('Model', 'Model');
  */
 class CakeTestModel extends Model {
 
-	public $useDbConfig = 'test';
+    public $useDbConfig = 'test';
+    public $cacheSources = false;
 
-	public $cacheSources = false;
+    /**
+     * Sets default order for the model to avoid failing tests caused by
+     * incorrect order when no order has been defined in the finds.
+     * Postgres can return the results in any order it considers appropriate if none is specified
+     *
+     * @param int|string|array $id Set this ID for this model on startup, can also be an array of options, see above.
+     * @param string $table Name of database table to use.
+     * @param string $ds DataSource connection name.
+     */
+    public function __construct($id = false, $table = null, $ds = null) {
+        parent::__construct($id, $table, $ds);
+        $this->order = array($this->alias . '.' . $this->primaryKey => 'ASC');
+    }
 
-/**
- * Sets default order for the model to avoid failing tests caused by
- * incorrect order when no order has been defined in the finds.
- * Postgres can return the results in any order it considers appropriate if none is specified
- *
- * @param int|string|array $id Set this ID for this model on startup, can also be an array of options, see above.
- * @param string $table Name of database table to use.
- * @param string $ds DataSource connection name.
- */
-	public function __construct($id = false, $table = null, $ds = null) {
-		parent::__construct($id, $table, $ds);
-		$this->order = array($this->alias . '.' . $this->primaryKey => 'ASC');
-	}
-
-/**
- * Overriding save() to set CakeTestSuiteDispatcher::date() as formatter for created, modified and updated fields
- *
- * @param array $data Data to save
- * @param bool|array $validate Validate or options.
- * @param array $fieldList Whitelist of fields
- * @return mixed
- */
-	public function save($data = null, $validate = true, $fieldList = array()) {
-		$db = $this->getDataSource();
-		$db->columns['datetime']['formatter'] = 'CakeTestSuiteDispatcher::date';
-		return parent::save($data, $validate, $fieldList);
-	}
+    /**
+     * Overriding save() to set CakeTestSuiteDispatcher::date() as formatter for created, modified and updated fields
+     *
+     * @param array $data Data to save
+     * @param bool|array $validate Validate or options.
+     * @param array $fieldList Whitelist of fields
+     * @return mixed
+     */
+    public function save($data = null, $validate = true, $fieldList = array()) {
+        $db = $this->getDataSource();
+        $db->columns['datetime']['formatter'] = 'CakeTestSuiteDispatcher::date';
+        return parent::save($data, $validate, $fieldList);
+    }
 
 }

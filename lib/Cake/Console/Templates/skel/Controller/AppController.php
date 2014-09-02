@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Application level Controller
  *
@@ -9,7 +10,6 @@
  * @package       app.Controller
  * @since         CakePHP(tm) v 0.2.9
  */
-
 App::uses('Controller', 'Controller');
 
 /**
@@ -22,4 +22,5 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+    
 }

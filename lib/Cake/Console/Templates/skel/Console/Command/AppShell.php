@@ -1,11 +1,11 @@
 <?php
+
 /**
  * AppShell file
  *
  * @link          http://cakephp.org CakePHP(tm) Project
  * @since         CakePHP(tm) v 2.0
  */
-
 App::uses('Shell', 'Console');
 
 /**
@@ -17,5 +17,5 @@ App::uses('Shell', 'Console');
  * @package       app.Console.Command
  */
 class AppShell extends Shell {
-
+    
 }

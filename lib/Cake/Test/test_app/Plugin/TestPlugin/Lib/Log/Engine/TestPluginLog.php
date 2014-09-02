@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Test Suite Test Plugin Logging stream class.
  *
@@ -15,7 +16,6 @@
  * @since         CakePHP(tm) v 1.3
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('CakeLogInterface', 'Log');
 
 /**
@@ -25,7 +25,8 @@ App::uses('CakeLogInterface', 'Log');
  */
 class TestPluginLog implements CakeLogInterface {
 
-	public function write($type, $message) {
-	}
+    public function write($type, $message) {
+        
+    }
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
@@ -13,7 +14,6 @@
  * @since		  CakePHP(tm) v 2.2
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('DispatcherFilter', 'Routing');
 
 /**
@@ -23,12 +23,12 @@ App::uses('DispatcherFilter', 'Routing');
  */
 class TestDispatcherFilter extends DispatcherFilter {
 
-	public function beforeDispatch(CakeEvent $event) {
-		$event->data['request']->params['altered'] = true;
-	}
+    public function beforeDispatch(CakeEvent $event) {
+        $event->data['request']->params['altered'] = true;
+    }
 
-	public function afterDispatch(CakeEvent $event) {
-		$event->data['response']->statusCode(304);
-	}
+    public function afterDispatch(CakeEvent $event) {
+        $event->data['response']->statusCode(304);
+    }
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Test Suite TestUtilityClass Library
  *
@@ -22,4 +23,5 @@
  * @package       Cake.Test.TestApp.Lib.Utility
  */
 class TestUtilityClass {
+    
 }

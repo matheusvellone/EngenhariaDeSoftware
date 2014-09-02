@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Test Suite TestPlugin AppController
  *
@@ -15,7 +16,6 @@
  * @since         CakePHP(tm) v 1.2.0.5432
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('AppController', 'Controller');
 
 /**
@@ -24,4 +24,5 @@ App::uses('AppController', 'Controller');
  * @package       Cake.Test.TestApp.Plugin.TestPlugin.Controller
  */
 class TestPluginAppController extends AppController {
+    
 }

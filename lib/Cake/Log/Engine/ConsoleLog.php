@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Console Logging
  *
@@ -15,7 +16,6 @@
  * @since         CakePHP(tm) v 2.2
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('BaseLog', 'Log/Engine');
 App::uses('ConsoleOutput', 'Console');
 
@@ -26,60 +26,60 @@ App::uses('ConsoleOutput', 'Console');
  */
 class ConsoleLog extends BaseLog {
 
-/**
- * Output stream
- *
- * @var ConsoleOutput
- */
-	protected $_output = null;
+    /**
+     * Output stream
+     *
+     * @var ConsoleOutput
+     */
+    protected $_output = null;
 
-/**
- * Constructs a new Console Logger.
- *
- * Config
- *
- * - `types` string or array, levels the engine is interested in
- * - `scopes` string or array, scopes the engine is interested in
- * - `stream` the path to save logs on.
- * - `outputAs` integer or ConsoleOutput::[RAW|PLAIN|COLOR]
- *
- * @param array $config Options for the FileLog, see above.
- * @throws CakeLogException
- */
-	public function __construct($config = array()) {
-		parent::__construct($config);
-		if (DS === '\\' && !(bool)env('ANSICON')) {
-			$outputAs = ConsoleOutput::PLAIN;
-		} else {
-			$outputAs = ConsoleOutput::COLOR;
-		}
-		$config = Hash::merge(array(
-			'stream' => 'php://stderr',
-			'types' => null,
-			'scopes' => array(),
-			'outputAs' => $outputAs,
-			), $this->_config);
-		$config = $this->config($config);
-		if ($config['stream'] instanceof ConsoleOutput) {
-			$this->_output = $config['stream'];
-		} elseif (is_string($config['stream'])) {
-			$this->_output = new ConsoleOutput($config['stream']);
-		} else {
-			throw new CakeLogException('`stream` not a ConsoleOutput nor string');
-		}
-		$this->_output->outputAs($config['outputAs']);
-	}
+    /**
+     * Constructs a new Console Logger.
+     *
+     * Config
+     *
+     * - `types` string or array, levels the engine is interested in
+     * - `scopes` string or array, scopes the engine is interested in
+     * - `stream` the path to save logs on.
+     * - `outputAs` integer or ConsoleOutput::[RAW|PLAIN|COLOR]
+     *
+     * @param array $config Options for the FileLog, see above.
+     * @throws CakeLogException
+     */
+    public function __construct($config = array()) {
+        parent::__construct($config);
+        if (DS === '\\' && !(bool) env('ANSICON')) {
+            $outputAs = ConsoleOutput::PLAIN;
+        } else {
+            $outputAs = ConsoleOutput::COLOR;
+        }
+        $config = Hash::merge(array(
+                    'stream' => 'php://stderr',
+                    'types' => null,
+                    'scopes' => array(),
+                    'outputAs' => $outputAs,
+                        ), $this->_config);
+        $config = $this->config($config);
+        if ($config['stream'] instanceof ConsoleOutput) {
+            $this->_output = $config['stream'];
+        } elseif (is_string($config['stream'])) {
+            $this->_output = new ConsoleOutput($config['stream']);
+        } else {
+            throw new CakeLogException('`stream` not a ConsoleOutput nor string');
+        }
+        $this->_output->outputAs($config['outputAs']);
+    }
 
-/**
- * Implements writing to console.
- *
- * @param string $type The type of log you are making.
- * @param string $message The message you want to log.
- * @return bool success of write.
- */
-	public function write($type, $message) {
-		$output = date('Y-m-d H:i:s') . ' ' . ucfirst($type) . ': ' . $message . "\n";
-		return $this->_output->write(sprintf('<%s>%s</%s>', $type, $output, $type), false);
-	}
+    /**
+     * Implements writing to console.
+     *
+     * @param string $type The type of log you are making.
+     * @param string $message The message you want to log.
+     * @return bool success of write.
+     */
+    public function write($type, $message) {
+        $output = date('Y-m-d H:i:s') . ' ' . ucfirst($type) . ': ' . $message . "\n";
+        return $this->_output->write(sprintf('<%s>%s</%s>', $type, $output, $type), false);
+    }
 
 }

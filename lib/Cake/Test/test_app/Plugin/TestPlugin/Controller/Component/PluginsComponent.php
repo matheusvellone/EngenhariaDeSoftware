@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Short description for file.
  *
@@ -23,6 +24,6 @@
  */
 class PluginsComponent extends Component {
 
-	public $components = array('TestPlugin.Other');
+    public $components = array('TestPlugin.Other');
 
 }

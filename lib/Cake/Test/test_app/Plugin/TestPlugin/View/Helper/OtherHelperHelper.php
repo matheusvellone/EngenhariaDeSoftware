@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Short description for file.
  *
@@ -15,7 +16,6 @@
  * @since         CakePHP(tm) v 1.2.0.4206
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('AppHelper', 'View/Helper');
 
 /**
@@ -24,4 +24,5 @@ App::uses('AppHelper', 'View/Helper');
  * @package       Cake.Test.TestApp.Plugin.TestPlugin.View.Helper
  */
 class OtherHelperHelper extends AppHelper {
+    
 }

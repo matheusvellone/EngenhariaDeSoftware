@@ -1,4 +1,5 @@
 <?php
+
 /**
  * DebugKit ToolbarAccess Model Test case
  *
@@ -14,8 +15,7 @@
  * @link          http://cakephp.org CakePHP(tm) Project
  * @since         DebugKit 1.3
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- **/
-
+ * */
 App::uses('ToolbarAccess', 'DebugKit.Model');
 
 /**
@@ -25,45 +25,46 @@ App::uses('ToolbarAccess', 'DebugKit.Model');
  */
 class ToolbarAccessTestCase extends CakeTestCase {
 
-/**
- * Included fixtures
- *
- * @var array
- */
-	public $fixtures = array('core.post');
+    /**
+     * Included fixtures
+     *
+     * @var array
+     */
+    public $fixtures = array('core.post');
 
-/**
- * setUp method
- *
- * @return void
- */
-	public function setUp() {
-		parent::setUp();
-		$this->Model = new ToolbarAccess();
-	}
+    /**
+     * setUp method
+     *
+     * @return void
+     */
+    public function setUp() {
+        parent::setUp();
+        $this->Model = new ToolbarAccess();
+    }
 
-/**
- * tearDown
- *
- * @return void
- */
-	public function tearDown() {
-		parent::tearDown();
-		unset($this->Model);
-	}
+    /**
+     * tearDown
+     *
+     * @return void
+     */
+    public function tearDown() {
+        parent::tearDown();
+        unset($this->Model);
+    }
 
-/**
- * test that explain query returns arrays of query information.
- *
- * @return void
- */
-	public function testExplainQuery() {
-		$Post = new CakeTestModel(array('table' => 'posts', 'alias' => 'Post'));
-		$db = $Post->getDataSource();
-		$sql = 'SELECT * FROM ' . $db->fullTableName('posts') . ';';
-		$result = $this->Model->explainQuery($Post->useDbConfig, $sql);
+    /**
+     * test that explain query returns arrays of query information.
+     *
+     * @return void
+     */
+    public function testExplainQuery() {
+        $Post = new CakeTestModel(array('table' => 'posts', 'alias' => 'Post'));
+        $db = $Post->getDataSource();
+        $sql = 'SELECT * FROM ' . $db->fullTableName('posts') . ';';
+        $result = $this->Model->explainQuery($Post->useDbConfig, $sql);
 
-		$this->assertTrue(is_array($result));
-		$this->assertFalse(empty($result));
-	}
+        $this->assertTrue(is_array($result));
+        $this->assertFalse(empty($result));
+    }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Base Log Engine class
  *
@@ -15,7 +16,6 @@
  * @since         CakePHP(tm) v 2.2
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('CakeLogInterface', 'Log');
 
 /**
@@ -25,43 +25,43 @@ App::uses('CakeLogInterface', 'Log');
  */
 abstract class BaseLog implements CakeLogInterface {
 
-/**
- * Engine config
- *
- * @var string
- */
-	protected $_config = array();
+    /**
+     * Engine config
+     *
+     * @var string
+     */
+    protected $_config = array();
 
-/**
- * Constructor
- *
- * @param array $config Configuration array
- */
-	public function __construct($config = array()) {
-		$this->config($config);
-	}
+    /**
+     * Constructor
+     *
+     * @param array $config Configuration array
+     */
+    public function __construct($config = array()) {
+        $this->config($config);
+    }
 
-/**
- * Sets instance config. When $config is null, returns config array
- *
- * Config
- *
- * - `types` string or array, levels the engine is interested in
- * - `scopes` string or array, scopes the engine is interested in
- *
- * @param array $config engine configuration
- * @return array
- */
-	public function config($config = array()) {
-		if (!empty($config)) {
-			foreach (array('types', 'scopes') as $option) {
-				if (isset($config[$option]) && is_string($config[$option])) {
-					$config[$option] = array($config[$option]);
-				}
-			}
-			$this->_config = $config;
-		}
-		return $this->_config;
-	}
+    /**
+     * Sets instance config. When $config is null, returns config array
+     *
+     * Config
+     *
+     * - `types` string or array, levels the engine is interested in
+     * - `scopes` string or array, scopes the engine is interested in
+     *
+     * @param array $config engine configuration
+     * @return array
+     */
+    public function config($config = array()) {
+        if (!empty($config)) {
+            foreach (array('types', 'scopes') as $option) {
+                if (isset($config[$option]) && is_string($config[$option])) {
+                    $config[$option] = array($config[$option]);
+                }
+            }
+            $this->_config = $config;
+        }
+        return $this->_config;
+    }
 
 }

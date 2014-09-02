@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Testing task in a plugin
  *
@@ -22,5 +23,5 @@
  * @package       Cake.Test.TestApp.Plugin.TestPlugin.Console.Command.Task
  */
 class OtherTaskTask extends Shell {
-
+    
 }

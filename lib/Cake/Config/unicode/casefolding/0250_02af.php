@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Case Folding Properties.
  *
@@ -21,13 +22,12 @@
  * @since         CakePHP(tm) v 1.2.0.6833
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 /**
  * The upper field is the decimal value of the upper case character
  *
  * The lower filed is an array of the decimal values that form the lower case version of a character.
  *
- *	The status field is:
+ * 	The status field is:
  * C: common case folding, common mappings shared by both simple and full mappings.
  * F: full case folding, mappings that cause strings to grow in length. Multiple characters are separated by spaces.
  * S: simple case folding, mappings to single characters where different from F.

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Error Handling Controller
  *
@@ -17,7 +18,6 @@
  * @since         CakePHP(tm) v 2.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('AppController', 'Controller');
 
 /**
@@ -29,34 +29,34 @@ App::uses('AppController', 'Controller');
  */
 class CakeErrorController extends AppController {
 
-/**
- * Uses Property
- *
- * @var array
- */
-	public $uses = array();
+    /**
+     * Uses Property
+     *
+     * @var array
+     */
+    public $uses = array();
 
-/**
- * Constructor
- *
- * @param CakeRequest $request Request instance.
- * @param CakeResponse $response Response instance.
- */
-	public function __construct($request = null, $response = null) {
-		parent::__construct($request, $response);
-		$this->constructClasses();
-		if (count(Router::extensions()) &&
-			!$this->Components->attached('RequestHandler')
-		) {
-			$this->RequestHandler = $this->Components->load('RequestHandler');
-		}
-		if ($this->Components->enabled('Auth')) {
-			$this->Components->disable('Auth');
-		}
-		if ($this->Components->enabled('Security')) {
-			$this->Components->disable('Security');
-		}
-		$this->_set(array('cacheAction' => false, 'viewPath' => 'Errors'));
-	}
+    /**
+     * Constructor
+     *
+     * @param CakeRequest $request Request instance.
+     * @param CakeResponse $response Response instance.
+     */
+    public function __construct($request = null, $response = null) {
+        parent::__construct($request, $response);
+        $this->constructClasses();
+        if (count(Router::extensions()) &&
+                !$this->Components->attached('RequestHandler')
+        ) {
+            $this->RequestHandler = $this->Components->load('RequestHandler');
+        }
+        if ($this->Components->enabled('Auth')) {
+            $this->Components->disable('Auth');
+        }
+        if ($this->Components->enabled('Security')) {
+            $this->Components->disable('Security');
+        }
+        $this->_set(array('cacheAction' => false, 'viewPath' => 'Errors'));
+    }
 
 }

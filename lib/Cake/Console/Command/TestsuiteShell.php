@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Test Suite Shell
  *
@@ -16,7 +17,6 @@
  * @since         CakePHP(tm) v 1.2.0.4433
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('TestShell', 'Console/Command');
 App::uses('AppShell', 'Console/Command');
 App::uses('CakeTestSuiteDispatcher', 'TestSuite');
@@ -31,70 +31,70 @@ App::uses('CakeTestLoader', 'TestSuite');
  */
 class TestsuiteShell extends TestShell {
 
-/**
- * Gets the option parser instance and configures it.
- *
- * @return ConsoleOptionParser
- */
-	public function getOptionParser() {
-		$parser = parent::getOptionParser();
+    /**
+     * Gets the option parser instance and configures it.
+     *
+     * @return ConsoleOptionParser
+     */
+    public function getOptionParser() {
+        $parser = parent::getOptionParser();
 
-		$parser->description(array(
-			__d('cake_console', 'The CakePHP Testsuite allows you to run test cases from the command line'),
-			__d('cake_console', "<warning>This shell is for backwards-compatibility only</warning>\nuse the test shell instead")
-		));
+        $parser->description(array(
+            __d('cake_console', 'The CakePHP Testsuite allows you to run test cases from the command line'),
+            __d('cake_console', "<warning>This shell is for backwards-compatibility only</warning>\nuse the test shell instead")
+        ));
 
-		return $parser;
-	}
+        return $parser;
+    }
 
-/**
- * Parse the CLI options into an array CakeTestDispatcher can use.
- *
- * @return array Array of params for CakeTestDispatcher
- */
-	protected function _parseArgs() {
-		if (empty($this->args)) {
-			return;
-		}
-		$params = array(
-			'core' => false,
-			'app' => false,
-			'plugin' => null,
-			'output' => 'text',
-		);
+    /**
+     * Parse the CLI options into an array CakeTestDispatcher can use.
+     *
+     * @return array Array of params for CakeTestDispatcher
+     */
+    protected function _parseArgs() {
+        if (empty($this->args)) {
+            return;
+        }
+        $params = array(
+            'core' => false,
+            'app' => false,
+            'plugin' => null,
+            'output' => 'text',
+        );
 
-		$category = $this->args[0];
+        $category = $this->args[0];
 
-		if ($category === 'core') {
-			$params['core'] = true;
-		} elseif ($category === 'app') {
-			$params['app'] = true;
-		} elseif ($category !== 'core') {
-			$params['plugin'] = $category;
-		}
+        if ($category === 'core') {
+            $params['core'] = true;
+        } elseif ($category === 'app') {
+            $params['app'] = true;
+        } elseif ($category !== 'core') {
+            $params['plugin'] = $category;
+        }
 
-		if (isset($this->args[1])) {
-			$params['case'] = $this->args[1];
-		}
-		return $params;
-	}
+        if (isset($this->args[1])) {
+            $params['case'] = $this->args[1];
+        }
+        return $params;
+    }
 
-/**
- * Main entry point to this shell
- *
- * @return void
- */
-	public function main() {
-		$this->out(__d('cake_console', 'CakePHP Test Shell'));
-		$this->hr();
+    /**
+     * Main entry point to this shell
+     *
+     * @return void
+     */
+    public function main() {
+        $this->out(__d('cake_console', 'CakePHP Test Shell'));
+        $this->hr();
 
-		$args = $this->_parseArgs();
+        $args = $this->_parseArgs();
 
-		if (empty($args['case'])) {
-			return $this->available();
-		}
+        if (empty($args['case'])) {
+            return $this->available();
+        }
 
-		$this->_run($args, $this->_runnerOptions());
-	}
+        $this->_run($args, $this->_runnerOptions());
+    }
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Test Suite TestPlugin config file.
  *
@@ -15,5 +16,4 @@
  * @since         CakePHP(tm) v 1.3
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 $config['plugin_load'] = '/test_app/plugins/test_plugin/config/load.php';

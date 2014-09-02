@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Test App Extract Model
  *
@@ -25,21 +26,20 @@
  */
 class Extract extends AppModel {
 
-	public $useTable = false;
-
-	public $validate = array(
-		'title' => array(
-			'custom' => array(
-				'rule' => array('custom', '.*'),
-				'allowEmpty' => true,
-				'required' => false,
-				'message' => 'double "quoted" validation'
-			),
-			'between' => array(
-				'rule' => array('between', 5, 15),
-				'message' => "single 'quoted' validation"
-			)
-		),
-	);
+    public $useTable = false;
+    public $validate = array(
+        'title' => array(
+            'custom' => array(
+                'rule' => array('custom', '.*'),
+                'allowEmpty' => true,
+                'required' => false,
+                'message' => 'double "quoted" validation'
+            ),
+            'between' => array(
+                'rule' => array('between', 5, 15),
+                'message' => "single 'quoted' validation"
+            )
+        ),
+    );
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Common test objects used in DebugKit tests
  *
@@ -15,7 +16,6 @@
  * @since         DebugKit 0.1
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('FireCake', 'DebugKit.Lib');
 
 /**
@@ -25,41 +25,42 @@ App::uses('FireCake', 'DebugKit.Lib');
  */
 class TestFireCake extends FireCake {
 
-/**
- * Headers that were sent
- *
- * @var array
- */
-	public $sentHeaders = array();
+    /**
+     * Headers that were sent
+     *
+     * @var array
+     */
+    public $sentHeaders = array();
 
-/**
- * Send header
- *
- * @param $name
- * @param $value
- */
-	protected function _sendHeader($name, $value) {
-		$_this = FireCake::getInstance();
-		$_this->sentHeaders[$name] = $value;
-	}
+    /**
+     * Send header
+     *
+     * @param $name
+     * @param $value
+     */
+    protected function _sendHeader($name, $value) {
+        $_this = FireCake::getInstance();
+        $_this->sentHeaders[$name] = $value;
+    }
 
-/**
- * Skip client detection as headers are not being sent.
- *
- * @return boolean Always true
- */
-	public static function detectClientExtension() {
-		return true;
-	}
+    /**
+     * Skip client detection as headers are not being sent.
+     *
+     * @return boolean Always true
+     */
+    public static function detectClientExtension() {
+        return true;
+    }
 
-/**
- * Reset FireCake
- *
- * @return void
- */
-	public static function reset() {
-		$_this = FireCake::getInstance();
-		$_this->sentHeaders = array();
-		$_this->_messageIndex = 1;
-	}
+    /**
+     * Reset FireCake
+     *
+     * @return void
+     */
+    public static function reset() {
+        $_this = FireCake::getInstance();
+        $_this->sentHeaders = array();
+        $_this->_messageIndex = 1;
+    }
+
 }

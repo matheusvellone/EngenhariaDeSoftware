@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Short description for file.
  *
@@ -23,5 +24,6 @@
  */
 class PluggedHelperHelper extends AppHelper {
 
-	public $helpers = array('TestPlugin.OtherHelper');
+    public $helpers = array('TestPlugin.OtherHelper');
+
 }

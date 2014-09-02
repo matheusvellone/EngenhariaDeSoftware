@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Test App Comment Model
  *
@@ -23,11 +24,11 @@
  */
 class Comment extends AppModel {
 
-/**
- * Table name
- *
- * @var string
- */
-	public $useTable = 'comments';
+    /**
+     * Table name
+     *
+     * @var string
+     */
+    public $useTable = 'comments';
 
 }

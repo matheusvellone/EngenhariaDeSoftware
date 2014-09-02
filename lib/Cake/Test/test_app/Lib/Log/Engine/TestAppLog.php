@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Test Suite Test App Logging stream class.
  *
@@ -15,7 +16,6 @@
  * @since         CakePHP(tm) v 1.3
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('BaseLog', 'Log/Engine');
 
 /**
@@ -25,7 +25,8 @@ App::uses('BaseLog', 'Log/Engine');
  */
 class TestAppLog extends BaseLog {
 
-	public function write($type, $message) {
-	}
+    public function write($type, $message) {
+        
+    }
 
 }

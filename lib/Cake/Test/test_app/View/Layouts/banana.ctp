@@ -1,5 +1,5 @@
 <body>
-<?php
-	echo $this->Banana->peel();
-?>
+    <?php
+    echo $this->Banana->peel();
+    ?>
 </body>

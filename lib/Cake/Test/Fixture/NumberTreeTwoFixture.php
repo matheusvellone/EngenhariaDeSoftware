@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tree behavior class.
  *
@@ -27,17 +28,18 @@
  */
 class NumberTreeTwoFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
-	public $fields = array(
-		'id'	=> array('type' => 'integer', 'key' => 'primary'),
-		'name'	=> array('type' => 'string', 'null' => false),
-		'number_tree_id' => array('type' => 'integer', 'null' => false),
-		'parent_id' => 'integer',
-		'lft'	=> array('type' => 'integer', 'null' => false),
-		'rght'	=> array('type' => 'integer', 'null' => false)
-	);
+    /**
+     * fields property
+     *
+     * @var array
+     */
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'name' => array('type' => 'string', 'null' => false),
+        'number_tree_id' => array('type' => 'integer', 'null' => false),
+        'parent_id' => 'integer',
+        'lft' => array('type' => 'integer', 'null' => false),
+        'rght' => array('type' => 'integer', 'null' => false)
+    );
+
 }
