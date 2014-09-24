@@ -1,0 +1,43 @@
+.border {
+    border-bottom: #888 solid medium;
+    border-right: #888 solid medium;
+    border-top: #888 solid 1px;
+    border-left: #888 solid 1px;
+    border-radius: 4px;
+}
+
+#flashMessage.flash_error{
+    background-color: #c50000;
+}
+
+#flashMessage.flash_success{
+    background-color: #00d500;
+}
+
+#flashMessage.flash_info{
+    background-color: #00a2ff;
+}
+textarea {
+    resize:vertical; 
+}
+.situacao-0{
+    color: #ff7a00;
+}
+.situacao-1{
+    color: #0000c1;
+}
+.situacao-2{
+    color: #009a00;
+}
+.situacao-3{
+    color: #ff0000;
+}
+hr {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc); 
+    background-image:    -moz-linear-gradient(left, #ccc, #333, #ccc); 
+    background-image:     -ms-linear-gradient(left, #ccc, #333, #ccc); 
+    background-image:      -o-linear-gradient(left, #ccc, #333, #ccc); 
+}

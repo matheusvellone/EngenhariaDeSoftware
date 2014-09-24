@@ -33,7 +33,33 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller {
 
     public $components = array(
-        'DebugKit.Toolbar'
+        'DebugKit.Toolbar',
+        'Auth' => array(
+            'loginAction' => array('controller' => 'Usuarios', 'action' => 'login'),
+            'loginRedirect' => array('controller' => 'Portal', 'action' => 'index'),
+            'logoutRedirect' => array('controller' => 'Usuarios', 'action' => 'login'),
+            'authError' => 'Você não pode acessar esta página',
+            'authenticate' => array(
+                'Form' => array(
+                    'userModel' => 'Usuario',
+                    'fields' => array(
+                        'usuario' => 'username',
+                        'senha' => 'password'
+                    )
+                )
+            )
+        ),
+        'Session'
     );
+    public $helpers = array('Html', 'Form', 'Session');
+
+    public function beforeFilter() {
+        $usuarioC = '';
+        $tecnicoC = '';
+        
+        if ($this->Auth->user()) {
+            $this->set('usuarioLogado', $this->Auth->user());
+        }
+    }
 
 }

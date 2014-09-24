@@ -1,30 +1,10 @@
-<?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.View.Errors
- * @since         CakePHP(tm) v 0.10.0.1076
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
-?>
-<h2><?php echo $message; ?></h2>
-<p class="error">
-    <strong><?php echo __d('cake', 'Error'); ?>: </strong>
-    <?php
-    printf(
-            __d('cake', 'The requested address %s was not found on this server.'), "<strong>'{$url}'</strong>"
-    );
-    ?>
-</p>
-<?php
-if (Configure::read('debug') > 0):
-    echo $this->element('exception_stack_trace');
-endif;
-?>
+<div class="row">
+    <div class="col-md-12 text-center h1"><?php echo $message; ?></div>
+    <div class="col-md-12 text-center h2">Esta página pode ter sido comida por um MAFAGAFO e não existe mais!</div>
+    <div class="col-md-offset-4 col-md-4">
+        <?php
+        echo $this->Html->image('Erro/mafagafo.jpg', array('class' => 'img img-responsive'));
+        ?>
+    </div>
+    <div class="col-md-offset-8 col-md-4">Ou ela simplesmente nunca existiu mesmo...</div>
+</div>

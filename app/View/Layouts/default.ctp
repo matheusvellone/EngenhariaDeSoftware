@@ -1,11 +1,22 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <?php echo $this->Html->charset(); ?>
         <title>
-            Título
+            Eds
         </title>
         <?php
+        echo $this->Html->charset();
         echo $this->Html->meta('icon');
+
+        echo $this->Html->css('bootstrap.min');
+        echo $this->Html->css('bootstrap-theme.min');
+        echo $this->Html->css('style');
+        echo $this->Html->css('flash_style');
+
+        echo $this->Html->script('jquery-2.1.1.min');
+        echo $this->Html->script('jquery-ui');
+        echo $this->Html->script('bootstrap.min');
+        echo $this->Html->script('script');
 
         echo $this->fetch('meta');
         echo $this->fetch('css');
@@ -13,19 +24,24 @@
         ?>
     </head>
     <body>
-        <div id="container">
-            <div id="header">
-                Header
-            </div>
-            <div id="content">
-                Content
+        <?php
+        if (isset($usuarioLogado)) {
+            echo $this->element('MenuHorizontal' . $usuarioLogado['grupo_id']);
+        } else {
+            echo $this->element('MenuHorizontal');
+        }
+        ?>
+        <div class="container">
+            <div class="text-center">
                 <?php echo $this->Session->flash(); ?>
+            </div>
 
-                <?php echo $this->fetch('content'); ?>
+            <div class="row">
+                <div class="col-md-12 border">
+                    <?php echo $this->fetch('content'); ?>
+                </div>
             </div>
-            <div id="footer">
-                Footer
-            </div>
+
         </div>
     </body>
 </html>

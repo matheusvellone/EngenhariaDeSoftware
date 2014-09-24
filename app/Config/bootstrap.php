@@ -104,3 +104,6 @@ CakeLog::config('error', array(
     'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
     'file' => 'error',
 ));
+
+require APP . 'Plugin' . DS . 'cake_ptbr' . DS . 'Config' . DS . 'inflections.php';
+require APP . 'Plugin' . DS . 'cake_ptbr' . DS . 'Config' . DS . 'traducao_core.php';
