@@ -179,4 +179,23 @@ class RequisicoesController extends AppController {
         return $this->redirect(array('action' => 'index'));
     }
 
+    public function historico() {
+        if ($this->Auth->user('grupo_id') != 1) {
+            return $this->redirect(array('controller' => 'Requisicoes', 'action' => 'index'));
+        }
+        $this->Requisicao->recursive = 0;
+        $this->Paginator->settings = array(
+            'limit' => 10,
+            'order' => array(
+                'Requisicao.created' => 'asc',
+                'Requisicao.modified' => 'asc'
+            ),
+            'conditions' => array(
+                'tecnico_id' => $this->Auth->user('id')
+            )
+        );
+        $requisicoes = $this->Paginator->paginate();
+        $this->set(compact('requisicoes', 'departamentos'));
+    }
+
 }
