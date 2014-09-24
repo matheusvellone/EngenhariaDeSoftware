@@ -76,10 +76,16 @@ class RequisicoesController extends AppController {
     public function view($id = null) {
         if (!$this->Requisicao->exists($id)) {
             $this->Session->setFlash('ID ' . $id . ' inexistente', 'flash/custom', array('class' => 'flash_error'));
-            throw new NotFoundException(404);
+            throw new NotFoundException;
         }
         $options = array('conditions' => array('Requisicao.' . $this->Requisicao->primaryKey => $id));
-        $this->set('requisicao', $this->Requisicao->find('first', $options));
+        $requisicao = $this->Requisicao->find('first', $options);
+        if ($this->Auth->user('grupo_id') == 1 || $requisicao['Requisicao']['requisitante_id'] == $this->Auth->user('id')) {
+            $this->set(compact('requisicao'));
+        } else {
+            $this->Session->setFlash('Você não tem permissão para acessar esta requisição', 'flash/custom', array('class' => 'flash_error'));
+            throw new MethodNotAllowedException();
+        }
     }
 
     /**
@@ -113,7 +119,7 @@ class RequisicoesController extends AppController {
     public function edit($id = null) {
         if (!$this->Requisicao->exists($id)) {
             $this->Session->setFlash('ID ' . $id . ' inexistente', 'flash/custom', array('class' => 'flash_error'));
-            throw new NotFoundException(404);
+            throw new NotFoundException;
         }
         if ($this->request->is(array('post', 'put'))) {
             if ($this->Requisicao->save($this->request->data)) {
@@ -124,7 +130,13 @@ class RequisicoesController extends AppController {
             }
         } else {
             $options = array('conditions' => array('Requisicao.' . $this->Requisicao->primaryKey => $id));
-            $this->request->data = $this->Requisicao->find('first', $options);
+            $requisicao = $this->Requisicao->find('first', $options);
+            if ($this->Auth->user('grupo_id') == 1 || $requisicao['Requisicao']['requisitante_id'] == $this->Auth->user('id')) {
+                $this->request->data = $requisicao;
+            } else {
+                $this->Session->setFlash('Você não tem permissão para editar esta requisição', 'flash/custom', array('class' => 'flash_error'));
+                throw new MethodNotAllowedException();
+            }
         }
         if ($this->Auth->user('grupo_id') == 1) {
             $situacoes = $this->Requisicao->Situacao->find('list');
@@ -144,11 +156,18 @@ class RequisicoesController extends AppController {
      * @return void
      */
     public function delete($id = null) {
-        $this->Requisicao->id = $id;
-        if (!$this->Requisicao->exists()) {
+        if (!$this->Requisicao->exists($id)) {
             $this->Session->setFlash('ID ' . $id . ' inexistente', 'flash/custom', array('class' => 'flash_error'));
-            throw new NotFoundException(404);
+            throw new NotFoundException;
         }
+
+        $options = array('conditions' => array('Requisicao.' . $this->Requisicao->primaryKey => $id));
+        $requisicao = $this->Requisicao->find('first', $options);
+        if ($this->Auth->user('grupo_id') != 1 && $requisicao['Requisicao']['requisitante_id'] != $this->Auth->user('id')) {
+            $this->Session->setFlash('Você não tem permissão para cancelar esta requisição', 'flash/custom', array('class' => 'flash_error'));
+            throw new MethodNotAllowedException();
+        }
+
         $this->request->allowMethod('post', 'delete');
         $this->request->data['Requisicao']['situacao_id'] = 3;
         $this->request->data['Requisicao']['id'] = $id;

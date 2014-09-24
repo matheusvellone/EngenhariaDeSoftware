@@ -17,6 +17,14 @@ class DepartamentosController extends AppController {
      */
     public $components = array('Paginator');
 
+    function beforeFilter() {
+        parent::beforeFilter();
+        if($this->Auth->user('grupo_id') != 1){
+            $this->Session->setFlash('Página não encontrada', 'flash/custom', array('class' => 'flash_error'));
+            throw new NotFoundException;
+        }
+    }
+
     /**
      * index method
      *
@@ -37,7 +45,7 @@ class DepartamentosController extends AppController {
     public function view($id = null) {
         if (!$this->Departamento->exists($id)) {
             $this->Session->setFlash('ID ' . $id . ' inexistente', 'flash/custom', array('class' => 'flash_error'));
-            throw new NotFoundException(404);
+            throw new NotFoundException;
         }
         $options = array('conditions' => array('Departamento.' . $this->Departamento->primaryKey => $id));
         $this->set('departamento', $this->Departamento->find('first', $options));
@@ -70,7 +78,7 @@ class DepartamentosController extends AppController {
     public function edit($id = null) {
         if (!$this->Departamento->exists($id)) {
             $this->Session->setFlash('ID ' . $id . ' inexistente', 'flash/custom', array('class' => 'flash_error'));
-            throw new NotFoundException(404);
+            throw new NotFoundException;
         }
         if ($this->request->is(array('post', 'put'))) {
             if ($this->Departamento->save($this->request->data)) {
@@ -96,7 +104,7 @@ class DepartamentosController extends AppController {
         $this->Departamento->id = $id;
         if (!$this->Departamento->exists()) {
             $this->Session->setFlash('ID ' . $id . ' inexistente', 'flash/custom', array('class' => 'flash_error'));
-            throw new NotFoundException(404);
+            throw new NotFoundException;
         }
         $this->request->allowMethod('post', 'delete');
         if ($this->Departamento->delete()) {

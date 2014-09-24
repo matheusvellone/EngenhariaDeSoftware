@@ -42,7 +42,7 @@ class UsuariosController extends AppController {
     public function view($id = null) {
         if (!$this->Usuario->exists($id)) {
             $this->Session->setFlash('ID ' . $id . ' inexistente', 'flash/custom', array('class' => 'flash_error'));
-            throw new NotFoundException(404);
+            throw new NotFoundException;
         }
         $options = array('conditions' => array('Usuario.' . $this->Usuario->primaryKey => $id));
         $this->set('usuario', $this->Usuario->find('first', $options));
@@ -84,10 +84,14 @@ class UsuariosController extends AppController {
     public function edit() {
         $id = $this->Auth->user('id');
         if (!$this->Usuario->exists($id)) {
-            $this->Session->setFlash('ID '.$id.' inexistente. Tente realizar o login novamente.', 'flash/custom', array('class' => 'flash_error'));
-            throw new NotFoundException(404);
+            $this->Session->setFlash('ID ' . $id . ' inexistente. Tente realizar o login novamente.', 'flash/custom', array('class' => 'flash_error'));
+            throw new NotFoundException;
         }
         if ($this->request->is(array('post', 'put'))) {
+            if ($this->request->data['Usuario']['grupo_id'] == 1 && $this->Auth->user('grupo_id') != 1) {
+                $this->Session->setFlash('Não foi possível efetuar a edição pois você nao tem permissão para ser um Técnico', 'flash/custom', array('class' => 'flash_info'));
+                return;
+            }
             if ($this->Usuario->save($this->request->data)) {
                 $this->Session->setFlash('O usuário foi editado com sucesso', 'flash/custom', array('class' => 'flash_success'));
                 return $this->redirect(array('action' => 'index'));
@@ -107,19 +111,19 @@ class UsuariosController extends AppController {
      * @param string $id
      * @return void
      */
-    public function delete($id = null) {
-        $this->Usuario->id = $id;
-        if (!$this->Usuario->exists()) {
-            throw new NotFoundException('Invalid usuario');
-        }
-        $this->request->allowMethod('post', 'delete');
-        if ($this->Usuario->delete()) {
-            $this->Session->setFlash('O usuário foi deletado com sucesso', 'flash/custom', array('class' => 'flash_info'));
-        } else {
-            $this->Session->setFlash('O usuário não pode ser deletado', 'flash/custom', array('class' => 'flash_error'));
-        }
-        return $this->redirect(array('action' => 'index'));
-    }
+//    public function delete($id = null) {
+//        $this->Usuario->id = $id;
+//        if (!$this->Usuario->exists()) {
+//            throw new NotFoundException('Invalid usuario');
+//        }
+//        $this->request->allowMethod('post', 'delete');
+//        if ($this->Usuario->delete()) {
+//            $this->Session->setFlash('O usuário foi deletado com sucesso', 'flash/custom', array('class' => 'flash_info'));
+//        } else {
+//            $this->Session->setFlash('O usuário não pode ser deletado', 'flash/custom', array('class' => 'flash_error'));
+//        }
+//        return $this->redirect(array('action' => 'index'));
+//    }
 
     public function login() {
         if ($this->Auth->user()) {

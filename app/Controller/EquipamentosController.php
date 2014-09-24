@@ -10,6 +10,14 @@ App::uses('AppController', 'Controller');
  */
 class EquipamentosController extends AppController {
 
+    function beforeFilter() {
+        parent::beforeFilter();
+        if ($this->Auth->user('grupo_id') != 1) {
+            $this->Session->setFlash('Página não encontrada', 'flash/custom', array('class' => 'flash_error'));
+            throw new NotFoundException;
+        }
+    }
+
     /**
      * Components
      *
@@ -37,7 +45,7 @@ class EquipamentosController extends AppController {
     public function view($id = null) {
         if (!$this->Equipamento->exists($id)) {
             $this->Session->setFlash('ID ' . $id . ' inexistente', 'flash/custom', array('class' => 'flash_error'));
-            throw new NotFoundException(404);
+            throw new NotFoundException;
         }
         $options = array('conditions' => array('Equipamento.' . $this->Equipamento->primaryKey => $id));
         $this->set('equipamento', $this->Equipamento->find('first', $options));
@@ -70,7 +78,7 @@ class EquipamentosController extends AppController {
     public function edit($id = null) {
         if (!$this->Equipamento->exists($id)) {
             $this->Session->setFlash('ID ' . $id . ' inexistente', 'flash/custom', array('class' => 'flash_error'));
-            throw new NotFoundException(404);
+            throw new NotFoundException;
         }
         if ($this->request->is(array('post', 'put'))) {
             if ($this->Equipamento->save($this->request->data)) {
@@ -96,7 +104,7 @@ class EquipamentosController extends AppController {
         $this->Equipamento->id = $id;
         if (!$this->Equipamento->exists()) {
             $this->Session->setFlash('ID ' . $id . ' inexistente', 'flash/custom', array('class' => 'flash_error'));
-            throw new NotFoundException(404);
+            throw new NotFoundException;
         }
         $this->request->allowMethod('post', 'delete');
         if ($this->Equipamento->delete()) {

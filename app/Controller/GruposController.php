@@ -12,7 +12,10 @@ class GruposController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('add');
+        if ($this->Auth->user('grupo_id') != 1) {
+            $this->Session->setFlash('Página não encontrada', 'flash/custom', array('class' => 'flash_error'));
+            throw new NotFoundException;
+        }
     }
 
     /**
