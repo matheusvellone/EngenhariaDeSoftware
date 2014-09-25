@@ -12,7 +12,7 @@ class UsuariosController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('login', 'add', 'logout');
+        $this->Auth->allow('login', 'add', 'logout', 'esqueci_senha');
     }
 
     /**
@@ -30,6 +30,45 @@ class UsuariosController extends AppController {
     public function index() {
         $this->Usuario->recursive = 0;
         $this->set('usuarios', $this->Paginator->paginate());
+    }
+
+    public function esqueci_senha() {
+        if ($this->request->is('post', 'put')) {
+            $username = $this->request->data['Usuario']['username'];
+            $this->Usuario->recursive = 0;
+            $usuario = $this->Usuario->find('first', array(
+                'conditions' => array(
+                    'username' => $username
+                )
+            ));
+            if ($usuario == null) {
+                $this->Session->setFlash('Número de Matrícula e/ou Chapa Funcional ' . $username . ' não encontrado', 'flash/custom', array('class' => 'flash_info'));
+                return;
+            }
+            $email = $usuario['Usuario']['email'];
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $senha = $this->geraSenha();
+                $usuario['Usuario']['password'] = $senha;
+                if ($this->Usuario->save($usuario)) {
+                    App::uses('CakeEmail', 'Network/Email');
+                    $cake_email = new CakeEmail('gmail');
+                    $cake_email->emailFormat('html');
+                    $cake_email->to($email);
+                    $cake_email->template('nova_senha', 'default');
+                    $cake_email->subject('NOVA SENHA - SUPORTE CCE UEL');
+
+                    $cake_email->viewVars(array('senha' => $senha));
+                    $cake_email->send();
+                    
+                    return $this->redirect(array('controller' => 'Usuarios', 'action' => 'login'));
+                } else {
+                    $this->Session->setFlash('A nova senha não pode ser gerada. Por favor, tente novamente.', 'flash/custom', array('class' => 'flash_error'));
+                }
+            } else {
+                $this->Session->setFlash('O email da conta ' . $username . ' (' . $email . ') está inválido. Entre em contado com algum técnico.', 'flash/custom', array('class' => 'flash_error'));
+                return;
+            }
+        }
     }
 
     /**
@@ -141,6 +180,33 @@ class UsuariosController extends AppController {
     public function logout() {
         $this->Session->setFlash('Logout efetuado com sucesso', 'flash/custom', array('class' => 'flash_info'));
         $this->redirect($this->Auth->logout());
+    }
+
+    public function geraSenha($tamanho = 8, $maiusculas = true, $numeros = true, $simbolos = false) {
+        $lmin = 'abcdefghijklmnopqrstuvwxyz';
+        $lmai = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $num = '1234567890';
+        $simb = '!@#$%*-';
+        $retorno = '';
+        $caracteres = '';
+
+        $caracteres .= $lmin;
+        if ($maiusculas) {
+            $caracteres .= $lmai;
+        }
+        if ($numeros) {
+            $caracteres .= $num;
+        }
+        if ($simbolos) {
+            $caracteres .= $simb;
+        }
+
+        $len = strlen($caracteres);
+        for ($n = 1; $n <= $tamanho; $n++) {
+            $rand = mt_rand(1, $len);
+            $retorno .= $caracteres[$rand - 1];
+        }
+        return $retorno;
     }
 
 }

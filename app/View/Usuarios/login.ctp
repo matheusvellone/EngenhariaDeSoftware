@@ -7,7 +7,7 @@
                 'div' => array(
                     'class' => 'col-md-12'
                 ),
-                'label' => 'Username',
+                'label' => 'Número de Matrícula/Chapa Funcional',
                 'placeholder' => 'Ex: NomeDoUsuário',
                 'class' => 'form-control'
                     )
@@ -30,19 +30,26 @@
             <?php
             $options = array(
                 'div' => array(
-                    'class' => 'col-md-12'
+                    'class' => 'col-md-3'
                 ),
-                'label' => 'Entrar',
+                'label' => 'Acessar',
                 'class' => array(
-                    'class' => 'btn btn-info btn-block',
+                    'class' => 'btn btn-primary',
                 )
             );
 
             echo $this->Form->end($options);
             ?>
+            <div class="col-md-3 col-md-offset-1">
+                <?php
+                echo $this->Html->link('Primeiro Acesso ?', array('controller' => 'Usuarios', 'action' => 'add'), array('class' => 'btn btn-info'));
+                ?>
+            </div>
+            <div class="col-md-3 col-md-offset-1">
+                <?php
+                echo $this->Html->link('Esqueci a Senha ?', array('controller' => 'Usuarios', 'action' => 'esqueci_senha'), array('class' => 'btn btn-danger'));
+                ?>
+            </div>
         </div>
     </div>
 </div>
-<?php
-echo $this->Html->link('Efetuar Cadastro', array('controller' => 'Usuarios', 'action' => 'add'));
-?>

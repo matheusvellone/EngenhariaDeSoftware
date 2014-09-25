@@ -59,10 +59,10 @@
                             ?>
                         </td>
                         <td class="actions">
-                            <?php echo $this->Html->link('<span class="glyphicon glyphicon-edit"></span>', array('action' => 'edit', $requisicao['Requisicao']['id']), array('escape' => false)); ?>
+                            <?php echo ($requisicao['Situacao']['id'] != 2 && $requisicao['Situacao']['id'] != 3) ? $this->Html->link('<span class="glyphicon glyphicon-edit"></span>', array('action' => 'edit', $requisicao['Requisicao']['id']), array('escape' => false)) : ''; ?>
                         </td>
                         <td class="actions">
-                            <?php echo $this->Form->postLink('<span class="glyphicon glyphicon-remove"></span>', array('action' => 'delete', $requisicao['Requisicao']['id']), array('escape' => false), 'Deseja realmente cancelar esta requisição?'); ?>
+                            <?php echo ($requisicao['Situacao']['id'] != 2 && $requisicao['Situacao']['id'] != 3) ? $this->Html->link('<span class="glyphicon glyphicon-remove"></span>', array('action' => 'delete', $requisicao['Requisicao']['id']), array('escape' => false), 'Deseja realmente cancelar esta requisição?') : ''; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
