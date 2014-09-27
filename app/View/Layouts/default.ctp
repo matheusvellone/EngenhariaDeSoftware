@@ -26,7 +26,11 @@
     <body>
         <?php
         if (isset($usuarioLogado)) {
-            echo $this->element('MenuHorizontal' . $usuarioLogado['grupo_id']);
+            if ($usuarioLogado['grupo_id'] == 1) {
+                echo $this->element('MenuHorizontal1');
+            }else{
+                echo $this->element('MenuHorizontal2');
+            }
         } else {
             echo $this->element('MenuHorizontal');
         }

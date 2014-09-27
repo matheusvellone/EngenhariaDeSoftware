@@ -59,7 +59,7 @@ class UsuariosController extends AppController {
 
                     $cake_email->viewVars(array('senha' => $senha));
                     $cake_email->send();
-                    
+
                     return $this->redirect(array('controller' => 'Usuarios', 'action' => 'login'));
                 } else {
                     $this->Session->setFlash('A nova senha não pode ser gerada. Por favor, tente novamente.', 'flash/custom', array('class' => 'flash_error'));
@@ -207,6 +207,19 @@ class UsuariosController extends AppController {
             $retorno .= $caracteres[$rand - 1];
         }
         return $retorno;
+    }
+
+    public function alterarSenha() {
+        if($this->request->is('post', 'put')) {
+            $this->request->data['Usuario']['id'] = $this->Auth->user('id');
+            if ($this->Usuario->save($this->request->data)) {
+                $this->Session->setFlash('A senha foi alterada com sucesso.', 'flash/custom', array('class' => 'flash_success'));
+                return $this->redirect(array('controller' => 'Usuarios', 'action' => 'login'));
+            } else {
+                $this->Session->setFlash('A senha não pode ser alterada', 'flash/custom', array('class' => 'flash_error'));
+                return;
+            }
+        }
     }
 
 }

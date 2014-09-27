@@ -131,6 +131,11 @@ class RequisicoesController extends AppController {
         } else {
             $options = array('conditions' => array('Requisicao.' . $this->Requisicao->primaryKey => $id));
             $requisicao = $this->Requisicao->find('first', $options);
+//            die(debug($requisicao));
+            if ($requisicao['Requisicao']['situacao_id'] == 2 || $requisicao['Requisicao']['situacao_id'] == 3) {
+                $this->Session->setFlash('Esta requisição está ' . $requisicao['Situacao']['situacao'] . '. Não é possível editá-la', 'flash/custom', array('class' => 'flash_info'));
+                return $this->redirect(array('controller' => 'Requisicoes', 'action' => 'view', $requisicao['Requisicao']['id']));
+            }
             if ($this->Auth->user('grupo_id') == 1 || $requisicao['Requisicao']['requisitante_id'] == $this->Auth->user('id')) {
                 $this->request->data = $requisicao;
             } else {

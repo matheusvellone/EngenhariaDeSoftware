@@ -4,7 +4,7 @@
         <title><?php echo 'Teste'; ?></title>
         <style type="text/css">
             body {
-                background-color: #CCC;
+                background-color: #E0E0E0;
             }
         </style>
     </head>

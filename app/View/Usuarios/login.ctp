@@ -47,7 +47,7 @@
             </div>
             <div class="col-md-3 col-md-offset-1">
                 <?php
-                echo $this->Html->link('Esqueci a Senha ?', array('controller' => 'Usuarios', 'action' => 'esqueci_senha'), array('class' => 'btn btn-danger'));
+                echo $this->Html->link('Esqueci a Senha', array('controller' => 'Usuarios', 'action' => 'esqueci_senha'), array('class' => 'btn btn-danger'));
                 ?>
             </div>
         </div>

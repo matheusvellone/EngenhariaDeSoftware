@@ -1,100 +1,64 @@
 <div class="requisicoes view">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="page-header">
-                <h1><?php echo __('Requisicao'); ?></h1>
-            </div>
-        </div>
-    </div>
 
     <div class="row">
 
-        <div class="col-md-3">
-            <div class="actions">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Actions</div>
-                    <div class="panel-body">
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><?php echo $this->Html->link(__('<span class="glyphicon glyphicon-edit"></span>&nbsp&nbsp;Edit Requisicao'), array('action' => 'edit', $requisicao['Requisicao']['id']), array('escape' => false)); ?> </li>
-                            <li><?php echo $this->Form->postLink(__('<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Delete Requisicao'), array('action' => 'delete', $requisicao['Requisicao']['id']), array('escape' => false), __('Are you sure you want to delete # %s?', $requisicao['Requisicao']['id'])); ?> </li>
-                            <li><?php echo $this->Html->link(__('<span class="glyphicon glyphicon-list"></span>&nbsp&nbsp;List Requisicoes'), array('action' => 'index'), array('escape' => false)); ?> </li>
-                            <li><?php echo $this->Html->link(__('<span class="glyphicon glyphicon-plus"></span>&nbsp&nbsp;New Requisicao'), array('action' => 'add'), array('escape' => false)); ?> </li>
-                            <li><?php echo $this->Html->link(__('<span class="glyphicon glyphicon-list"></span>&nbsp&nbsp;List Usuarios'), array('controller' => 'usuarios', 'action' => 'index'), array('escape' => false)); ?> </li>
-                            <li><?php echo $this->Html->link(__('<span class="glyphicon glyphicon-plus"></span>&nbsp&nbsp;New Requisitante'), array('controller' => 'usuarios', 'action' => 'add'), array('escape' => false)); ?> </li>
-                            <li><?php echo $this->Html->link(__('<span class="glyphicon glyphicon-list"></span>&nbsp&nbsp;List Departamentos'), array('controller' => 'departamentos', 'action' => 'index'), array('escape' => false)); ?> </li>
-                            <li><?php echo $this->Html->link(__('<span class="glyphicon glyphicon-plus"></span>&nbsp&nbsp;New Departamento'), array('controller' => 'departamentos', 'action' => 'add'), array('escape' => false)); ?> </li>
-                            <li><?php echo $this->Html->link(__('<span class="glyphicon glyphicon-list"></span>&nbsp&nbsp;List Equipamentos'), array('controller' => 'equipamentos', 'action' => 'index'), array('escape' => false)); ?> </li>
-                            <li><?php echo $this->Html->link(__('<span class="glyphicon glyphicon-plus"></span>&nbsp&nbsp;New Equipamento'), array('controller' => 'equipamentos', 'action' => 'add'), array('escape' => false)); ?> </li>
-                        </ul>
-                    </div><!-- end body -->
-                </div><!-- end panel -->
-            </div><!-- end actions -->
-        </div><!-- end col md 3 -->
-
-        <div class="col-md-9">			
+        <div class="col-md-12">			
             <table cellpadding="0" cellspacing="0" class="table table-striped">
                 <tbody>
                     <tr>
-                        <th><?php echo __('Id'); ?></th>
+                        <th><?php echo 'Requisitante'; ?></th>
                         <td>
-                            <?php echo h($requisicao['Requisicao']['id']); ?>
-                            &nbsp;
+                            <?php echo $requisicao['Requisitante']['nome']; ?>
                         </td>
                     </tr>
                     <tr>
-                        <th><?php echo __('Requisitante'); ?></th>
+                        <th><?php echo 'Departamento'; ?></th>
                         <td>
-                            <?php echo $this->Html->link($requisicao['Requisitante']['id'], array('controller' => 'usuarios', 'action' => 'view', $requisicao['Requisitante']['id'])); ?>
-                            &nbsp;
+                            <?php echo $requisicao['Departamento']['nome']; ?>
                         </td>
                     </tr>
                     <tr>
-                        <th><?php echo __('Departamento'); ?></th>
+                        <th><?php echo 'Sala'; ?></th>
                         <td>
-                            <?php echo $this->Html->link($requisicao['Departamento']['id'], array('controller' => 'departamentos', 'action' => 'view', $requisicao['Departamento']['id'])); ?>
-                            &nbsp;
+                            <?php echo $requisicao['Requisicao']['sala']; ?>
                         </td>
                     </tr>
                     <tr>
-                        <th><?php echo __('Fuel'); ?></th>
+                        <th><?php echo 'Fuel'; ?></th>
                         <td>
-                            <?php echo h($requisicao['Requisicao']['fuel']); ?>
-                            &nbsp;
+                            <?php echo $requisicao['Requisicao']['fuel'] ?>
                         </td>
                     </tr>
                     <tr>
-                        <th><?php echo __('Sala'); ?></th>
+                        <th><?php echo 'Equipamento'; ?></th>
                         <td>
-                            <?php echo h($requisicao['Requisicao']['sala']); ?>
-                            &nbsp;
+                            <?php echo $requisicao['Equipamento']['nome']; ?>
                         </td>
                     </tr>
                     <tr>
-                        <th><?php echo __('Equipamento'); ?></th>
+                        <th><?php echo 'Descricao'; ?></th>
                         <td>
-                            <?php echo $this->Html->link($requisicao['Equipamento']['id'], array('controller' => 'equipamentos', 'action' => 'view', $requisicao['Equipamento']['id'])); ?>
-                            &nbsp;
+                            <?php echo $requisicao['Requisicao']['descricao'] ?>
                         </td>
                     </tr>
                     <tr>
-                        <th><?php echo __('Descricao'); ?></th>
+                        <th><?php echo 'Tecnico'; ?></th>
                         <td>
-                            <?php echo h($requisicao['Requisicao']['descricao']); ?>
-                            &nbsp;
+                            <?php echo $requisicao['Tecnico']['nome']; ?>
                         </td>
                     </tr>
                     <tr>
-                        <th><?php echo __('Tecnico'); ?></th>
-                        <td>
-                            <?php echo $this->Html->link($requisicao['Tecnico']['id'], array('controller' => 'usuarios', 'action' => 'view', $requisicao['Tecnico']['id'])); ?>
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><?php echo __('Situacao'); ?></th>
-                        <td>
-                            <?php echo h($requisicao['Requisicao']['situacao']); ?>
-                            &nbsp;
+                        <th><?php echo 'Situacao'; ?></th>
+                        <td class="h5">
+                            <?php
+                            $situacao_classe[0] = 'label-warning';
+                            $situacao_classe[1] = 'label-primary';
+                            $situacao_classe[2] = 'label-success';
+                            $situacao_classe[3] = 'label-danger';
+                            ?>
+                            <div class="col-md-3 label <?php echo $situacao_classe[$requisicao['Situacao']['id']]; ?>">
+                                <?php echo $requisicao['Situacao']['situacao']; ?>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
