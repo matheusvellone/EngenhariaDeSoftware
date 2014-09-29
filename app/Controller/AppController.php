@@ -38,7 +38,7 @@ class AppController extends Controller {
             'loginAction' => array('controller' => 'Usuarios', 'action' => 'login'),
             'loginRedirect' => array('controller' => 'Portal', 'action' => 'index'),
             'logoutRedirect' => array('controller' => 'Usuarios', 'action' => 'login'),
-            'authError' => 'Você não pode acessar esta página',
+            'authError' => 'Você precisa fazer login para poder acessar esta página.',
             'authenticate' => array(
                 'Form' => array(
                     'userModel' => 'Usuario',
@@ -47,6 +47,11 @@ class AppController extends Controller {
                         'senha' => 'password'
                     )
                 )
+            ),
+            'flash' => array(
+                'element' => 'flash/custom',
+                'key' => 'auth',
+                'params' => array('class' => 'flash_info')
             )
         ),
         'Session'
@@ -54,12 +59,13 @@ class AppController extends Controller {
     public $helpers = array('Html', 'Form', 'Session');
 
     public function beforeFilter() {
-        $usuarioC = '';
-        $tecnicoC = '';
-        
         if ($this->Auth->user()) {
             $this->set('usuarioLogado', $this->Auth->user());
         }
+    }
+
+    public function setFlash($message, $class) {
+        $this->Session->setFlash($message, 'flash/custom', compact('class'));
     }
 
 }

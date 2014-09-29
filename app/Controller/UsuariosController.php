@@ -42,7 +42,7 @@ class UsuariosController extends AppController {
                 )
             ));
             if ($usuario == null) {
-                $this->Session->setFlash('Número de Matrícula e/ou Chapa Funcional ' . $username . ' não encontrado', 'flash/custom', array('class' => 'flash_info'));
+                $this->setFlash('Número de Matrícula e/ou Chapa Funcional ' . $username . ' não encontrado', 'flash_info');
                 return;
             }
             $email = $usuario['Usuario']['email'];
@@ -62,10 +62,10 @@ class UsuariosController extends AppController {
 
                     return $this->redirect(array('controller' => 'Usuarios', 'action' => 'login'));
                 } else {
-                    $this->Session->setFlash('A nova senha não pode ser gerada. Por favor, tente novamente.', 'flash/custom', array('class' => 'flash_error'));
+                    $this->setFlash('A nova senha não pode ser gerada. Por favor, tente novamente.', 'flash_error');
                 }
             } else {
-                $this->Session->setFlash('O email da conta ' . $username . ' (' . $email . ') está inválido. Entre em contado com algum técnico.', 'flash/custom', array('class' => 'flash_error'));
+                $this->setFlash('O email da conta ' . $username . ' (' . $email . ') está inválido. Entre em contado com algum técnico.', 'flash_error');
                 return;
             }
         }
@@ -80,7 +80,7 @@ class UsuariosController extends AppController {
      */
     public function view($id = null) {
         if (!$this->Usuario->exists($id)) {
-            $this->Session->setFlash('ID ' . $id . ' inexistente', 'flash/custom', array('class' => 'flash_error'));
+            $this->setFlash('ID ' . $id . ' inexistente', 'flash_error');
             throw new NotFoundException;
         }
         $options = array('conditions' => array('Usuario.' . $this->Usuario->primaryKey => $id));
@@ -96,17 +96,17 @@ class UsuariosController extends AppController {
         if ($this->request->is('post')) {
             //Uma pessoa que nao seja técnico nao pode criar cadastro de outros técnicos
             if ($this->request->data['Usuario']['grupo_id'] == 1 && $this->Auth->user('grupo_id') != 1) {
-                $this->Session->setFlash('Você não tem permissão para criar um cadastro de Técnicos', 'flash/custom', array('class' => 'flash_info'));
+                $this->setFlash('Você não tem permissão para criar um cadastro de Técnicos', 'flash_info');
                 $grupos = $this->Usuario->Grupo->find('list');
                 $this->set(compact('grupos'));
                 return;
             }
             $this->Usuario->create();
             if ($this->Usuario->save($this->request->data)) {
-                $this->Session->setFlash('O usuário foi salvo com sucesso', 'flash/custom', array('class' => 'flash_success'));
+                $this->setFlash('O usuário foi salvo com sucesso', 'flash_success');
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('Não foi possível efetuar o cadastro. Por favor confirme se não existem erros no cadastro', 'flash/custom', array('class' => 'flash_error'));
+                $this->setFlash('Não foi possível efetuar o cadastro. Por favor confirme se não existem erros no cadastro', 'flash_error');
             }
         }
         $grupos = $this->Usuario->Grupo->find('list');
@@ -123,19 +123,19 @@ class UsuariosController extends AppController {
     public function edit() {
         $id = $this->Auth->user('id');
         if (!$this->Usuario->exists($id)) {
-            $this->Session->setFlash('ID ' . $id . ' inexistente. Tente realizar o login novamente.', 'flash/custom', array('class' => 'flash_error'));
+            $this->setFlash('Tente fazer o login novamente.', 'flash_error');
             throw new NotFoundException;
         }
         if ($this->request->is(array('post', 'put'))) {
             if ($this->request->data['Usuario']['grupo_id'] == 1 && $this->Auth->user('grupo_id') != 1) {
-                $this->Session->setFlash('Não foi possível efetuar a edição pois você nao tem permissão para ser um Técnico', 'flash/custom', array('class' => 'flash_info'));
+                $this->setFlash('Não foi possível efetuar a edição pois você nao tem permissão para ser um Técnico', 'flash_info');
                 return;
             }
             if ($this->Usuario->save($this->request->data)) {
-                $this->Session->setFlash('O usuário foi editado com sucesso', 'flash/custom', array('class' => 'flash_success'));
+                $this->setFlash('O usuário foi editado com sucesso', 'flash_success');
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('O usuário não pode ser editado', 'flash/custom', array('class' => 'flash_error'));
+                $this->setFlash('O usuário não pode ser editado', 'flash_error');
             }
         } else {
             $options = array('conditions' => array('Usuario.' . $this->Usuario->primaryKey => $id));
@@ -157,9 +157,9 @@ class UsuariosController extends AppController {
 //        }
 //        $this->request->allowMethod('post', 'delete');
 //        if ($this->Usuario->delete()) {
-//            $this->Session->setFlash('O usuário foi deletado com sucesso', 'flash/custom', array('class' => 'flash_info'));
+//            $this->setFlash('O usuário foi deletado com sucesso', 'flash_info');
 //        } else {
-//            $this->Session->setFlash('O usuário não pode ser deletado', 'flash/custom', array('class' => 'flash_error'));
+//            $this->setFlash('O usuário não pode ser deletado', 'flash_error');
 //        }
 //        return $this->redirect(array('action' => 'index'));
 //    }
@@ -170,15 +170,16 @@ class UsuariosController extends AppController {
         }
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
-                $this->Session->setFlash('Login efetuado com sucesso', 'flash/custom', array('class' => 'flash_success'));
+                $this->setFlash('Login efetuado com sucesso', 'flash_success');
                 return $this->redirect($this->Auth->redirect());
             }
-            $this->Session->setFlash('Usuário ou Senha incorreto', 'flash/custom', array('class' => 'flash_error'));
+//            $this->setFlash('Usuário ou Senha incorreto', 'flash_error');
+            $this->setFlash('Usuário ou Senha incorreto', 'flash_error');
         }
     }
 
     public function logout() {
-        $this->Session->setFlash('Logout efetuado com sucesso', 'flash/custom', array('class' => 'flash_info'));
+        $this->setFlash('Logout efetuado com sucesso', 'flash_info');
         $this->redirect($this->Auth->logout());
     }
 
@@ -210,13 +211,13 @@ class UsuariosController extends AppController {
     }
 
     public function alterarSenha() {
-        if($this->request->is('post', 'put')) {
+        if ($this->request->is('post', 'put')) {
             $this->request->data['Usuario']['id'] = $this->Auth->user('id');
             if ($this->Usuario->save($this->request->data)) {
-                $this->Session->setFlash('A senha foi alterada com sucesso.', 'flash/custom', array('class' => 'flash_success'));
+                $this->setFlash('A senha foi alterada com sucesso.', 'flash_success');
                 return $this->redirect(array('controller' => 'Usuarios', 'action' => 'login'));
             } else {
-                $this->Session->setFlash('A senha não pode ser alterada', 'flash/custom', array('class' => 'flash_error'));
+                $this->setFlash('A senha não pode ser alterada', 'flash_error');
                 return;
             }
         }

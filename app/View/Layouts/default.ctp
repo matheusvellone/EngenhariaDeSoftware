@@ -37,6 +37,7 @@
         ?>
         <div class="container">
             <div class="text-center">
+                <?php echo $this->Session->flash('auth'); ?>
                 <?php echo $this->Session->flash(); ?>
             </div>
 

@@ -75,7 +75,7 @@ class RequisicoesController extends AppController {
      */
     public function view($id = null) {
         if (!$this->Requisicao->exists($id)) {
-            $this->Session->setFlash('ID ' . $id . ' inexistente', 'flash/custom', array('class' => 'flash_error'));
+            $this->setFlash('ID ' . $id . ' inexistente', 'flash_error');
             throw new NotFoundException;
         }
         $options = array('conditions' => array('Requisicao.' . $this->Requisicao->primaryKey => $id));
@@ -83,7 +83,7 @@ class RequisicoesController extends AppController {
         if ($this->Auth->user('grupo_id') == 1 || $requisicao['Requisicao']['requisitante_id'] == $this->Auth->user('id')) {
             $this->set(compact('requisicao'));
         } else {
-            $this->Session->setFlash('Você não tem permissão para acessar esta requisição', 'flash/custom', array('class' => 'flash_error'));
+            $this->setFlash('Você não tem permissão para acessar esta requisição', 'flash_error');
             throw new MethodNotAllowedException();
         }
     }
@@ -98,10 +98,10 @@ class RequisicoesController extends AppController {
             $this->Requisicao->create();
             $this->request->data['Requisicao']['requisitante_id'] = $this->Auth->user('id');
             if ($this->Requisicao->save($this->request->data)) {
-                $this->Session->setFlash('A requisição foi salva com sucesso', 'flash/custom', array('class' => 'flash_success'));
+                $this->setFlash('A requisição foi salva com sucesso', 'flash_success');
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('A requisição não pode ser salva', 'flash/custom', array('class' => 'flash_error'));
+                $this->setFlash('A requisição não pode ser salva', 'flash_error');
             }
         }
         $departamentos = $this->Requisicao->Departamento->find('list');
@@ -118,28 +118,27 @@ class RequisicoesController extends AppController {
      */
     public function edit($id = null) {
         if (!$this->Requisicao->exists($id)) {
-            $this->Session->setFlash('ID ' . $id . ' inexistente', 'flash/custom', array('class' => 'flash_error'));
+            $this->setFlash('ID ' . $id . ' inexistente', 'flash_error');
             throw new NotFoundException;
         }
         if ($this->request->is(array('post', 'put'))) {
             if ($this->Requisicao->save($this->request->data)) {
-                $this->Session->setFlash('A requisição foi salva com sucesso', 'flash/custom', array('class' => 'flash_success'));
+                $this->setFlash('A requisição foi salva com sucesso', 'flash_success');
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('A requisição nao pode ser editada', 'flash/custom', array('class' => 'flash_error'));
+                $this->setFlash('A requisição nao pode ser editada', 'flash_error');
             }
         } else {
             $options = array('conditions' => array('Requisicao.' . $this->Requisicao->primaryKey => $id));
             $requisicao = $this->Requisicao->find('first', $options);
-//            die(debug($requisicao));
             if ($requisicao['Requisicao']['situacao_id'] == 2 || $requisicao['Requisicao']['situacao_id'] == 3) {
-                $this->Session->setFlash('Esta requisição está ' . $requisicao['Situacao']['situacao'] . '. Não é possível editá-la', 'flash/custom', array('class' => 'flash_info'));
+                $this->setFlash('Esta requisição está ' . $requisicao['Situacao']['situacao'] . '. Não é possível editá-la.', 'flash_info');
                 return $this->redirect(array('controller' => 'Requisicoes', 'action' => 'view', $requisicao['Requisicao']['id']));
             }
             if ($this->Auth->user('grupo_id') == 1 || $requisicao['Requisicao']['requisitante_id'] == $this->Auth->user('id')) {
                 $this->request->data = $requisicao;
             } else {
-                $this->Session->setFlash('Você não tem permissão para editar esta requisição', 'flash/custom', array('class' => 'flash_error'));
+                $this->setFlash('Você não tem permissão para editar esta requisição.', 'flash_error');
                 throw new MethodNotAllowedException();
             }
         }
@@ -162,14 +161,14 @@ class RequisicoesController extends AppController {
      */
     public function delete($id = null) {
         if (!$this->Requisicao->exists($id)) {
-            $this->Session->setFlash('ID ' . $id . ' inexistente', 'flash/custom', array('class' => 'flash_error'));
+            $this->setFlash('ID ' . $id . ' inexistente', 'flash_error');
             throw new NotFoundException;
         }
 
         $options = array('conditions' => array('Requisicao.' . $this->Requisicao->primaryKey => $id));
         $requisicao = $this->Requisicao->find('first', $options);
         if ($this->Auth->user('grupo_id') != 1 && $requisicao['Requisicao']['requisitante_id'] != $this->Auth->user('id')) {
-            $this->Session->setFlash('Você não tem permissão para cancelar esta requisição', 'flash/custom', array('class' => 'flash_error'));
+            $this->setFlash('Você não tem permissão para cancelar esta requisição', 'flash_error');
             throw new MethodNotAllowedException();
         }
 
@@ -177,9 +176,9 @@ class RequisicoesController extends AppController {
         $this->request->data['Requisicao']['situacao_id'] = 3;
         $this->request->data['Requisicao']['id'] = $id;
         if ($this->Requisicao->save($this->request->data)) {
-            $this->Session->setFlash('A requisição foi cancelada', 'flash/custom', array('class' => 'flash_info'));
+            $this->setFlash('A requisição foi cancelada', 'flash_info');
         } else {
-            $this->Session->setFlash('A requisição nao pode ser cancelada', 'flash/custom', array('class' => 'flash_error'));
+            $this->setFlash('A requisição nao pode ser cancelada', 'flash_error');
         }
         return $this->redirect(array('action' => 'index'));
     }
@@ -201,6 +200,11 @@ class RequisicoesController extends AppController {
         );
         $requisicoes = $this->Paginator->paginate();
         $this->set(compact('requisicoes', 'departamentos'));
+    }
+
+    public function relatorio() {
+        $dados = $this->Requisicao->find('count', array('conditions' => array('situacao_id' => 0)));
+        $this->set(compact('dados'));
     }
 
 }

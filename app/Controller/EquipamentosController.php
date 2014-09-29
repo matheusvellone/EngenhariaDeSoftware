@@ -13,7 +13,7 @@ class EquipamentosController extends AppController {
     function beforeFilter() {
         parent::beforeFilter();
         if ($this->Auth->user('grupo_id') != 1) {
-            $this->Session->setFlash('Página não encontrada', 'flash/custom', array('class' => 'flash_error'));
+            $this->setFlash('Página não encontrada', 'flash_error');
             throw new NotFoundException;
         }
     }
@@ -44,7 +44,7 @@ class EquipamentosController extends AppController {
      */
     public function view($id = null) {
         if (!$this->Equipamento->exists($id)) {
-            $this->Session->setFlash('ID ' . $id . ' inexistente', 'flash/custom', array('class' => 'flash_error'));
+            $this->setFlash('ID ' . $id . ' inexistente', 'flash_error');
             throw new NotFoundException;
         }
         $options = array('conditions' => array('Equipamento.' . $this->Equipamento->primaryKey => $id));
@@ -60,10 +60,10 @@ class EquipamentosController extends AppController {
         if ($this->request->is('post')) {
             $this->Equipamento->create();
             if ($this->Equipamento->save($this->request->data)) {
-                $this->Session->setFlash('O novo equipamento foi salvo', 'flash/custom', array('class' => 'flash_success'));
+                $this->setFlash('O novo equipamento foi salvo', 'flash_success');
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('O novo equipamento nao pode ser salvo', 'flash/custom', array('class' => 'flash_error'));
+                $this->setFlash('O novo equipamento nao pode ser salvo', 'flash_error');
             }
         }
     }
@@ -77,15 +77,15 @@ class EquipamentosController extends AppController {
      */
     public function edit($id = null) {
         if (!$this->Equipamento->exists($id)) {
-            $this->Session->setFlash('ID ' . $id . ' inexistente', 'flash/custom', array('class' => 'flash_error'));
+            $this->setFlash('ID ' . $id . ' inexistente', 'flash_error');
             throw new NotFoundException;
         }
         if ($this->request->is(array('post', 'put'))) {
             if ($this->Equipamento->save($this->request->data)) {
-                $this->Session->setFlash('O equipamento foi editado', 'flash/custom', array('class' => 'flash_success'));
+                $this->setFlash('O equipamento foi editado', 'flash_success');
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('O equipamento não pode ser editado', 'flash/custom', array('class' => 'flash_error'));
+                $this->setFlash('O equipamento não pode ser editado', 'flash_error');
             }
         } else {
             $options = array('conditions' => array('Equipamento.' . $this->Equipamento->primaryKey => $id));
@@ -103,14 +103,14 @@ class EquipamentosController extends AppController {
     public function delete($id = null) {
         $this->Equipamento->id = $id;
         if (!$this->Equipamento->exists()) {
-            $this->Session->setFlash('ID ' . $id . ' inexistente', 'flash/custom', array('class' => 'flash_error'));
+            $this->setFlash('ID ' . $id . ' inexistente', 'flash_error');
             throw new NotFoundException;
         }
         $this->request->allowMethod('post', 'delete');
         if ($this->Equipamento->delete()) {
-            $this->Session->setFlash('O equipamento foi excluído', 'flash/custom', array('class' => 'flash_info'));
+            $this->setFlash('O equipamento foi excluído', 'flash_info');
         } else {
-            $this->Session->setFlash('O equipamento não pode ser excluído', 'flash/custom', array('class' => 'flash_error'));
+            $this->setFlash('O equipamento não pode ser excluído', 'flash_error');
         }
         return $this->redirect(array('action' => 'index'));
     }
