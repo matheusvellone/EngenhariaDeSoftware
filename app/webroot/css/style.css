@@ -4,6 +4,7 @@
     border-top: #888 solid 1px;
     border-left: #888 solid 1px;
     border-radius: 4px;
+    padding: 10px;
 }
 
 #flashMessage.flash_error{

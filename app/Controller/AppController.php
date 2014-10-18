@@ -33,12 +33,12 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller {
 
     public $components = array(
-        'DebugKit.Toolbar',
+//        'DebugKit.Toolbar',
         'Auth' => array(
             'loginAction' => array('controller' => 'Usuarios', 'action' => 'login'),
             'loginRedirect' => array('controller' => 'Portal', 'action' => 'index'),
             'logoutRedirect' => array('controller' => 'Usuarios', 'action' => 'login'),
-            'authError' => 'Você precisa fazer login para poder acessar esta página.',
+            'authError' => 'Faça login para utilizar o sistema. Ou crie um novo cadastro para acessar o sistema',
             'authenticate' => array(
                 'Form' => array(
                     'userModel' => 'Usuario',

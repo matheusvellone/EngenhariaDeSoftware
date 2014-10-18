@@ -7,6 +7,11 @@
     <?php echo $this->Form->create('Usuario'); ?>
     <div class="col-md-12 row">
         <?php
+        echo $this->Form->input('id', array(
+            'type' => 'hidden'
+                )
+        );
+
         echo $this->Form->input('username', array(
             'div' => array(
                 'class' => 'col-md-4'

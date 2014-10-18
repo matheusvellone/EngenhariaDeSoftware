@@ -28,6 +28,9 @@ class UsuariosController extends AppController {
      * @return void
      */
     public function index() {
+        if ($this->Auth->user('grupo_id') != 1) {
+            return $this->redirect(array('controller' => 'Portal', 'action' => 'index'));
+        }
         $this->Usuario->recursive = 0;
         $this->set('usuarios', $this->Paginator->paginate());
     }
@@ -122,24 +125,26 @@ class UsuariosController extends AppController {
      */
     public function edit() {
         $id = $this->Auth->user('id');
+        $options = array('conditions' => array('Usuario.' . $this->Usuario->primaryKey => $id));
+        $usuario = $this->Usuario->find('first', $options);
         if (!$this->Usuario->exists($id)) {
             $this->setFlash('Tente fazer o login novamente.', 'flash_error');
             throw new NotFoundException;
         }
         if ($this->request->is(array('post', 'put'))) {
+            $this->request->data['Usuario']['grupo_id'] = $usuario['Usuario']['grupo_id'];
             if ($this->request->data['Usuario']['grupo_id'] == 1 && $this->Auth->user('grupo_id') != 1) {
                 $this->setFlash('Não foi possível efetuar a edição pois você nao tem permissão para ser um Técnico', 'flash_info');
                 return;
             }
             if ($this->Usuario->save($this->request->data)) {
                 $this->setFlash('O usuário foi editado com sucesso', 'flash_success');
-                return $this->redirect(array('action' => 'index'));
+                return $this->redirect(array('controller' => 'Portal', 'action' => 'index'));
             } else {
                 $this->setFlash('O usuário não pode ser editado', 'flash_error');
             }
         } else {
-            $options = array('conditions' => array('Usuario.' . $this->Usuario->primaryKey => $id));
-            $this->request->data = $this->Usuario->find('first', $options);
+            $this->request->data = $usuario;
         }
     }
 
@@ -173,7 +178,6 @@ class UsuariosController extends AppController {
                 $this->setFlash('Login efetuado com sucesso', 'flash_success');
                 return $this->redirect($this->Auth->redirect());
             }
-//            $this->setFlash('Usuário ou Senha incorreto', 'flash_error');
             $this->setFlash('Usuário ou Senha incorreto', 'flash_error');
         }
     }

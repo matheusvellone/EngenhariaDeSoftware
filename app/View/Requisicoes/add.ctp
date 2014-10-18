@@ -1,3 +1,9 @@
+<?php
+echo $this->Html->script('requisicao');
+?>
+<script>
+    var imagem_fuel = '<?php echo $this->Html->image('exemplo_fuel.jpg', array('class' => 'img-responsive')); ?>';
+</script>
 <div class="row">
     <div class="text-center h3">
         Cadastro de Nova Requisição
@@ -35,7 +41,8 @@
         'div' => array(
             'class' => 'col-md-2'
         ),
-        'class' => 'form-control'
+        'class' => 'form-control',
+        'between' => ' <span class="glyphicon glyphicon-question-sign" id="help-fuel"></span>',
     ));
     echo $this->Form->input('departamento_id', array(
         'label' => 'Departamento',

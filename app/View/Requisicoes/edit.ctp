@@ -1,5 +1,4 @@
 <script>
-    var id = <?php echo $usuarioLogado['id'] ?>;
     $(document).ready(function() {
         $('#assign').on('click', function() {
             document.getElementById('assign-target').value = id;
@@ -105,15 +104,34 @@ if ($usuarioLogado['grupo_id'] == 1) {
         ));
         ?>
     </div>
+    <div class="row">
+        <?php
+        echo $this->Form->input('observacao_tecnico', array(
+            'label' => 'Observação',
+            'div' => array(
+                'class' => 'col-md-12'
+            ),
+            'class' => 'form-control'
+        ));
+        ?>
+    </div>
 <?php } ?>
 <div class="row">
     <?php
+    if ($usuarioLogado['grupo_id'] == 1) {
+        ?>
+        <div class="col-md-6">
+            Um email será enviado para o cliente que gerou esta solicitação de serviço.
+        </div>
+        <?php
+    }
+    ?>
+    <?php
     echo $this->Form->end(
             array(
-                'before' => '<br>',
                 'label' => 'Atualizar Requisição',
                 'div' => array(
-                    'class' => 'col-md-3'
+                    'class' => 'col-md-6'
                 ),
                 'class' => array(
                     'class' => 'btn btn-success',

@@ -12,6 +12,7 @@
         echo $this->Html->css('bootstrap-theme.min');
         echo $this->Html->css('style');
         echo $this->Html->css('flash_style');
+        echo $this->Html->css('jquery-ui.min');
 
         echo $this->Html->script('jquery-2.1.1.min');
         echo $this->Html->script('jquery-ui');
@@ -22,13 +23,22 @@
         echo $this->fetch('css');
         echo $this->fetch('script');
         ?>
+        <?php
+        if (isset($usuarioLogado)) {
+            ?>
+            <script>
+                var id = <?php echo $usuarioLogado['id'] ?>;
+            </script>
+            <?php
+        }
+        ?>
     </head>
     <body>
         <?php
         if (isset($usuarioLogado)) {
             if ($usuarioLogado['grupo_id'] == 1) {
                 echo $this->element('MenuHorizontal1');
-            }else{
+            } else {
                 echo $this->element('MenuHorizontal2');
             }
         } else {

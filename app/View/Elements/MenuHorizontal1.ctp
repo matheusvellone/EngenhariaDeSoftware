@@ -14,6 +14,7 @@
                 <li><?php echo $this->Html->link('<span class="glyphicon "></span> Alterar Senha', array('controller' => 'Usuarios', 'action' => 'alterarSenha'), array('escape' => false)); ?></li>
                 <li><?php echo $this->Html->link('<span class="glyphicon "></span> Equipamentos', array('controller' => 'Equipamentos', 'action' => 'index'), array('escape' => false)); ?></li>
                 <li><?php echo $this->Html->link('<span class="glyphicon "></span> Relatório', array('controller' => 'Requisicoes', 'action' => 'relatorio'), array('escape' => false)); ?></li>
+                <li><?php echo $this->Html->link('<span class="glyphicon "></span> Estatísticas', array('controller' => 'Requisicoes', 'action' => 'estatisticas'), array('escape' => false)); ?></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a>Bem vindo <?php echo $usuarioLogado['nome']?></a></li>

@@ -1,6 +1,7 @@
 <?php
 
 App::uses('AppController', 'Controller');
+App::import('Vendor', 'mpdf/mpdf');
 
 /**
  * Requisicoes Controller
@@ -15,7 +16,7 @@ class RequisicoesController extends AppController {
      *
      * @var array
      */
-    public $components = array('Paginator');
+    public $components = array('Paginator', 'HighCharts.HighCharts');
 
     /**
      * index method
@@ -39,8 +40,9 @@ class RequisicoesController extends AppController {
         switch ($this->Auth->user('grupo_id')) {
             //Técnicos veem requisições de todo mundo
             case 1:
-                if ($this->request->is('post')) {
-                    $conditionDepartamento['departamento_id'] = $this->request->data['departamento']['departamento_id'];
+                if ($this->request->query['departamento_id'] != null) {
+                    $conditionDepartamento['departamento_id'] = $this->request->query['departamento_id'];
+                    $this->set('departamento', $conditionDepartamento['departamento_id']);
                 } else {
                     $conditionDepartamento = null;
                 }
@@ -124,6 +126,28 @@ class RequisicoesController extends AppController {
         if ($this->request->is(array('post', 'put'))) {
             if ($this->Requisicao->save($this->request->data)) {
                 $this->setFlash('A requisição foi salva com sucesso', 'flash_success');
+
+                //Se quem editou a Requisição for um técnico, envia um email para a pessoa
+                if ($this->Auth->user('grupo_id') == 1) {
+                    $data = new DateTime();
+                    $dia = $data->format('d-m-Y');
+                    $hora = $data->format('H:i:s');
+                    $dados = $this->Requisicao->find('first', array('conditions' => array('Requisicao.' . $this->Requisicao->primaryKey => $this->request->data['Requisicao']['id'])));
+                    $dados['Respondeu'] = $this->Auth->user();
+                    $dados['Data']['hora'] = $hora;
+                    $dados['Data']['dia'] = $dia;
+//                    die(debug($dados));
+                    App::uses('CakeEmail', 'Network/Email');
+                    $cake_email = new CakeEmail('gmail');
+                    $cake_email->emailFormat('html');
+                    $cake_email->to($dados['Requisitante']['email']);
+                    $cake_email->template('atualizacaoRequisicao', 'default');
+                    $cake_email->subject('ATUALIZAÇÃO DE REQUISICÃO');
+
+                    $cake_email->viewVars(array('dados' => $dados));
+                    $cake_email->send();
+                }
+
                 return $this->redirect(array('action' => 'index'));
             } else {
                 $this->setFlash('A requisição nao pode ser editada', 'flash_error');
@@ -203,8 +227,113 @@ class RequisicoesController extends AppController {
     }
 
     public function relatorio() {
-        $dados = $this->Requisicao->find('count', array('conditions' => array('situacao_id' => 0)));
+
+        if ($this->request->is('post', 'put')) {
+//            debug($this->request->data);
+            foreach ($this->request->data['Requisicao'] as $campo_nome => $campo_valor) {
+                if ($campo_valor != null) {
+                    $conditions[$campo_nome] = $campo_valor;
+                }
+            }
+            $requisicoes = $this->Requisicao->find('all', array(
+                'conditions' => $conditions,
+                'order' => array(
+                    'Requisicao.created'
+                )
+            ));
+//            debug($requisicoes);
+//            die;
+            $numeroRequisicoes = count($requisicoes);
+            $this->set(compact('requisicoes', 'numeroRequisicoes'));
+            $data = new DateTime();
+            $dia = $data->format('d-m-Y');
+            $hora = $data->format('H:i:s');
+            $mpdf = new mPDF();
+//            $this->layout = NULL;
+            $response = $this->render('relatorioPDF');
+            $thebody = $response->body();
+            $header = '<div class="text-center">Relatório do Técnico ' . $this->Auth->user('nome') . '</div>';
+            $footer = '<hr>Relatório gerado dia ' . $dia . ' às ' . $hora;
+            $mpdf->setHTMLHeader($header);
+            $mpdf->SetHTMLFooter($footer);
+            $mpdf->WriteHTML($thebody);
+            $nome_arquivo = 'Relatorio-' . $dia . '_' . $hora . '.pdf';
+
+            $mpdf->Output($nome_arquivo, "I"); //mudar para I e não D
+        }
+        $equipamentos = $this->Requisicao->Equipamento->find('list');
+        $tecnicos = $this->Requisicao->Tecnico->find('list', array('conditions' => array('grupo_id' => '1')));
+        $departamentos = $this->Requisicao->Departamento->find('list');
+        $this->set(compact('departamentos', 'tecnicos', 'equipamentos'));
+    }
+
+    public function estatisticas() {
+        $array_chart = array();
+        $dados['total'] = $this->Requisicao->find('count');
+        $dados['meus'] = $this->Requisicao->find('count', array('conditions' => array('tecnico_id' => $this->Auth->user('id'))));
+
+        $equipamentos = $this->Requisicao->Equipamento->find('list');
+        foreach ($equipamentos as $id => $nome) {
+            $dados['Equipamentos'][$nome] = $this->Requisicao->find('count', array('conditions' => array('equipamento_id' => $id)));
+            $array_chart['Equipamentos'][$id - 1][0] = $nome;
+            $array_chart['Equipamentos'][$id - 1][1] = $dados['Equipamentos'][$nome];
+        }
+
+        $situacoes = $this->Requisicao->Situacao->find('list');
+        foreach ($situacoes as $id => $nome) {
+            $dados['Situacoes'][$nome] = $this->Requisicao->find('count', array('conditions' => array('situacao_id' => $id)));
+            $array_chart['Situacoes'][$id][0] = $nome;
+            $array_chart['Situacoes'][$id][1] = $dados['Situacoes'][$nome];
+        }
+
+        $grupos = $this->Requisicao->Requisitante->Grupo->find('list');
+        foreach ($grupos as $id => $nome) {
+            $dados['Grupos'][$nome] = $this->Requisicao->find('count', array('conditions' => array('Requisitante.grupo_id' => $id)));
+            $array_chart['Grupos'][$id - 1][0] = $nome;
+            $array_chart['Grupos'][$id - 1][1] = $dados['Grupos'][$nome];
+        }
+
+        $this->chart('Situação das Requisições', 'pie', $array_chart['Situacoes'], 'situacao_chart', 'Número de Requisições');
+        $this->chart('Requisitantes', 'pie', $array_chart['Grupos'], 'requisitante_chart', 'Número de Requisições');
+        $this->chart('Equipamentos', 'pie', $array_chart['Equipamentos'], 'equipamento_chart', 'Número de Requisições');
+
         $this->set(compact('dados'));
+    }
+
+    function chart($nome, $tipo, $dados, $divID, $coluna) {
+        $chart = $this->HighCharts->create($nome, $tipo);
+
+        $this->HighCharts->setChartParams(
+                $nome, array(
+            'renderTo' => $divID,
+            'chartMarginTop' => 60,
+            'chartAlignTicks' => FALSE,
+            'chartBackgroundColorLinearGradient' => array(0, 0, 0, 300),
+            'chartBackgroundColorStops' => array(array(0, 'rgb(217, 217, 217)'), array(1, 'rgb(255, 255, 255)')),
+            'title' => $nome,
+            'titleAlign' => 'center',
+            'titleFloating' => TRUE,
+            'titleStyleFont' => '18px Metrophobic, Arial, sans-serif',
+            'titleStyleColor' => '#0099ff',
+            'titleY' => 20,
+//            'legendEnabled' => TRUE,
+//            'legendLayout' => 'horizontal',
+//            'legendAlign' => 'center',
+//            'legendVerticalAlign ' => 'bottom',
+//            'legendItemStyle' => array('color' => '#222'),
+//            'legendBackgroundColorLinearGradient' => array(0, 0, 0, 25),
+//            'legendBackgroundColorStops' => array(array(0, 'rgb(217, 217, 217)'), array(1, 'rgb(255, 255, 255)')),
+//            'tooltipEnabled' => TRUE,
+//            'tooltipBackgroundColorLinearGradient' => array(0, 0, 0, 50), // triggers js error
+//            'tooltipBackgroundColorStops' => array(array(0, 'rgb(217, 217, 217)'), array(1, 'rgb(255, 255, 255)'))
+                )
+        );
+
+        $series = $this->HighCharts->addChartSeries();
+
+        $series->addName($coluna)->addData($dados);
+
+        $chart->addSeries($series);
     }
 
 }

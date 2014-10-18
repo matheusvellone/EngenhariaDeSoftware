@@ -1,3 +1,6 @@
+<?php
+echo $this->Html->script('repetir-senha');
+?>
 <div class="row">
     <div class="text-center h3">
         Cadastro de Novo Usuário
@@ -24,7 +27,9 @@
             ),
             'placeholder' => 'Diferenciam-se letras maiúsculas e minúsculas',
             'class' => 'form-control',
-            'label' => 'Senha'
+            'label' => 'Senha',
+            'id' => 'senha',
+            'onkeyup' => 'verifica_senha();'
                 )
         );
 
@@ -34,7 +39,9 @@
             ),
             'placeholder' => 'Repita a Senha',
             'class' => 'form-control',
-            'label' => 'Repita a Senha'
+            'label' => 'Repita a Senha',
+            'id' => 'repetir-senha',
+            'onkeyup' => 'verifica_senha();'
                 )
         );
         ?>
@@ -82,9 +89,11 @@
                     'div' => array(
                         'class' => 'col-md-4 col-md-offset-5'
                     ),
+                    'disabled',
                     'class' => array(
                         'class' => 'btn btn-success',
-                    )
+                    ),
+                    'id' => 'form-end'
                 )
         );
         ?>
