@@ -11,12 +11,17 @@ App::import('Vendor', 'mpdf/mpdf');
  */
 class RequisicoesController extends AppController {
 
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('android');
+    }
+
     /**
      * Components
      *
      * @var array
      */
-    public $components = array('Paginator', 'HighCharts.HighCharts');
+    public $components = array('Paginator', 'HighCharts.HighCharts', 'RequestHandler');
 
     /**
      * index method
@@ -207,6 +212,28 @@ class RequisicoesController extends AppController {
         return $this->redirect(array('action' => 'index'));
     }
 
+    public function android() {
+        $fields = array(
+            'Requisitante.nome',
+            'Departamento.nome',
+            'Equipamento.nome',
+            'Requisicao.created'
+            );
+        $requisicoes = $this->Requisicao->find('all', array(
+            'fields' => $fields,
+            'conditions' => array(
+                'Situacao.id' => '0'
+            )
+        ));
+        if ($requisicoes != null) {
+            $status = 1;
+        } else {
+            $status = 0;
+        }
+        $this->set(compact('requisicoes', 'status'));
+        $this->set('_serialize', array('status', 'requisicoes'));
+    }
+
     public function historico() {
         if ($this->Auth->user('grupo_id') != 1) {
             return $this->redirect(array('controller' => 'Requisicoes', 'action' => 'index'));
@@ -229,7 +256,6 @@ class RequisicoesController extends AppController {
     public function relatorio() {
 
         if ($this->request->is('post', 'put')) {
-//            debug($this->request->data);
             foreach ($this->request->data['Requisicao'] as $campo_nome => $campo_valor) {
                 if ($campo_valor != null) {
                     $conditions[$campo_nome] = $campo_valor;

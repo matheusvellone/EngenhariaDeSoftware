@@ -80,5 +80,4 @@ class Usuario extends AppModel {
         }
         return true;
     }
-
 }
