@@ -65,7 +65,7 @@ class AppController extends Controller {
     }
 
     public function setFlash($message, $class) {
-        $this->Session->setFlash($message, 'flash/custom', compact('class'));
+        $this->Session->setFlash($message, 'Flash/custom', compact('class'));
     }
 
 }
