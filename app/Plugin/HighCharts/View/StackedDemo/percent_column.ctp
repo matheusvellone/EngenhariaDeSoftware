@@ -3,7 +3,7 @@
  *  CakePHP HighCharts Plugin
  * 
  * 	Copyright (C) 2012 Kurn La Montagne / destinydriven
- *	<https://github.com/destinydriven> 
+ * 	<https://github.com/destinydriven> 
  * 
  * 	Multi-licensed under:
  * 		MPL <http://www.mozilla.org/MPL/MPL-1.1.html>
@@ -13,11 +13,11 @@
  */
 ?>
 <div class="chart">
-	<h3>Stacked Percentage Column Chart</h3>
-	
-	<div id="columnwrapper" style="display: block; float: left; width:90%; margin-bottom: 20px;"></div>
+    <h3>Stacked Percentage Column Chart</h3>
+
+    <div id="columnwrapper" style="display: block; float: left; width:90%; margin-bottom: 20px;"></div>
     <div class="clear"></div>	
-	
-	<?php echo $this->HighCharts->render('Stacked Percentage Column Chart'); ?>
+
+    <?php echo $this->HighCharts->render('Stacked Percentage Column Chart'); ?>
 
 </div>

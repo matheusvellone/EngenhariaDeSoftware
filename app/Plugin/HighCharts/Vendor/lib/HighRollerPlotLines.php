@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Author: jmac
  * Date: 9/21/11
@@ -21,12 +22,11 @@
  * limitations under the License.
  *
  */
- 
 class HighRollerPlotLines {
 
-  function __construct(){
-    $this->label = new HighRollerAxisLabel();
-  }
+    function __construct() {
+        $this->label = new HighRollerAxisLabel();
+    }
 
 }
 ?>

@@ -1651,6 +1651,9 @@ class SVG {
 
 
 
+
+
+
             
 // If rX = 0 or rY = 0 then this arc is treated as a straight line
         // segment (a "lineto") joining the endpoints.

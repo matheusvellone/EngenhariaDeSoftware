@@ -189,7 +189,7 @@ class TestTask extends BakeTask {
         $keys = array();
         $i = 0;
         foreach ($this->classTypes as $option => $package) {
-            $this->out(++$i . '. ' . $option);
+            $this->out( ++$i . '. ' . $option);
             $keys[] = $i;
         }
         $keys[] = 'q';
@@ -220,7 +220,7 @@ class TestTask extends BakeTask {
         $this->out(__d('cake_console', 'Choose a %s class', $objectType));
         $keys = array();
         foreach ($options as $key => $option) {
-            $this->out(++$key . '. ' . $option);
+            $this->out( ++$key . '. ' . $option);
             $keys[] = $key;
         }
         while (empty($selection)) {

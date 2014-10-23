@@ -27,157 +27,161 @@ import android.widget.TextView;
 
 public class AllProductsActivity extends ListActivity {
 
-	// Progress Dialog
-	private ProgressDialog pDialog;
+    // Progress Dialog
+    private ProgressDialog pDialog;
 
-	// Creating JSON Parser object
-	JSONParser jParser = new JSONParser();
+    // Creating JSON Parser object
+    JSONParser jParser = new JSONParser();
 
-	ArrayList<HashMap<String, String>> productsList;
+    ArrayList<HashMap<String, String>> productsList;
 
-	// url to get all products list
-	private static String url_all_products = "http://10.0.2.2/android_connect/get_all_products.php";
+    // url to get all products list
+    private static String url_all_products = "http://10.0.2.2/android_connect/get_all_products.php";
 
-	// JSON Node names
-	private static final String TAG_SUCCESS = "success";
-	private static final String TAG_PRODUCTS = "products";
-	private static final String TAG_PID = "pid";
-	private static final String TAG_NAME = "name";
+    // JSON Node names
+    private static final String TAG_SUCCESS = "success";
+    private static final String TAG_PRODUCTS = "products";
+    private static final String TAG_PID = "pid";
+    private static final String TAG_NAME = "name";
 
-	// products JSONArray
-	JSONArray products = null;
+    // products JSONArray
+    JSONArray products = null;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.all_products);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.all_products);
 
-		// Hashmap for ListView
-		productsList = new ArrayList<HashMap<String, String>>();
+        // Hashmap for ListView
+        productsList = new ArrayList<HashMap<String, String>>();
 
-		// Loading products in Background Thread
-		new LoadAllProducts().execute();
+        // Loading products in Background Thread
+        new LoadAllProducts().execute();
 
-	}
+    }
 
-	// Response from Edit Product Activity
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		// if result code 100
-		if (resultCode == 100) {
-			// if result code 100 is received 
-			// means user edited/deleted product
-			// reload this screen again
-			Intent intent = getIntent();
-			finish();
-			startActivity(intent);
-		}
+    // Response from Edit Product Activity
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // if result code 100
+        if (resultCode == 100) {
+            // if result code 100 is received 
+            // means user edited/deleted product
+            // reload this screen again
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+        }
 
-	}
+    }
 
-	/**
-	 * Background Async Task to Load all product by making HTTP Request
-	 * */
-	class LoadAllProducts extends AsyncTask<String, String, String> {
+    /**
+     * Background Async Task to Load all product by making HTTP Request
+     *
+     */
+    class LoadAllProducts extends AsyncTask<String, String, String> {
 
-		/**
-		 * Before starting background thread Show Progress Dialog
-		 * */
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			pDialog = new ProgressDialog(AllProductsActivity.this);
-			pDialog.setMessage("Loading products. Please wait...");
-			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(false);
-			pDialog.show();
-		}
+        /**
+         * Before starting background thread Show Progress Dialog
+         *
+         */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(AllProductsActivity.this);
+            pDialog.setMessage("Loading products. Please wait...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
 
-		/**
-		 * getting All products from url
-		 * */
-		protected String doInBackground(String... args) {
-			// Building Parameters
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			// getting JSON string from URL
-			JSONObject json = jParser.makeHttpRequest(url_all_products, "GET", params);
+        /**
+         * getting All products from url
+         *
+         */
+        protected String doInBackground(String... args) {
+            // Building Parameters
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            // getting JSON string from URL
+            JSONObject json = jParser.makeHttpRequest(url_all_products, "GET", params);
 
-			// Check your log cat for JSON reponse
-			Log.d("All Products: ", json.toString());
+            // Check your log cat for JSON reponse
+            Log.d("All Products: ", json.toString());
 
-			try {
-				// Checking for SUCCESS TAG
-				int success = json.getInt(TAG_SUCCESS);
+            try {
+                // Checking for SUCCESS TAG
+                int success = json.getInt(TAG_SUCCESS);
 
-				if (success == 1) {
-					// products found
-					// Getting Array of Products
-					products = json.getJSONArray(TAG_PRODUCTS);
+                if (success == 1) {
+                    // products found
+                    // Getting Array of Products
+                    products = json.getJSONArray(TAG_PRODUCTS);
 
-					// looping through All Products
-					for (int i = 0; i < products.length(); i++) {
-						JSONObject c = products.getJSONObject(i);
+                    // looping through All Products
+                    for (int i = 0; i < products.length(); i++) {
+                        JSONObject c = products.getJSONObject(i);
 
-						// Storing each json item in variable
-						String id = c.getString(TAG_PID);
-						String name = c.getString(TAG_NAME);
+                        // Storing each json item in variable
+                        String id = c.getString(TAG_PID);
+                        String name = c.getString(TAG_NAME);
 
-						// creating new HashMap
-						HashMap<String, String> map = new HashMap<String, String>();
+                        // creating new HashMap
+                        HashMap<String, String> map = new HashMap<String, String>();
 
-						// adding each child node to HashMap key => value
-						map.put(TAG_PID, id);
-						map.put(TAG_NAME, name);
+                        // adding each child node to HashMap key => value
+                        map.put(TAG_PID, id);
+                        map.put(TAG_NAME, name);
 
-						// adding HashList to ArrayList
-						productsList.add(map);
-					}
-				} else {
-					// no products found
-					pDialog = new ProgressDialog(AllProductsActivity.this);
-					pDialog.setMessage("Não existem requisições a serem mostradas");
-					pDialog.setIndeterminate(false);
-					pDialog.setCancelable(true);
-					pDialog.show();
-					pDialog.setOnDismissListener(new OnDismissListener() {
-						
-						@Override
-						public void onDismiss(DialogInterface dialog) {
-							// TODO Auto-generated method stub
-							finish();
-						}
-					});
-				}
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
+                        // adding HashList to ArrayList
+                        productsList.add(map);
+                    }
+                } else {
+                    // no products found
+                    pDialog = new ProgressDialog(AllProductsActivity.this);
+                    pDialog.setMessage("Não existem requisições a serem mostradas");
+                    pDialog.setIndeterminate(false);
+                    pDialog.setCancelable(true);
+                    pDialog.show();
+                    pDialog.setOnDismissListener(new OnDismissListener() {
 
-			return null;
-		}
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            // TODO Auto-generated method stub
+                            finish();
+                        }
+                    });
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-		/**
-		 * After completing background task Dismiss the progress dialog
-		 * **/
-		protected void onPostExecute(String file_url) {
-			// dismiss the dialog after getting all products
-			pDialog.dismiss();
-			// updating UI from Background Thread
-			runOnUiThread(new Runnable() {
-				public void run() {
-					/**
-					 * Updating parsed JSON data into ListView
-					 * */
-					ListAdapter adapter = new SimpleAdapter(
-							AllProductsActivity.this, productsList,
-							R.layout.list_item, new String[] {TAG_NAME},
-									new int[] {R.id.name });
-					// updating listview
-					setListAdapter(adapter);
-				}
-			});
+            return null;
+        }
 
-		}
+        /**
+         * After completing background task Dismiss the progress dialog *
+         */
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog after getting all products
+            pDialog.dismiss();
+            // updating UI from Background Thread
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    /**
+                     * Updating parsed JSON data into ListView
+                     *
+                     */
+                    ListAdapter adapter = new SimpleAdapter(
+                            AllProductsActivity.this, productsList,
+                            R.layout.list_item, new String[]{TAG_NAME},
+                            new int[]{R.id.name});
+                    // updating listview
+                    setListAdapter(adapter);
+                }
+            });
 
-	}
+        }
+
+    }
 }

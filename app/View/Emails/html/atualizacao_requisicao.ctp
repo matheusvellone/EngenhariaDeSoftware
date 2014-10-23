@@ -20,7 +20,7 @@
         <?php
     } else {
         ?>
-        o atual responsável por esta requisição é o técnico <?php echo $dados['Tecnico']['nome'];?>. 
+        o atual responsável por esta requisição é o técnico <?php echo $dados['Tecnico']['nome']; ?>. 
         <?php
     }
     ?>

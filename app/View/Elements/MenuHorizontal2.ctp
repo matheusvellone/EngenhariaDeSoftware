@@ -14,7 +14,7 @@
                 <li><?php echo $this->Html->link('<span class="glyphicon "></span> Alterar Senha', array('controller' => 'Usuarios', 'action' => 'alterarSenha'), array('escape' => false)); ?></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a>Bem vindo <?php echo $usuarioLogado['nome']?></a></li>
+                <li><a>Bem vindo <?php echo $usuarioLogado['nome'] ?></a></li>
                 <li><?php echo $this->Html->link('<span class="glyphicon glyphicon-log-out"></span> Logout', array('controller' => 'Usuarios', 'action' => 'logout'), array('escape' => false)); ?></li>
             </ul>
         </div>

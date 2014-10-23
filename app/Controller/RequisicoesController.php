@@ -149,11 +149,13 @@ class RequisicoesController extends AppController {
                     $cake_email->subject('ATUALIZAÇÃO DE REQUISICÃO');
 
                     $cake_email->viewVars(array('dados' => $dados));
-                    if($cake_email->send()){
-                        $this->setFlash('A requisição foi salva e o email notificando a alteração foi enviado para '.$dados['Requisitante']['email'], 'flash_success');
-                    }else{
-                        $this->setFlash('A requisição foi alterada, porém o email nao foi enviado', 'flash_info');
-                    };
+                    try {
+                        $cake_email->send();
+                    } catch (Exception $ex) {
+                        $this->setFlash('A requisição foi alterada, porém o email não foi enviado (' . $ex->getMessage() . ')<br>Você pode atualizar a requisição novamente para tentar reenviar o email', 'flash_info');
+                        return $this->redirect(array('action' => 'edit', $dados['Requisicao']['id']));
+                    }
+                    $this->setFlash('A requisição foi salva e o email notificando a alteração foi enviado para ' . $dados['Requisitante']['email'], 'flash_success');
                 } else {
                     $this->setFlash('A requisição foi salva com sucesso', 'flash_success');
                 }
@@ -223,7 +225,7 @@ class RequisicoesController extends AppController {
             'Departamento.nome',
             'Equipamento.nome',
             'Requisicao.created'
-            );
+        );
         $requisicoes = $this->Requisicao->find('all', array(
             'fields' => $fields,
             'conditions' => array(

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Author: jmac
  * Date: 9/21/11
@@ -21,14 +22,14 @@
  * limitations under the License.
  *
  */
-
 class HighRollerOptions {
 
-  public $global;
+    public $global;
 
-  function __construct(){
-    $this->global = new HighRollerOptionsGlobal();
-  }
+    function __construct() {
+        $this->global = new HighRollerOptionsGlobal();
+    }
 
 }
+
 ?>

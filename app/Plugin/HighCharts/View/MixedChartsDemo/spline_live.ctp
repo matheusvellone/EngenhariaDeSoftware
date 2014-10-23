@@ -3,7 +3,7 @@
  *  CakePHP HighCharts Plugin
  * 
  * 	Copyright (C) 2012 Kurn La Montagne / destinydriven
- *	<https://github.com/destinydriven> 
+ * 	<https://github.com/destinydriven> 
  * 
  * 	Multi-licensed under:
  * 		MPL <http://www.mozilla.org/MPL/MPL-1.1.html>
@@ -13,11 +13,11 @@
  */
 ?>
 <div class="chart">
-	<p>Spline Chart Updating Each Second</p>
-	
-	<div id="splinewrapper" style="display: block; float: left; width:90%; margin-bottom: 20px;"></div>
+    <p>Spline Chart Updating Each Second</p>
+
+    <div id="splinewrapper" style="display: block; float: left; width:90%; margin-bottom: 20px;"></div>
     <div class="clear"></div>	
-	
-	<?php echo $this->HighCharts->render('Spline Chart Live Data'); ?>
+
+    <?php echo $this->HighCharts->render('Spline Chart Live Data'); ?>
 
 </div>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Author: jmac
  * Date: 9/23/11
@@ -21,21 +22,29 @@
  * limitations under the License.
  *
  */
- 
 class HighRollerPlotOptions {
 
-  public $series;
+    public $series;
 
-  function __construct($chartType){
-    $this->series = new HighRollerSeriesOptions();
-    if($chartType == 'area'){ $this->area = null; }
-    else if($chartType == 'bar'){ $this->bar = null; }
-    else if($chartType == 'column'){ $this->column = null; }
-    else if($chartType == 'line'){ $this->line = null; }
-    else if($chartType == 'pie'){ $this->pie = null; }
-    else if($chartType == 'scatter'){ $this->scatter = null; }
-    else if($chartType == 'spline'){ $this->spline = null; }
-  }
+    function __construct($chartType) {
+        $this->series = new HighRollerSeriesOptions();
+        if ($chartType == 'area') {
+            $this->area = null;
+        } else if ($chartType == 'bar') {
+            $this->bar = null;
+        } else if ($chartType == 'column') {
+            $this->column = null;
+        } else if ($chartType == 'line') {
+            $this->line = null;
+        } else if ($chartType == 'pie') {
+            $this->pie = null;
+        } else if ($chartType == 'scatter') {
+            $this->scatter = null;
+        } else if ($chartType == 'spline') {
+            $this->spline = null;
+        }
+    }
 
 }
+
 ?>

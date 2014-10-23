@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Author: jmac
  * Date: 9/23/11
@@ -21,14 +22,14 @@
  * limitations under the License.
  *
  */
- 
 class HighRollerSeriesOptions {
 
-  public $dataLabels;
+    public $dataLabels;
 
-  function __construct(){
-    $this->dataLabels = new HighRollerDataLabels();
-  }
+    function __construct() {
+        $this->dataLabels = new HighRollerDataLabels();
+    }
 
 }
+
 ?>

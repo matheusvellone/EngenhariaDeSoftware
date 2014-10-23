@@ -2783,6 +2783,9 @@ class mPDF {
             $this->SetFont($family, $style, $size, true, true); // forces write
 
 
+
+
+
             
 //Set colors
         $this->DrawColor = $dc;
@@ -2805,6 +2808,9 @@ class mPDF {
         //Restore font
         if ($family)
             $this->SetFont($family, $style, $size, true, true); // forces write
+
+
+
 
 
             
@@ -14576,6 +14582,9 @@ class mPDF {
 
 
 
+
+
+
                         
 // mPDF 5.6.62	removes U+200E/U+200F LTR and RTL mark and U+200C/U+200D Zero-width Joiner and Non-joiner
                     $e = preg_replace("/[\xe2\x80\x8c\xe2\x80\x8d\xe2\x80\x8e\xe2\x80\x8f]/u", '', $e);
@@ -25144,6 +25153,9 @@ class mPDF {
     function setCSS($arrayaux, $type = '', $tag = '') { // type= INLINE | BLOCK | LIST // tag= BODY
         if (!is_array($arrayaux))
             return; //Removes PHP Warning
+
+
+
 
 
             

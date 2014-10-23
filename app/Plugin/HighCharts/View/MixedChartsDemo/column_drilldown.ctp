@@ -3,7 +3,7 @@
  *  CakePHP HighCharts Plugin
  * 
  * 	Copyright (C) 2012 Kurn La Montagne / destinydriven
- *	<https://github.com/destinydriven> 
+ * 	<https://github.com/destinydriven> 
  * 
  * 	Multi-licensed under:
  * 		MPL <http://www.mozilla.org/MPL/MPL-1.1.html>
@@ -13,11 +13,11 @@
  */
 ?>
 <div class="chart">
-	<p>Column with Drill-down</p>
-	
-	<div id="column_drilldown" style="display: block; float: left; width:90%; margin-bottom: 20px;"></div>
+    <p>Column with Drill-down</p>
+
+    <div id="column_drilldown" style="display: block; float: left; width:90%; margin-bottom: 20px;"></div>
     <div class="clear"></div>	
-	
-	<?php echo $this->HighCharts->render('Browser Brands'); ?>
+
+    <?php echo $this->HighCharts->render('Browser Brands'); ?>
 
 </div>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Author: jmac
  * Date: 9/21/11
@@ -21,14 +22,14 @@
  * limitations under the License.
  *
  */
- 
 class HighRollerToolTip {
 
-  public $backgroundColor = null;
+    public $backgroundColor = null;
 
-  function __construct(){
-
-  }
+    function __construct() {
+        
+    }
 
 }
+
 ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Author: jmac
  * Date: 9/23/11
@@ -21,14 +22,15 @@
  * limitations under the License.
  *
  */
- 
 class HighRollerBackgroundColors {
 
-  public $linearGradient;
-  public $stops;
-  function __construct(){
+    public $linearGradient;
+    public $stops;
 
-  }
-  
+    function __construct() {
+        
+    }
+
 }
+
 ?>

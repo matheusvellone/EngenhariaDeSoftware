@@ -19,7 +19,7 @@ class DepartamentosController extends AppController {
 
     function beforeFilter() {
         parent::beforeFilter();
-        if($this->Auth->user('grupo_id') != 1){
+        if ($this->Auth->user('grupo_id') != 1) {
             $this->setFlash('Página não encontrada', 'flash_error');
             throw new NotFoundException;
         }

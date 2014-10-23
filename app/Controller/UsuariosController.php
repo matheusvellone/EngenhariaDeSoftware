@@ -61,7 +61,12 @@ class UsuariosController extends AppController {
                     $cake_email->subject('NOVA SENHA - SUPORTE CCE UEL');
 
                     $cake_email->viewVars(array('senha' => $senha));
-                    $cake_email->send();
+                    try {
+                        $cake_email->send();
+                    } catch (Exception $ex) {
+                        $this->setFlash('O email com a nova senha não pode ser enviado('.$ex->getMessage().'). Tente novamente', 'flash_info');
+                        return $this->redirect(array('action' => 'esqueci_senha'));
+                    }
 
                     return $this->redirect(array('controller' => 'Usuarios', 'action' => 'login'));
                 } else {

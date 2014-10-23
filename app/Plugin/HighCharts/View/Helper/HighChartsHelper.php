@@ -1,9 +1,10 @@
 <?php
+
 /**
  *  CakePHP HighCharts Plugin
  * 
  * 	Copyright (C) 2012 Kurn La Montagne / destinydriven
- *	<https://github.com/destinydriven> 
+ * 	<https://github.com/destinydriven> 
  * 
  * 	Multi-licensed under:
  * 		MPL <http://www.mozilla.org/MPL/MPL-1.1.html>
@@ -12,6 +13,7 @@
  * 		Apache License, Version 2.0 <http://www.apache.org/licenses/LICENSE-2.0.html>
  */
 class HighChartsHelper extends AppHelper {
+
     public $helpers = array('Html', 'Session');
     public $charts = null;
     public $chart_name = '';
@@ -25,7 +27,7 @@ class HighChartsHelper extends AppHelper {
     public function __construct(View $View, $options = array()) {
         parent::__construct($View, $options);
         $this->charts = $this->_getCharts();
-    }	
+    }
 
     public function beforeRender($viewFile) {
         return true;
@@ -34,33 +36,33 @@ class HighChartsHelper extends AppHelper {
     public function afterRender($viewFile) {
         CakeSession::delete('HighChartsPlugin.Charts');
     }
-    
-    public function beforeLayout($viewFile) {       
+
+    public function beforeLayout($viewFile) {
         parent::beforeLayout($viewFile);
-        
-        $js = array('/high_charts/js/highcharts');        
-        $theme = $this->_getTheme($this->chart_name);        
+
+        $js = array('/high_charts/js/highcharts');
+        $theme = $this->_getTheme($this->chart_name);
         $exportingEnabled = $this->_checkExporting($this->chart_name);
-        
-        if($exportingEnabled){
-                $js[] = '/high_charts/js/modules/exporting';
+
+        if ($exportingEnabled) {
+            $js[] = '/high_charts/js/modules/exporting';
         }
-        
-        switch ($theme){
-            case 'gray':               
-            case 'grid':                 
-            case 'dark-blue':                      
-            case 'dark-green':                
+
+        switch ($theme) {
+            case 'gray':
+            case 'grid':
+            case 'dark-blue':
+            case 'dark-green':
             case 'skies':
-                $js[] = '/high_charts/js/themes/'.$theme;
+                $js[] = '/high_charts/js/themes/' . $theme;
                 break;
             default:
-               // $js[] = '/high_charts/js/themes/highroller';
+                // $js[] = '/high_charts/js/themes/highroller';
                 break;
         }
-        
+
         $this->Html->css('high_charts/css/highroller');
-        $this->Html->script( $js, FALSE);
+        $this->Html->script($js, FALSE);
         return true;
     }
 
@@ -68,31 +70,31 @@ class HighChartsHelper extends AppHelper {
         static $read = false;
         if ($read === true) {
             return $this->charts;
-        } else{
+        } else {
             $this->charts = CakeSession::read('HighChartsPlugin.Charts');
             $read = true;
             return $this->charts;
         }
     }
-    
+
     protected function _getTheme($name) {
-        if(isset($name) && (!empty($this->charts[$name]->chart->className))){
-           return $this->charts[$name]->chart->className;
+        if (isset($name) && (!empty($this->charts[$name]->chart->className))) {
+            return $this->charts[$name]->chart->className;
         } else {
             return null;
         }
     }
-    
-     protected function _checkExporting($name) {
-        if(isset($this->charts[$name]->exporting->enabled) && ($this->charts[$name]->exporting->enabled  == TRUE)){
-           return $this->charts[$name]->exporting->enabled;
+
+    protected function _checkExporting($name) {
+        if (isset($this->charts[$name]->exporting->enabled) && ($this->charts[$name]->exporting->enabled == TRUE)) {
+            return $this->charts[$name]->exporting->enabled;
         } else {
             return FALSE;
         }
     }
 
     public function render($name) {
-        
+
         $this->chart_name = $name;
 
         if (!isset($this->charts[$name])) {
@@ -106,7 +108,7 @@ class HighChartsHelper extends AppHelper {
         $jsonOptions = preg_replace('/"(\(?function.+?}(\)\(\))?)"/', '$1', $_jsonOptions);
 
         // this section from HighRoller::renderChart()		
-        $options = new HighRollerOptions();	
+        $options = new HighRollerOptions();
 
         // prepare PHP vars for chartJS script
         $json_options = json_encode($options);
@@ -141,7 +143,7 @@ EOF;
 
         $out = trim($chartJS);
 
-        return $this->Html->scriptBlock($this->output($out), array('defer' => FALSE));	
+        return $this->Html->scriptBlock($this->output($out), array('defer' => FALSE));
     }
-	
+
 }

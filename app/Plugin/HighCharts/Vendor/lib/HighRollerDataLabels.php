@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Author: jmac
  * Date: 9/23/11
@@ -21,12 +22,12 @@
  * limitations under the License.
  *
  */
- 
 class HighRollerDataLabels {
 
-  function __construct(){
-    $this->style = new HighRollerStyle();
-  }
+    function __construct() {
+        $this->style = new HighRollerStyle();
+    }
 
 }
+
 ?>

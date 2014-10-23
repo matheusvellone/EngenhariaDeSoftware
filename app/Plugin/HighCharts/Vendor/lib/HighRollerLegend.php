@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Author: jmac
  * Date: 9/21/11
@@ -21,15 +22,15 @@
  * limitations under the License.
  *
  */
-
 class HighRollerLegend {
 
-  public $style;
-  public $backgroundColor = null;
+    public $style;
+    public $backgroundColor = null;
 
-  function __construct(){
-    $this->style = new HighRollerStyle();
-  }
+    function __construct() {
+        $this->style = new HighRollerStyle();
+    }
 
 }
+
 ?>
