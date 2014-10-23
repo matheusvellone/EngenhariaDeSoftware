@@ -49,7 +49,7 @@ class AppController extends Controller {
                 )
             ),
             'flash' => array(
-                'element' => 'flash/custom',
+                'element' => 'Flash/custom',
                 'key' => 'auth',
                 'params' => array('class' => 'flash_info')
             )
