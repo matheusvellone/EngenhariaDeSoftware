@@ -11,6 +11,8 @@ import org.json.JSONObject;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -56,31 +58,6 @@ public class AllProductsActivity extends ListActivity {
 		// Loading products in Background Thread
 		new LoadAllProducts().execute();
 
-		// Get listview
-		ListView lv = getListView();
-
-		// on seleting single product
-		// launching Edit Product Screen
-		lv.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// getting values from selected ListItem
-				String pid = ((TextView) view.findViewById(R.id.pid)).getText()
-						.toString();
-
-				// Starting new intent
-				Intent in = new Intent(getApplicationContext(),
-						EditProductActivity.class);
-				// sending pid to next activity
-				in.putExtra(TAG_PID, pid);
-				
-				// starting new activity and expecting some response back
-				startActivityForResult(in, 100);
-			}
-		});
-
 	}
 
 	// Response from Edit Product Activity
@@ -125,7 +102,7 @@ public class AllProductsActivity extends ListActivity {
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			// getting JSON string from URL
 			JSONObject json = jParser.makeHttpRequest(url_all_products, "GET", params);
-			
+
 			// Check your log cat for JSON reponse
 			Log.d("All Products: ", json.toString());
 
@@ -158,12 +135,19 @@ public class AllProductsActivity extends ListActivity {
 					}
 				} else {
 					// no products found
-					// Launch Add New product Activity
-					Intent i = new Intent(getApplicationContext(),
-							NewProductActivity.class);
-					// Closing all previous activities
-					i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					startActivity(i);
+					pDialog = new ProgressDialog(AllProductsActivity.this);
+					pDialog.setMessage("Não existem requisições a serem mostradas");
+					pDialog.setIndeterminate(false);
+					pDialog.setCancelable(true);
+					pDialog.show();
+					pDialog.setOnDismissListener(new OnDismissListener() {
+						
+						@Override
+						public void onDismiss(DialogInterface dialog) {
+							// TODO Auto-generated method stub
+							finish();
+						}
+					});
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -186,9 +170,8 @@ public class AllProductsActivity extends ListActivity {
 					 * */
 					ListAdapter adapter = new SimpleAdapter(
 							AllProductsActivity.this, productsList,
-							R.layout.list_item, new String[] { TAG_PID,
-									TAG_NAME},
-							new int[] { R.id.pid, R.id.name });
+							R.layout.list_item, new String[] {TAG_NAME},
+									new int[] {R.id.name });
 					// updating listview
 					setListAdapter(adapter);
 				}

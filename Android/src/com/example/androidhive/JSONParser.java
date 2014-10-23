@@ -84,14 +84,14 @@ public class JSONParser {
 			is.close();
 			json = sb.toString();
 		} catch (Exception e) {
-			Log.e("Buffer Error", "Error converting result " + e.toString());
+			Log.e("Buffer Error", "Erro ao converter resultado " + e.toString());
 		}
 
 		// try parse the string to a JSON object
 		try {
 			jObj = new JSONObject(json);
 		} catch (JSONException e) {
-			Log.e("JSON Parser", "Error parsing data " + e.toString());
+			Log.e("JSON Parser", "Erro ao parsear " + e.toString());
 		}
 
 		// return JSON String
