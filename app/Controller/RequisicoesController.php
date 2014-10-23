@@ -130,7 +130,6 @@ class RequisicoesController extends AppController {
         }
         if ($this->request->is(array('post', 'put'))) {
             if ($this->Requisicao->save($this->request->data)) {
-                $this->setFlash('A requisição foi salva com sucesso', 'flash_success');
 
                 //Se quem editou a Requisição for um técnico, envia um email para a pessoa
                 if ($this->Auth->user('grupo_id') == 1) {
@@ -150,7 +149,13 @@ class RequisicoesController extends AppController {
                     $cake_email->subject('ATUALIZAÇÃO DE REQUISICÃO');
 
                     $cake_email->viewVars(array('dados' => $dados));
-                    $cake_email->send();
+                    if($cake_email->send()){
+                        $this->setFlash('A requisição foi salva e o email notificando a alteração foi enviado para '.$dados['Requisitante']['email'], 'flash_success');
+                    }else{
+                        $this->setFlash('A requisição foi alterada, porém o email nao foi enviado', 'flash_info');
+                    };
+                } else {
+                    $this->setFlash('A requisição foi salva com sucesso', 'flash_success');
                 }
 
                 return $this->redirect(array('action' => 'index'));
