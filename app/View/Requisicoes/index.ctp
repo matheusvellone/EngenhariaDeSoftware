@@ -96,7 +96,7 @@ endif;
                     <th><?php echo $this->Paginator->sort('tecnico_id', 'Técnico Responsável ' . $seta, array('escape' => false)); ?></th>
                     <th><?php echo $this->Paginator->sort('created', 'Data da Criação ' . $seta, array('escape' => false)); ?></th>
                     <th><?php echo $this->Paginator->sort('modified', 'Ultima Modificação' . $seta, array('escape' => false)); ?></th>
-                    <th><?php echo $this->Paginator->sort('situacao', 'Situação ' . $seta, array('escape' => false)); ?></th>
+                    <th>Situação</th>
                     <th>Visualizar</th>
                     <th>Editar</th>
                     <th>Cancelar</th>

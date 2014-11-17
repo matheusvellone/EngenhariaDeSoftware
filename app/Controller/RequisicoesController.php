@@ -207,8 +207,6 @@ class RequisicoesController extends AppController {
             $this->setFlash('Você não tem permissão para cancelar esta requisição', 'flash_error');
             throw new MethodNotAllowedException();
         }
-
-        $this->request->allowMethod('post', 'delete');
         $this->request->data['Requisicao']['situacao_id'] = 3;
         $this->request->data['Requisicao']['id'] = $id;
         if ($this->Requisicao->save($this->request->data)) {
