@@ -61,7 +61,7 @@ class RequisicoesController extends AppController {
                 $this->set(compact('departamentos'));
                 break;
             //Usuários comuns veem apenas suas próprias requisições
-            case 2:
+            case 2: case 3: case 4:
                 $requisicoes = $this->Paginator->paginate(
                         array(
                             'requisitante_id' => $this->Auth->user('id'),
@@ -284,7 +284,7 @@ class RequisicoesController extends AppController {
             $response = $this->render('relatorioPDF');
             $thebody = $response->body();
             $header = '<div class="text-center">Relatório do Técnico ' . $this->Auth->user('nome') . '</div>';
-            $footer = '<hr>Relatório gerado dia ' . $dia . ' às ' . $hora;
+            $footer = '<div class="col-md-6">Relatório gerado dia ' . $dia . ' às ' . $hora . ' - Página {PAGENO} de {nbpg}</div>';
             $mpdf->setHTMLHeader($header);
             $mpdf->SetHTMLFooter($footer);
             $mpdf->WriteHTML($thebody);

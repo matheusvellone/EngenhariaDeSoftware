@@ -1,14 +1,12 @@
-<div class="row">
-    <?php
-    echo $this->Html->link(
-            'Sair do Meu Histórico', array(
-        'controller' => 'Requisicoes',
-        'action' => 'index'
-            ), array(
-        'class' => 'btn btn-primary'
-    ));
-    ?>
-</div>
+<?php
+echo $this->Html->link(
+        'Sair do Meu Histórico', array(
+    'controller' => 'Requisicoes',
+    'action' => 'index'
+        ), array(
+    'class' => 'btn btn-primary'
+));
+?>
 <hr>
 <div class="row">
     <div class="col-md-12">

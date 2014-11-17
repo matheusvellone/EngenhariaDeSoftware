@@ -5,4 +5,8 @@ $(document).ready(function() {
             height: "toggle"
         }, 750);
     });
+
+    $('form').one('submit', function() {
+        $(this).find('input[type="submit"]').attr('disabled', 'disabled');
+    });
 });

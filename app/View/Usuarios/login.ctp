@@ -8,7 +8,7 @@
                     'class' => 'col-md-12'
                 ),
                 'label' => 'Número de Matrícula/Chapa Funcional',
-                'placeholder' => 'Ex: NomeDoUsuário',
+                'placeholder' => 'Ex: 201200560333',
                 'class' => 'form-control'
                     )
             );

@@ -46,6 +46,15 @@
         }
         ?>
         <div class="container">
+            <noscript>
+            <div class="row text-center" id="noscript">
+                <div class="col-md-12">
+                    Seu navegador está com o JavaScript desabilitado ou não suporta JavaScript, e isso impede o site de operar como o esperado, podendo causar problemas, e até mesmo impedir o uso do mesmo.
+                    Para habilitá-lo siga <a href="http://www.enable-javascript.com/pt/" target="_blank">estas instruções</a>
+                </div>
+            </div>
+            </noscript>
+            
             <div class="text-center">
                 <?php echo $this->Session->flash('auth'); ?>
                 <?php echo $this->Session->flash(); ?>

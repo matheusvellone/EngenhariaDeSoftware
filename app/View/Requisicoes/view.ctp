@@ -24,7 +24,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th><?php echo 'Fuel'; ?></th>
+                        <th><?php echo 'FUEL'; ?></th>
                         <td>
                             <?php echo $requisicao['Requisicao']['fuel'] ?>
                         </td>
@@ -36,19 +36,25 @@
                         </td>
                     </tr>
                     <tr>
-                        <th><?php echo 'Descricao'; ?></th>
+                        <th><?php echo 'Descrição'; ?></th>
                         <td>
                             <?php echo $requisicao['Requisicao']['descricao'] ?>
                         </td>
                     </tr>
                     <tr>
-                        <th><?php echo 'Tecnico'; ?></th>
+                        <th><?php echo 'Técnico'; ?></th>
                         <td>
                             <?php echo $requisicao['Tecnico']['nome']; ?>
                         </td>
                     </tr>
                     <tr>
-                        <th><?php echo 'Situacao'; ?></th>
+                        <th><?php echo 'Observação do Técnico'; ?></th>
+                        <td>
+                            <?php echo $requisicao['Requisicao']['observacao_tecnico']; ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><?php echo 'Situação'; ?></th>
                         <td class="h5">
                             <?php
                             $situacao_classe[0] = 'label-warning';
