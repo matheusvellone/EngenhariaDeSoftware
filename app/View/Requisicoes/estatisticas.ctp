@@ -49,4 +49,18 @@
             </ul>
         </div>
     </div>
+    <hr>
+    <div class="row">
+        <?php echo $this->HighCharts->render('Departamentos'); ?>
+        <div class="col-md-6" id='departamento_chart'></div>
+        <div class="col-md-6">
+            <ul>
+                <?php
+                foreach ($dados['Departamentos'] as $nome => $numero) {
+                    echo '<li>' . $nome . ': ' . $numero . '</li>';
+                }
+                ?>
+            </ul>
+        </div>
+    </div>
 </div>

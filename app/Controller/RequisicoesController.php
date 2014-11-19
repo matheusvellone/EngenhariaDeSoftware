@@ -323,10 +323,18 @@ class RequisicoesController extends AppController {
             $array_chart['Grupos'][$id - 1][0] = $nome;
             $array_chart['Grupos'][$id - 1][1] = $dados['Grupos'][$nome];
         }
+        
+        $departamentos = $this->Requisicao->Departamento->find('list');
+        foreach ($departamentos as $id => $nome) {
+            $dados['Departamentos'][$nome] = $this->Requisicao->find('count', array('conditions' => array('departamento_id' => $id)));
+            $array_chart['Departamentos'][$id - 1][0] = $nome;
+            $array_chart['Departamentos'][$id - 1][1] = $dados['Departamentos'][$nome];
+        }
 
         $this->chart('Situação das Requisições', 'pie', $array_chart['Situacoes'], 'situacao_chart', 'Número de Requisições');
         $this->chart('Requisitantes', 'pie', $array_chart['Grupos'], 'requisitante_chart', 'Número de Requisições');
         $this->chart('Equipamentos', 'pie', $array_chart['Equipamentos'], 'equipamento_chart', 'Número de Requisições');
+        $this->chart('Departamentos', 'pie', $array_chart['Departamentos'], 'departamento_chart', 'Número de Requisições');
 
         $this->set(compact('dados'));
     }

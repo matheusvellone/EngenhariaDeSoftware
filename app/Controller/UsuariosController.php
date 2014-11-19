@@ -112,7 +112,7 @@ class UsuariosController extends AppController {
             $this->Usuario->create();
             if ($this->Usuario->save($this->request->data)) {
                 $this->setFlash('O usuário foi salvo com sucesso', 'flash_success');
-                return $this->redirect(array('action' => 'index'));
+                return $this->redirect(array('action' => 'login'));
             } else {
                 $this->setFlash('Não foi possível efetuar o cadastro. Por favor confirme se não existem erros no cadastro', 'flash_error');
             }
